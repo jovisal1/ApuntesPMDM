@@ -24,9 +24,18 @@ Abre la dirección que indique Astro en la terminal (habitualmente `http://local
 
 ## Añadir documentación
 
-Las páginas se escriben en Markdown (`.md`) o MDX (`.mdx`) dentro de `src/content/docs/`. Las carpetas `apuntes/`, `practicas/` y `recursos/` generan automáticamente sus entradas en el menú lateral.
+Las páginas se escriben en Markdown (`.md`) o MDX (`.mdx`) dentro de `src/content/docs/`. Cada sección genera automáticamente sus entradas en el menú lateral.
 
-Por ejemplo, crea `src/content/docs/apuntes/primera-unidad.md`:
+| Sección en valenciano | Carpeta |
+| --- | --- |
+| Widgets | `widgets/` |
+| Formularis i navegació | `formularis-i-navegacio/` |
+| Gestió de l'estat | `gestio-de-l-estat/` |
+| Persistència | `persistencia/` |
+| Paquets i recursos | `paquets-i-recursos/` |
+| Desenvolupament de jocs en 2D i 3D | `desenvolupament-de-jocs/` |
+
+Por ejemplo, crea `src/content/docs/widgets/primera-unidad.md`:
 
 ```md
 ---
@@ -47,7 +56,7 @@ La portada está en `src/content/docs/index.mdx` y la configuración del sitio e
 
 El castellano se publica en `/ApuntesPMDM/` y el valenciano en `/ApuntesPMDM/ca/`, con selector de idioma, navegación e interfaz traducidas.
 
-Para traducir una página, conserva su ruta relativa dentro de `src/content/docs/ca/`. Por ejemplo, la traducción de `apuntes/primera-unidad.md` se guarda en `ca/apuntes/primera-unidad.md`. Si falta una traducción, Starlight muestra el contenido en castellano con un aviso.
+Para traducir una página, conserva su ruta relativa dentro de `src/content/docs/ca/`. Por ejemplo, la traducción de `widgets/primera-unidad.md` se guarda en `ca/widgets/primera-unidad.md`. Si falta una traducción, Starlight muestra el contenido en castellano con un aviso.
 
 Las traducciones de la interfaz en valenciano están en `src/content/i18n/ca.json`. Los enlaces internos del contenido deben incluir `/ApuntesPMDM/` y, en valenciano, `/ApuntesPMDM/ca/`.
 

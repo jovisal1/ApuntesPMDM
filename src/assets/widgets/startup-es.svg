@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="title desc">
+<title id="title">Del programa a la pantalla</title>
+<desc id="desc">main → runApp → EntrenamientoApp → MaterialApp → Pantalla → Scaffold → Pantalla resultante.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3 Z" fill="#67e8f9"/></marker></defs>
+<rect width="980" height="560" rx="24" fill="#101c35"/>
+<g font-family="sans-serif" text-anchor="middle">
+<text x="490" y="45" font-size="27" font-weight="bold" fill="white">Del programa a la pantalla</text>
+<rect x="40" y="85" width="205" height="78" rx="14" fill="#243c61" stroke="#67e8f9"/><text x="142.5" y="116" font-size="21" font-weight="bold" fill="white">main()</text><text x="142.5" y="144" font-size="16" fill="#dbeafe">Punto de entrada</text>
+<rect x="285" y="85" width="295" height="78" rx="14" fill="#243c61" stroke="#67e8f9"/><text x="432.5" y="116" font-size="21" font-weight="bold" fill="white">runApp(widget)</text><text x="432.5" y="144" font-size="16" fill="#dbeafe">Conecta el widget raíz</text>
+<path d="M245 124 H278" fill="none" stroke="#67e8f9" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="285" y="210" width="295" height="78" rx="14" fill="#243c61" stroke="#67e8f9"/><text x="432.5" y="241" font-size="21" font-weight="bold" fill="white">EntrenamientoApp</text><text x="432.5" y="269" font-size="16" fill="#dbeafe">Describe la interfaz</text>
+<path d="M432 163 V203" fill="none" stroke="#67e8f9" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="285" y="335" width="295" height="78" rx="14" fill="#243c61" stroke="#67e8f9"/><text x="432.5" y="366" font-size="21" font-weight="bold" fill="white">MaterialApp</text><text x="432.5" y="394" font-size="16" fill="#dbeafe">home: Pantalla…()</text>
+<path d="M432 288 V328" fill="none" stroke="#67e8f9" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="285" y="460" width="295" height="78" rx="14" fill="#243c61" stroke="#67e8f9"/><text x="432.5" y="491" font-size="21" font-weight="bold" fill="white">Scaffold</text><text x="432.5" y="519" font-size="16" fill="#dbeafe">AppBar · body · botón</text>
+<path d="M432 413 V453" fill="none" stroke="#67e8f9" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="135" y="253" font-size="17" fill="#dbeafe">Widget raíz</text><path d="M222 249 H278" fill="none" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="685" y="100" width="250" height="385" rx="26" fill="#f8fafc"/>
+<rect x="685" y="129" width="250" height="62" fill="#0f766e"/>
+<text x="810" y="168" font-size="20" fill="white">Mi entrenamiento</text>
+<text x="810" y="283" font-size="18" fill="#101c35">Vueltas completadas</text>
+<text x="810" y="350" font-size="54" fill="#0f766e">0</text>
+<circle cx="888" cy="438" r="27" fill="#0f766e"/>
+<path d="M875 438 H901 M888 425 V451" stroke="white" stroke-width="3"/>
+<text x="810" y="518" font-size="18" fill="#dbeafe">Pantalla resultante</text>
+<text x="757" y="80" font-size="17" fill="#67e8f9">Flutter construye y dibuja</text>
+<path d="M587 498 H645 V310 H677" fill="none" stroke="#67e8f9" stroke-width="3" marker-end="url(#arrow)"/>
+</g></svg>
