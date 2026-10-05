@@ -76,6 +76,8 @@ El texto aparece con tamaño 24, en negrita y con color verde azulado. `TextStyl
 | `textAlign` | Alinea las líneas dentro del ancho disponible. |
 | `maxLines` | Limita el número de líneas que se muestran. |
 | `overflow` | Decide cómo representar el texto que no cabe. |
+| `softWrap` | Permite el salto de línea cuando se agota el ancho. |
+| `semanticsLabel` | Ofrece una descripción accesible alternativa al texto visible. |
 
 Para una descripción breve podemos limitar las líneas y añadir puntos suspensivos:
 
@@ -129,6 +131,18 @@ Cambia el texto por una descripción más larga y alterna `maxLines: 1` y `maxLi
 ## 🖼️ Image: incorporar imágenes
 
 **`Image` muestra una imagen**, pero necesitamos indicar de dónde procede. Sus constructores con nombre permiten elegir el origen:
+
+Documentación oficial: [`Image`](https://api.flutter.dev/flutter/widgets/Image-class.html).
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `width / height` | Solicitan el ancho y la altura de la imagen. |
+| `fit` | Ajusta la imagen a su espacio con valores de `BoxFit`. |
+| `alignment` | Indica cómo alinear la imagen dentro de su espacio. |
+| `semanticLabel` | Describe el contenido para tecnologías de asistencia. |
+| `excludeFromSemantics` | Excluye una imagen decorativa de la descripción accesible. |
+| `errorBuilder` | Devuelve un widget alternativo si falla la carga. |
+| `loadingBuilder` | Personaliza lo que se muestra mientras se carga la imagen. |
 
 | Constructor | Origen | Ejemplo de uso |
 | --- | --- | --- |
@@ -199,6 +213,16 @@ Comprueba la ruta, las mayúsculas y minúsculas del nombre y la declaración en
 
 **`Icon` dibuja un símbolo a partir de un `IconData`**, como los que ofrece la clase `Icons`. Es útil para acompañar una etiqueta o identificar una acción:
 
+Documentación oficial: [`Icon`](https://api.flutter.dev/flutter/widgets/Icon-class.html).
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `icon` | Identifica el símbolo mediante un `IconData`; se pasa como primer argumento. |
+| `size` | Establece el tamaño en píxeles lógicos. |
+| `color` | Configura el color del símbolo. |
+| `semanticLabel` | Aporta una descripción para lectores de pantalla. |
+| `textDirection` | Permite controlar la dirección de los iconos que se reflejan según el sentido de lectura. |
+
 ```dart
 const Icon(
   Icons.terrain,
@@ -239,18 +263,30 @@ ElevatedButton(
 
 La expresión `() { ... }` es una función anónima sin parámetros. La entregamos al botón para que la ejecute más adelante. Si ya existe una función `guardarRuta`, escribimos `onPressed: guardarRuta`, sin paréntesis: `guardarRuta()` la ejecutaría al construir la interfaz.
 
+Estas propiedades son habituales en `ElevatedButton`, `FilledButton`, `OutlinedButton` y `TextButton`. Consulta la referencia de cada variante para comprobar cuáles admite.
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `onPressed` | Función que se ejecuta al pulsar; `null` desactiva el botón. |
+| `onLongPress` | Función para una pulsación prolongada en los botones que la admiten. |
+| `child` | Contenido del botón en su constructor habitual. |
+| `style` | Personaliza el aspecto mediante `ButtonStyle` en los botones de texto, con borde, rellenos y elevados. |
+| `autofocus / focusNode` | Permiten gestionar el foco, por ejemplo al navegar con el teclado. |
+
 ### Elegir el tipo de botón
 
 Todos estos botones atienden la pulsación, pero tienen distinta presencia visual:
 
 | Widget | Cuándo encaja |
 | --- | --- |
-| `FilledButton` | Una acción principal que queremos destacar. |
-| `ElevatedButton` | Una acción que necesita destacar mediante elevación. |
-| `OutlinedButton` | Una acción secundaria con borde visible. |
-| `TextButton` | Una acción de menor énfasis visual. |
-| `IconButton` | Una acción compacta representada por un icono. |
-| `FloatingActionButton` | Una acción destacada de la pantalla, habitualmente en `Scaffold.floatingActionButton`. |
+| [`FilledButton`](https://api.flutter.dev/flutter/material/FilledButton-class.html) | Una acción principal que queremos destacar. |
+| [`ElevatedButton`](https://api.flutter.dev/flutter/material/ElevatedButton-class.html) | Una acción que necesita destacar mediante elevación. |
+| [`OutlinedButton`](https://api.flutter.dev/flutter/material/OutlinedButton-class.html) | Una acción secundaria con borde visible. |
+| [`TextButton`](https://api.flutter.dev/flutter/material/TextButton-class.html) | Una acción de menor énfasis visual. |
+| [`IconButton`](https://api.flutter.dev/flutter/material/IconButton-class.html) | Una acción compacta representada por un icono. |
+| [`FloatingActionButton`](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html) | Una acción destacada de la pantalla, habitualmente en `Scaffold.floatingActionButton`. |
+
+En `IconButton` destacan `icon`, `tooltip`, `iconSize` y `onPressed`. En `FloatingActionButton`, `child`, `tooltip`, `backgroundColor` y `onPressed`. Los constructores `.icon` de los botones anteriores utilizan `icon` y `label` para separar símbolo y texto.
 
 Para combinar icono y texto, varios botones ofrecen el constructor `.icon`:
 
@@ -278,6 +314,15 @@ El tema aporta el aspecto habitual de los botones. Si necesitas modificar uno co
 ## 🚧 Placeholder: reservar un espacio provisional
 
 Durante el desarrollo quizá ya sepas dónde irá el mapa, pero aún no tengas ese componente. **`Placeholder` dibuja un recuadro con diagonales para hacer visible ese espacio pendiente**:
+
+Documentación oficial: [`Placeholder`](https://api.flutter.dev/flutter/widgets/Placeholder-class.html).
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `color` | Configura el color del recuadro y sus diagonales. |
+| `strokeWidth` | Establece el grosor de las líneas. |
+| `fallbackWidth / fallbackHeight` | Se utilizan como tamaño de reserva cuando el ancho o la altura no están limitados; no fuerzan el tamaño si el padre ya lo delimita. |
+| `child` | Permite añadir un widget dentro del marcador provisional. |
 
 ```dart
 const SizedBox(
@@ -331,11 +376,35 @@ En este caso, reemplaza el `Scaffold` completo del programa de prueba. `Scaffold
 | `drawer` | Un panel lateral de navegación. |
 | `bottomNavigationBar` | Navegación en la parte inferior; por ejemplo, `NavigationBar`. |
 
+Otras propiedades útiles de [`Scaffold`](https://api.flutter.dev/flutter/material/Scaffold-class.html):
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `backgroundColor` | Configura el fondo de la pantalla. |
+| `floatingActionButtonLocation` | Indica dónde se coloca el botón flotante. |
+| `resizeToAvoidBottomInset` | Controla si el cuerpo ajusta su espacio para evitar el teclado en pantalla. |
+| `extendBodyBehindAppBar` | Permite extender el cuerpo por detrás de la barra; hay que cuidar la legibilidad. |
+
 En `AppBar`, `title` recibe el título, `actions` una lista de acciones al final y `leading` un widget al principio. Cuando no configuras `leading`, Flutter puede añadir un botón para volver o abrir el panel lateral, según el contexto.
 
 :::note[Una pantalla no se desplaza por tener Scaffold]
 `Scaffold` organiza zonas, pero su `body` no se vuelve desplazable automáticamente. Si el contenido no cabe, necesitas una solución como `ListView` o `SingleChildScrollView`.
 :::
+
+### Propiedades útiles de AppBar
+
+Documentación oficial: [`AppBar`](https://api.flutter.dev/flutter/material/AppBar-class.html).
+
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `title` | Recibe el widget del título. |
+| `leading` | Coloca un widget al principio de la barra. |
+| `actions` | Recibe los widgets de acción situados al final. |
+| `centerTitle` | Controla si el título se centra. |
+| `backgroundColor / foregroundColor` | Configuran el fondo y el color habitual del texto y los iconos. |
+| `elevation` | Configura la elevación visual de la barra. |
+| `toolbarHeight` | Establece la altura de la zona de herramientas. |
+| `automaticallyImplyLeading` | Controla la incorporación automática del botón de volver o abrir el panel lateral. |
 
 ### Mostrar un aviso con SnackBar
 
@@ -356,87 +425,30 @@ FilledButton(
 
 Una `SnackBar` sirve para una respuesta temporal. Un `MaterialBanner` presenta un aviso en la parte superior del cuerpo y permanece hasta que se retire, por ejemplo mediante `hideCurrentMaterialBanner`. Si utilizas uno, proporciona una acción para cerrarlo o atender el aviso. Consulta las referencias de [Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html) y [ScaffoldMessenger](https://api.flutter.dev/flutter/material/ScaffoldMessenger-class.html).
 
-## 🧩 Combinar las piezas: una ficha de ruta
+### Propiedades de los avisos
 
-Para combinar estos widgets necesitamos algunas piezas de disposición. **`Column` coloca hijos en vertical, `Row` en horizontal y `SizedBox` puede dejar una separación entre ellos**. `Padding` añade espacio interior; `Container` permite reunir espacio, alineación y decoración. Los estudiaremos con más detalle al trabajar la disposición de la interfaz.
+En [`SnackBar`](https://api.flutter.dev/flutter/material/SnackBar-class.html), estas propiedades permiten ajustar el mensaje:
 
-:::tip[El tamaño depende del padre 📐]
-Un widget solicita un tamaño dentro de los límites que recibe de su padre. Por eso `width: 300` no garantiza 300 píxeles lógicos en cualquier posición. Esta relación se explica en la [guía oficial de restricciones](https://docs.flutter.dev/ui/layout/constraints). En una `Row`, `Expanded` puede asignar al texto el espacio restante para que se ajuste.
-:::
+| Propiedad | Para qué sirve |
+| --- | --- |
+| `content` | Recibe el contenido del aviso. |
+| `duration` | Configura el tiempo de presentación, sujeto al comportamiento de accesibilidad. |
+| `action` | Añade una acción mediante `SnackBarAction`, por ejemplo «Deshacer». |
+| `behavior` | Permite elegir entre `SnackBarBehavior.fixed` y `floating`. |
 
-Este programa es **completo e independiente** del anterior. Funciona sin imágenes locales ni conexión: utilizamos un `Placeholder` para la futura fotografía. Pégalo en `lib/main.dart` o en DartPad:
+En [`MaterialBanner`](https://api.flutter.dev/flutter/material/MaterialBanner-class.html), destacan `content` (mensaje), `actions` (acciones disponibles), `leading` (icono o elemento inicial) y `backgroundColor` (color de fondo).
 
-```dart
-import 'package:flutter/material.dart';
+## 🎯 Practica con los widgets básicos
 
-void main() => runApp(const MaterialApp(home: FichaRuta()));
+Utiliza el programa de prueba del principio y trabaja con un widget cada vez:
 
-class FichaRuta extends StatelessWidget {
-  const FichaRuta({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Explora')),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            const SizedBox(
-              height: 180,
-              child: Placeholder(color: Colors.teal),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Ruta de la cascada',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Icon(Icons.terrain, color: Colors.teal),
-                SizedBox(width: 8),
-                Expanded(child: Text('Dificultad fácil · 4 km')),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Un paseo entre árboles para disfrutar del paisaje. '
-              'Lleva agua y calzado cómodo.',
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Has pulsado Guardar ruta'),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.bookmark_add_outlined),
-              label: const Text('Guardar ruta'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-```
-
-`SafeArea` evita que el contenido invada zonas reservadas del dispositivo. `ListView` organiza la ficha en vertical y permite desplazarla si no cabe; `Expanded` deja al texto de la fila utilizar el ancho restante. Los `SizedBox` separan las piezas sin añadir texto ni decoración.
-
-Observa que el botón muestra un mensaje, pero la ficha sigue siendo un `StatelessWidget`: **una acción no implica necesariamente estado propio**. Necesitaríamos gestionar estado si quisiéramos recordar dentro de la ficha si está guardada y cambiar su icono o etiqueta.
-
-## 🎯 Practica con la ficha
-
-1. Cambia el título, la descripción y la distancia para representar otra ruta.
-2. Añade un segundo `Text` con una recomendación en cursiva.
-3. Sustituye el botón por `OutlinedButton.icon` y compara su énfasis visual.
-4. En un proyecto local, incorpora una fotografía con `Image.asset` en lugar del `Placeholder`. Compara `BoxFit.cover` y `BoxFit.contain`.
-5. Añade una acción de información a `AppBar` que muestre una `SnackBar` al pulsarla.
-6. Prueba una ventana estrecha y un tamaño de texto mayor en el dispositivo. Comprueba que puedes desplazarte y leer el contenido.
+1. Muestra una descripción con `Text`, limita sus líneas y comprueba el efecto de `TextOverflow.ellipsis`.
+2. Carga una fotografía con `Image` y compara `BoxFit.cover` y `BoxFit.contain`.
+3. Cambia el tamaño y el color de un `Icon`. Después prueba un `IconButton` con `tooltip`.
+4. Compara `ElevatedButton` y `OutlinedButton`; desactiva uno mediante `onPressed: null`.
+5. Cambia el color y el grosor de las líneas de un `Placeholder`.
+6. Añade una acción de información a `AppBar` que muestre una `SnackBar` al pulsarla.
 
 :::tip[Antes de pasar al siguiente apartado ✅]
-Debes poder explicar qué diferencia hay entre `Icon` e `IconButton`, por qué un botón recibe una función en `onPressed`, dónde declaras una imagen local y qué papel tienen `MaterialApp`, `Scaffold` y `AppBar`. Si puedes modificar la ficha y justificar tu elección de widgets, ya tienes una base para construir pantallas propias.
+Debes poder elegir un widget básico para una necesidad concreta, localizar su referencia oficial y explicar qué modifican sus propiedades principales. La organización de varios widgets se estudiará en el apartado de contenedores.
 :::

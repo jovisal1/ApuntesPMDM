@@ -76,6 +76,8 @@ El text apareix amb mida 24, en negreta i amb color verd blavós. `TextStyle` é
 | `textAlign` | Alinea les línies dins de l’amplària disponible. |
 | `maxLines` | Limita el nombre de línies que es mostren. |
 | `overflow` | Decidix com representar el text que no cap. |
+| `softWrap` | Permet el salt de línia quan s’esgota l’amplària. |
+| `semanticsLabel` | Oferix una descripció accessible alternativa al text visible. |
 
 Per a una descripció breu podem limitar les línies i afegir punts suspensius:
 
@@ -129,6 +131,18 @@ Canvia el text per una descripció més llarga i alterna `maxLines: 1` i `maxLin
 ## 🖼️ Image: incorporar imatges
 
 **`Image` mostra una imatge**, però necessitem indicar d’on procedix. Els constructors amb nom permeten triar l’origen:
+
+Documentació oficial: [`Image`](https://api.flutter.dev/flutter/widgets/Image-class.html).
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `width / height` | Sol·liciten l’amplària i l’altura de la imatge. |
+| `fit` | Ajusta la imatge al seu espai amb valors de `BoxFit`. |
+| `alignment` | Indica com alinear la imatge dins del seu espai. |
+| `semanticLabel` | Descriu el contingut per a tecnologies d’assistència. |
+| `excludeFromSemantics` | Exclou una imatge decorativa de la descripció accessible. |
+| `errorBuilder` | Retorna un widget alternatiu si falla la càrrega. |
+| `loadingBuilder` | Personalitza el que es mostra mentre es carrega la imatge. |
 
 | Constructor | Origen | Exemple d’ús |
 | --- | --- | --- |
@@ -199,6 +213,16 @@ Comprova la ruta, les majúscules i minúscules del nom i la declaració en `pub
 
 **`Icon` dibuixa un símbol a partir d’un `IconData`**, com els que oferix la classe `Icons`. És útil per a acompanyar una etiqueta o identificar una acció:
 
+Documentació oficial: [`Icon`](https://api.flutter.dev/flutter/widgets/Icon-class.html).
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `icon` | Identifica el símbol mitjançant un `IconData`; es passa com a primer argument. |
+| `size` | Establix la mida en píxels lògics. |
+| `color` | Configura el color del símbol. |
+| `semanticLabel` | Aporta una descripció per a lectors de pantalla. |
+| `textDirection` | Permet controlar la direcció de les icones que es reflectixen segons el sentit de lectura. |
+
 ```dart
 const Icon(
   Icons.terrain,
@@ -239,18 +263,30 @@ ElevatedButton(
 
 L’expressió `() { ... }` és una funció anònima sense paràmetres. L’entreguem al botó perquè l’execute més avant. Si ja existix una funció `guardarRuta`, escrivim `onPressed: guardarRuta`, sense parèntesis: `guardarRuta()` l’executaria en construir la interfície.
 
+Estes propietats són habituals en `ElevatedButton`, `FilledButton`, `OutlinedButton` i `TextButton`. Consulta la referència de cada variant per a comprovar quines admet.
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `onPressed` | Funció que s’executa en polsar; `null` desactiva el botó. |
+| `onLongPress` | Funció per a una pulsació prolongada en els botons que l’admeten. |
+| `child` | Contingut del botó en el constructor habitual. |
+| `style` | Personalitza l’aspecte mitjançant `ButtonStyle` en els botons de text, amb vora, amb farciment i elevats. |
+| `autofocus / focusNode` | Permeten gestionar el focus, per exemple en navegar amb el teclat. |
+
 ### Triar el tipus de botó
 
 Tots estos botons atenen la pulsació, però tenen distinta presència visual:
 
 | Widget | Quan encaixa |
 | --- | --- |
-| `FilledButton` | Una acció principal que volem destacar. |
-| `ElevatedButton` | Una acció que necessita destacar mitjançant elevació. |
-| `OutlinedButton` | Una acció secundària amb vora visible. |
-| `TextButton` | Una acció de menor èmfasi visual. |
-| `IconButton` | Una acció compacta representada per una icona. |
-| `FloatingActionButton` | Una acció destacada de la pantalla, habitualment en `Scaffold.floatingActionButton`. |
+| [`FilledButton`](https://api.flutter.dev/flutter/material/FilledButton-class.html) | Una acció principal que volem destacar. |
+| [`ElevatedButton`](https://api.flutter.dev/flutter/material/ElevatedButton-class.html) | Una acció que necessita destacar mitjançant elevació. |
+| [`OutlinedButton`](https://api.flutter.dev/flutter/material/OutlinedButton-class.html) | Una acció secundària amb vora visible. |
+| [`TextButton`](https://api.flutter.dev/flutter/material/TextButton-class.html) | Una acció de menor èmfasi visual. |
+| [`IconButton`](https://api.flutter.dev/flutter/material/IconButton-class.html) | Una acció compacta representada per una icona. |
+| [`FloatingActionButton`](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html) | Una acció destacada de la pantalla, habitualment en `Scaffold.floatingActionButton`. |
+
+En `IconButton` destaquen `icon`, `tooltip`, `iconSize` i `onPressed`. En `FloatingActionButton`, `child`, `tooltip`, `backgroundColor` i `onPressed`. Els constructors `.icon` dels botons anteriors utilitzen `icon` i `label` per a separar símbol i text.
 
 Per a combinar icona i text, diversos botons oferixen el constructor `.icon`:
 
@@ -278,6 +314,15 @@ El tema aporta l’aspecte habitual dels botons. Si necessites modificar-ne un d
 ## 🚧 Placeholder: reservar un espai provisional
 
 Durant el desenvolupament potser ja saps on anirà el mapa, però encara no tens eixe component. **`Placeholder` dibuixa un requadre amb diagonals per a fer visible eixe espai pendent**:
+
+Documentació oficial: [`Placeholder`](https://api.flutter.dev/flutter/widgets/Placeholder-class.html).
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `color` | Configura el color del requadre i les diagonals. |
+| `strokeWidth` | Establix el gruix de les línies. |
+| `fallbackWidth / fallbackHeight` | S’utilitzen com a mida de reserva quan l’amplària o l’altura no estan limitades; no forcen la mida si el pare ja la delimita. |
+| `child` | Permet afegir un widget dins del marcador provisional. |
 
 ```dart
 const SizedBox(
@@ -331,11 +376,35 @@ En este cas, reemplaça el `Scaffold` complet del programa de prova. `Scaffold` 
 | `drawer` | Un panell lateral de navegació. |
 | `bottomNavigationBar` | Navegació en la part inferior; per exemple, `NavigationBar`. |
 
+Altres propietats útils de [`Scaffold`](https://api.flutter.dev/flutter/material/Scaffold-class.html):
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `backgroundColor` | Configura el fons de la pantalla. |
+| `floatingActionButtonLocation` | Indica on es col·loca el botó flotant. |
+| `resizeToAvoidBottomInset` | Controla si el cos ajusta el seu espai per a evitar el teclat en pantalla. |
+| `extendBodyBehindAppBar` | Permet estendre el cos per darrere de la barra; cal cuidar la llegibilitat. |
+
 En `AppBar`, `title` rep el títol, `actions` una llista d’accions al final i `leading` un widget al principi. Quan no configures `leading`, Flutter pot afegir un botó per a tornar o obrir el panell lateral, segons el context.
 
 :::note[Una pantalla no es desplaça per tindre Scaffold]
 `Scaffold` organitza zones, però el seu `body` no es torna desplaçable automàticament. Si el contingut no cap, necessites una solució com `ListView` o `SingleChildScrollView`.
 :::
+
+### Propietats útils d’AppBar
+
+Documentació oficial: [`AppBar`](https://api.flutter.dev/flutter/material/AppBar-class.html).
+
+| Propietat | Per a què servix |
+| --- | --- |
+| `title` | Rep el widget del títol. |
+| `leading` | Col·loca un widget al principi de la barra. |
+| `actions` | Rep els widgets d’acció situats al final. |
+| `centerTitle` | Controla si el títol se centra. |
+| `backgroundColor / foregroundColor` | Configuren el fons i el color habitual del text i les icones. |
+| `elevation` | Configura l’elevació visual de la barra. |
+| `toolbarHeight` | Establix l’altura de la zona de ferramentes. |
+| `automaticallyImplyLeading` | Controla la incorporació automàtica del botó de tornar o obrir el panell lateral. |
 
 ### Mostrar un avís amb SnackBar
 
@@ -356,87 +425,30 @@ FilledButton(
 
 Una `SnackBar` servix per a una resposta temporal. Un `MaterialBanner` presenta un avís en la part superior del cos i es manté fins que es retire, per exemple mitjançant `hideCurrentMaterialBanner`. Si n’utilitzes un, proporciona una acció per a tancar-lo o atendre l’avís. Consulta les referències de [Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html) i [ScaffoldMessenger](https://api.flutter.dev/flutter/material/ScaffoldMessenger-class.html).
 
-## 🧩 Combinar les peces: una fitxa de ruta
+### Propietats dels avisos
 
-Per a combinar estos widgets necessitem algunes peces de disposició. **`Column` col·loca fills en vertical, `Row` en horitzontal i `SizedBox` pot deixar una separació entre ells**. `Padding` afig espai interior; `Container` permet reunir espai, alineació i decoració. Els estudiarem amb més detall en treballar la disposició de la interfície.
+En [`SnackBar`](https://api.flutter.dev/flutter/material/SnackBar-class.html), estes propietats permeten ajustar el missatge:
 
-:::tip[La mida depén del pare 📐]
-Un widget sol·licita una mida dins dels límits que rep del pare. Per això `width: 300` no garantix 300 píxels lògics en qualsevol posició. Esta relació s’explica en la [guia oficial de restriccions](https://docs.flutter.dev/ui/layout/constraints). En una `Row`, `Expanded` pot assignar al text l’espai restant perquè s’ajuste.
-:::
+| Propietat | Per a què servix |
+| --- | --- |
+| `content` | Rep el contingut de l’avís. |
+| `duration` | Configura el temps de presentació, subjecte al comportament d’accessibilitat. |
+| `action` | Afig una acció mitjançant `SnackBarAction`, per exemple «Desfer». |
+| `behavior` | Permet triar entre `SnackBarBehavior.fixed` i `floating`. |
 
-Este programa és **complet i independent** de l’anterior. Funciona sense imatges locals ni connexió: utilitzem un `Placeholder` per a la futura fotografia. Apega’l en `lib/main.dart` o en DartPad:
+En [`MaterialBanner`](https://api.flutter.dev/flutter/material/MaterialBanner-class.html), destaquen `content` (missatge), `actions` (accions disponibles), `leading` (icona o element inicial) i `backgroundColor` (color de fons).
 
-```dart
-import 'package:flutter/material.dart';
+## 🎯 Practica amb els widgets bàsics
 
-void main() => runApp(const MaterialApp(home: FitxaRuta()));
+Utilitza el programa de prova del principi i treballa amb un widget cada vegada:
 
-class FitxaRuta extends StatelessWidget {
-  const FitxaRuta({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Explora')),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            const SizedBox(
-              height: 180,
-              child: Placeholder(color: Colors.teal),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Ruta de la cascada',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Icon(Icons.terrain, color: Colors.teal),
-                SizedBox(width: 8),
-                Expanded(child: Text('Dificultat fàcil · 4 km')),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Un passeig entre arbres per a disfrutar del paisatge. '
-              'Porta aigua i calçat còmode.',
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Has polsat Guardar ruta'),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.bookmark_add_outlined),
-              label: const Text('Guardar ruta'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-```
-
-`SafeArea` evita que el contingut envaïsca zones reservades del dispositiu. `ListView` organitza la fitxa en vertical i permet desplaçar-la si no cap; `Expanded` deixa al text de la fila utilitzar l’amplària restant. Els `SizedBox` separen les peces sense afegir text ni decoració.
-
-Observa que el botó mostra un missatge, però la fitxa continua sent un `StatelessWidget`: **una acció no implica necessàriament estat propi**. Necessitaríem gestionar estat si volguérem recordar dins de la fitxa si està guardada i canviar-ne la icona o l’etiqueta.
-
-## 🎯 Practica amb la fitxa
-
-1. Canvia el títol, la descripció i la distància per a representar una altra ruta.
-2. Afig un segon `Text` amb una recomanació en cursiva.
-3. Substituïx el botó per `OutlinedButton.icon` i compara’n l’èmfasi visual.
-4. En un projecte local, incorpora una fotografia amb `Image.asset` en lloc del `Placeholder`. Compara `BoxFit.cover` i `BoxFit.contain`.
-5. Afig una acció d’informació a `AppBar` que mostre una `SnackBar` en polsar-la.
-6. Prova una finestra estreta i una mida de text més gran en el dispositiu. Comprova que pots desplaçar-te i llegir el contingut.
+1. Mostra una descripció amb `Text`, limita’n les línies i comprova l’efecte de `TextOverflow.ellipsis`.
+2. Carrega una fotografia amb `Image` i compara `BoxFit.cover` i `BoxFit.contain`.
+3. Canvia la mida i el color d’un `Icon`. Després prova un `IconButton` amb `tooltip`.
+4. Compara `ElevatedButton` i `OutlinedButton`; desactiva’n un mitjançant `onPressed: null`.
+5. Canvia el color i el gruix de les línies d’un `Placeholder`.
+6. Afig una acció d’informació a `AppBar` que mostre una `SnackBar` en polsar-la.
 
 :::tip[Abans de passar al següent apartat ✅]
-Has de poder explicar quina diferència hi ha entre `Icon` i `IconButton`, per què un botó rep una funció en `onPressed`, on declares una imatge local i quin paper tenen `MaterialApp`, `Scaffold` i `AppBar`. Si pots modificar la fitxa i justificar la teua elecció de widgets, ja tens una base per a construir pantalles pròpies.
+Has de poder triar un widget bàsic per a una necessitat concreta, localitzar-ne la referència oficial i explicar què modifiquen les propietats principals. L’organització de diversos widgets s’estudiarà en l’apartat de contenidors.
 :::
