@@ -51,7 +51,21 @@ export default defineConfig({
               label: "Widgets",
               collapsed: true,
               translations: { ca: "Widgets" },
-              items: [{ autogenerate: { directory: "widgets", collapsed: true } }],
+              items: [
+                { label: "Introducción", translations: { ca: "Introducció" }, slug: "widgets" },
+                {
+                  label: "Primer ejemplo",
+                  collapsed: true,
+                  translations: { ca: "Primer exemple" },
+                  items: [{ autogenerate: { directory: "widgets/primer-ejemplo", collapsed: true } }],
+                },
+                {
+                  label: "Básicos",
+                  collapsed: true,
+                  translations: { ca: "Bàsics" },
+                  items: [{ autogenerate: { directory: "widgets/basicos", collapsed: true } }],
+                },
+              ],
             },
             {
               label: "Formularios y navegación",
