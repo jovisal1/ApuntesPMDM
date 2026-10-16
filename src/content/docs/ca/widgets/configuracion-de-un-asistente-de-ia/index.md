@@ -21,7 +21,6 @@ No necessites una clau d’una API ni afegir paquets d’IA a `pubspec.yaml`. L�
 2. [Configurar i comprovar l’assistent](./configurar-el-asistente/).
 3. [Crear habilitats per a explicar, depurar i revisar](./crear-skills/).
 4. [Construir el catàleg de widgets](./crear-el-catalogo/).
-5. [Ampliar-lo i comprovar què has aprés](./practicar-y-verificar/).
 
 ## Quatre conceptes que no hem de confondre
 

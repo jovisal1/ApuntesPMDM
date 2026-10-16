@@ -26,12 +26,12 @@ En esta pràctica avancem una navegació mínima. Més avant estudiarem rutes, d
 
 ## Abans de copiar codi
 
-Dins de `lib`, crea la carpeta `pantallas` i els tres fitxers que apareixen ací. Substituirem el contingut complet de `lib/main.dart` pel programa d’este apartat. Conserva `pubspec.yaml` i els fitxers de plataforma generats per Flutter.
+Dins de `lib`, crea la carpeta `view` i els tres fitxers que apareixen ací. Substituirem el contingut complet de `lib/main.dart` pel programa d’este apartat. Conserva `pubspec.yaml` i els fitxers de plataforma generats per Flutter.
 
 ```text
 lib/
 ├── main.dart
-└── pantallas/
+└── view/
     ├── catalogo_pantalla.dart
     ├── text_ejemplos_pantalla.dart
     └── icon_ejemplos_pantalla.dart
@@ -50,7 +50,7 @@ Contingut complet de `lib/main.dart`:
 ```dart
 import 'package:flutter/material.dart';
 
-import 'pantallas/catalogo_pantalla.dart';
+import 'view/catalogo_pantalla.dart';
 
 void main() => runApp(const CatalogoApp());
 
@@ -73,13 +73,13 @@ class CatalogoApp extends StatelessWidget {
 
 `main` inicia Flutter amb `runApp`. `CatalogoApp` configura l’aplicació mitjançant `MaterialApp`; `home` indica la primera pantalla. `ThemeData` reunix ajustos visuals comuns i `ColorScheme.fromSeed` obté una combinació de colors a partir d’un d’inicial. No necessites memoritzar eixes opcions per a entendre la navegació.
 
-L’`import` relatiu busca `pantallas/catalogo_pantalla.dart` des d’este fitxer. Les classes són `StatelessWidget` perquè la configuració no guarda ací un comptador o una altra dada que hàgem de canviar amb `setState`. Els constructors accepten `super.key` i permeten crear instàncies constants.
+L’`import` relatiu busca `view/catalogo_pantalla.dart` des d’este fitxer. Les classes són `StatelessWidget` perquè la configuració no guarda ací un comptador o una altra dada que hàgem de canviar amb `setState`. Els constructors accepten `super.key` i permeten crear instàncies constants.
 
 **Comprova que ho entens:** quina classe decidix la primera pantalla i quina propietat utilitza?
 
 ## Pas 2. La llista principal
 
-Contingut complet de `lib/pantallas/catalogo_pantalla.dart`:
+Contingut complet de `lib/view/catalogo_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -147,7 +147,7 @@ La documentació de Flutter desenvolupa [la navegació entre dos pantalles](http
 
 ## Pas 3. Diverses demostracions de Text
 
-Contingut complet de `lib/pantallas/text_ejemplos_pantalla.dart`:
+Contingut complet de `lib/view/text_ejemplos_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -219,7 +219,7 @@ En els dos últims exemples, `Center` permet que el `SizedBox` interior tinga un
 
 ## Pas 4. Diverses demostracions de Icon
 
-Contingut complet de `lib/pantallas/icon_ejemplos_pantalla.dart`:
+Contingut complet de `lib/view/icon_ejemplos_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -281,7 +281,7 @@ flutter run
 `dart format` ajusta el format i pot modificar els fitxers. `flutter analyze` busca problemes sense obrir l’aplicació. `flutter run` la inicia en el destí triat. Si la tenies executant-se amb l’exemple anterior, fes un **hot restart** per a reiniciar des de `main`.
 
 :::note[La prova que va crear Flutter també compta]
-El projecte inicial sol incloure `test/widget_test.dart`, que comprova el seu comptador. En substituir eixa aplicació, la prova deixa de representar el nostre comportament i pot referir-se a una classe que ja no existix. Abans d’exigir una anàlisi sense errors, substituïx-ne el contingut per la prova de l’[apartat següent](../practicar-y-verificar/). No esborres les proves per a ocultar l’error.
+El projecte inicial sol incloure `test/widget_test.dart`, que comprova el seu comptador. En substituir eixa aplicació, la prova deixa de representar el nostre comportament i pot referir-se a una classe que ja no existix. Abans d’exigir una anàlisi sense errors, adapta la prova perquè comprove el catàleg i la navegació a les pantalles d’exemples. No esborres les proves per a ocultar l’error.
 :::
 
 Comprova este recorregut: apareixen `Text` i `Icon`; en prémer `Text` veus quatre demostracions; pots tornar; en prémer `Icon` veus tres; pots tornar una altra vegada. Reduïx l’altura de la finestra o gira el dispositiu i comprova que pots desplaçar-te fins a l’últim exemple.

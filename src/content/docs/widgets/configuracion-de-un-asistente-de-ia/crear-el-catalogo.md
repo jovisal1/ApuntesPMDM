@@ -26,12 +26,12 @@ En esta práctica adelantamos una navegación mínima. Más adelante estudiaremo
 
 ## Antes de copiar código
 
-Dentro de `lib`, crea la carpeta `pantallas` y los tres archivos que aparecen aquí. Sustituiremos el contenido completo de `lib/main.dart` por el programa de este apartado. Conserva `pubspec.yaml` y los archivos de plataforma generados por Flutter.
+Dentro de `lib`, crea la carpeta `view` y los tres archivos que aparecen aquí. Sustituiremos el contenido completo de `lib/main.dart` por el programa de este apartado. Conserva `pubspec.yaml` y los archivos de plataforma generados por Flutter.
 
 ```text
 lib/
 ├── main.dart
-└── pantallas/
+└── view/
     ├── catalogo_pantalla.dart
     ├── text_ejemplos_pantalla.dart
     └── icon_ejemplos_pantalla.dart
@@ -50,7 +50,7 @@ Contenido completo de `lib/main.dart`:
 ```dart
 import 'package:flutter/material.dart';
 
-import 'pantallas/catalogo_pantalla.dart';
+import 'view/catalogo_pantalla.dart';
 
 void main() => runApp(const CatalogoApp());
 
@@ -73,13 +73,13 @@ class CatalogoApp extends StatelessWidget {
 
 `main` inicia Flutter con `runApp`. `CatalogoApp` configura la aplicación mediante `MaterialApp`; `home` indica su primera pantalla. `ThemeData` reúne ajustes visuales comunes y `ColorScheme.fromSeed` obtiene una combinación de colores a partir de uno inicial. No necesitas memorizar esas opciones para entender la navegación.
 
-El `import` relativo busca `pantallas/catalogo_pantalla.dart` desde este archivo. Las clases son `StatelessWidget` porque su configuración no guarda aquí un contador u otro dato que debamos cambiar con `setState`. Sus constructores aceptan `super.key` y permiten crear instancias constantes.
+El `import` relativo busca `view/catalogo_pantalla.dart` desde este archivo. Las clases son `StatelessWidget` porque su configuración no guarda aquí un contador u otro dato que debamos cambiar con `setState`. Sus constructores aceptan `super.key` y permiten crear instancias constantes.
 
 **Comprueba que lo entiendes:** ¿qué clase decide la primera pantalla y qué propiedad utiliza?
 
 ## Paso 2. La lista principal
 
-Contenido completo de `lib/pantallas/catalogo_pantalla.dart`:
+Contenido completo de `lib/view/catalogo_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -147,7 +147,7 @@ La documentación de Flutter desarrolla [la navegación entre dos pantallas](htt
 
 ## Paso 3. Varias demostraciones de Text
 
-Contenido completo de `lib/pantallas/text_ejemplos_pantalla.dart`:
+Contenido completo de `lib/view/text_ejemplos_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -219,7 +219,7 @@ En los dos últimos ejemplos, `Center` permite que el `SizedBox` interior tenga 
 
 ## Paso 4. Varias demostraciones de Icon
 
-Contenido completo de `lib/pantallas/icon_ejemplos_pantalla.dart`:
+Contenido completo de `lib/view/icon_ejemplos_pantalla.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -281,7 +281,7 @@ flutter run
 `dart format` ajusta el formato y puede modificar los archivos. `flutter analyze` busca problemas sin abrir la aplicación. `flutter run` la inicia en el destino elegido. Si la tenías ejecutándose con el ejemplo anterior, realiza un **hot restart** para reiniciar desde `main`.
 
 :::note[La prueba que creó Flutter también cuenta]
-El proyecto inicial suele incluir `test/widget_test.dart`, que comprueba su contador. Al sustituir esa aplicación, la prueba deja de representar nuestro comportamiento y puede referirse a una clase que ya no existe. Antes de exigir un análisis sin errores, sustituye su contenido por la prueba del [siguiente apartado](../practicar-y-verificar/). No borres las pruebas para ocultar el error.
+El proyecto inicial suele incluir `test/widget_test.dart`, que comprueba su contador. Al sustituir esa aplicación, la prueba deja de representar nuestro comportamiento y puede referirse a una clase que ya no existe. Antes de exigir un análisis sin errores, adapta la prueba para que compruebe el catálogo y la navegación a las pantallas de ejemplos. No borres las pruebas para ocultar el error.
 :::
 
 Comprueba este recorrido: aparecen `Text` e `Icon`; al pulsar `Text` ves cuatro demostraciones; puedes volver; al pulsar `Icon` ves tres; puedes volver otra vez. Reduce la altura de la ventana o gira el dispositivo y comprueba que puedes desplazarte hasta el último ejemplo.
