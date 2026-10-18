@@ -13,3 +13,5 @@ sidebar:
 :::tip[Abans de continuar ✅]
 Has de poder seguir el recorregut des de `main` fins al text del comptador, distingir l’aplicació de la pantalla i explicar per què `_voltes` està fora de `build`. En **Bàsics** veurem amb més detall les propietats i variants de les peces que acabes d’utilitzar.
 :::
+
+El pas següent és [configurar l’assistent d’IA](../../configuracion-de-un-asistente-de-ia/). Acabarem definint el catàleg que començarem a construir en **Bàsics**.

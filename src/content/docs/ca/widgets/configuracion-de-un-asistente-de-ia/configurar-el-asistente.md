@@ -25,7 +25,9 @@ Si empre un concepte que no conec, explica’l abans de continuar.
 Estem construint catalogo_widgets.
 La pantalla principal mostra tipus de widgets.
 En prémer un tipus, s’obri una pantalla amb diversos exemples.
-Afegirem entrades a mesura que les estudiem a classe.
+El llistat i les pantalles buides ja estan implementats.
+Completarem els exemples durant el curs.
+No modifiques main.dart ni el llistat ni expliques navegació.
 
 ## Forma d’ajudar-me
 1. Respon en l’idioma en què et pregunte i amb llenguatge senzill.
@@ -82,65 +84,14 @@ Crea `AGENTS.md` en l’arrel de `catalogo_widgets` i copia-hi el contingut de l
 
 Codex descobrix [instruccions de projecte en `AGENTS.md`](https://learn.chatgpt.com/docs/agent-configuration/agents-md). No hem de suposar que llegirà automàticament qualsevol fitxer anomenat `instrucciones.md`.
 
-## Una prova que l’assistent dona pistes
+## Comprova l’ajuda sobre un fragment
 
-Comprovarem si l’assistent respecta la regla de donar pistes abans de resoldre un exercici. Utilitza la conversa en què ja has carregat les instruccions de l’apartat anterior.
-
-### 1. Prepara l’exemple en l’aplicació
-
-Obri `lib/main.dart` en VS Code, selecciona tot el contingut i esborra’l. Després copia este codi complet en el fitxer:
+Apega este fragment **en el xat**, sense substituir fitxers del projecte base:
 
 ```dart
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Catàleg de widgets',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Catàleg de widgets'),
-        ),
-        body: Center(
-          child: Column(
-            children: const [
-              Text('Catàleg de widgets'),
-              Text('Estic aprenent Flutter'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+const Text('Ruta de la cascada', maxLines: 1)
 ```
 
-Esta aplicació mostra una barra de títol i dos textos organitzats en una `Column`. Serà el nostre punt de partida per a la prova amb l’assistent.
+Demana: «Vull que una descripció llarga mostre punts suspensius si no cap. Dona’m una pista sobre quina propietat falta i quines condicions d’espai he de revisar. No canvies fitxers ni resolgues encara l’exercici».
 
-Guarda `lib/main.dart` i executa l’aplicació amb `flutter run`. Si ja estava en marxa, fes un **reinici en calent (hot restart)** per a carregar la nova estructura.
-
-Veuràs els dos textos centrats horitzontalment i situats en la part superior del cos de la pantalla. L’objectiu de l’exercici és aconseguir que també queden centrats verticalment.
-
-### 2. Demana una pista en el xat
-
-Copia el codi complet de `lib/main.dart` i apega’l **en el xat de l’assistent**, acompanyat d’este missatge:
-
-```text
-Este és el contingut actual del meu fitxer lib/main.dart.
-Vull centrar els dos textos verticalment en el cos de la pantalla.
-Dona’m només una primera pista sobre la propietat que he d’investigar.
-No escrigues encara la solució ni modifiques fitxers.
-```
-
-Comprova la resposta: ha d’orientar-te cap a una propietat d’alineació de `Column` i deixar que tu busques com utilitzar-la. Si retorna el codi resolt, recorda-li que has demanat només una pista.
-
-### 3. Prova el canvi
-
-Torna a **`lib/main.dart`** i modifica la `Column` a partir de la pista. Guarda i comprova el resultat en l’aplicació abans de demanar més ajuda. Després explica a l’assistent què has canviat i què ha passat. Si necessites una altra pista, conta també què has intentat.
+La resposta ha de deixar-te intentar-ho i distingir el límit de línies de l’espai disponible. Si genera una aplicació completa, recorda les regles i demana una pista concreta. Treballarem el resultat en el tutorial de `Text`.

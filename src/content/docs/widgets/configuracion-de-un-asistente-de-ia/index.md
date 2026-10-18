@@ -5,13 +5,13 @@ sidebar:
   order: 1
 ---
 
-En esta práctica vamos a preparar un **asistente de Flutter** y empezar una aplicación que utilizaremos durante el curso: el **Catálogo de widgets**. Su pantalla principal mostrará una lista de componentes. Al pulsar una entrada, abriremos una pantalla con varios ejemplos de ese widget. Cuando aprendamos un componente nuevo, ampliaremos el catálogo.
+En esta práctica vamos a preparar un **asistente de Flutter** y organizar el trabajo sobre el proyecto base que crearemos en esta sección y ampliaremos en **Básicos**: el **Catálogo de widgets**. Su pantalla principal mostrará una lista de componentes. Al pulsar una entrada, abriremos una pantalla con varios ejemplos de ese widget. Cuando aprendamos un componente nuevo, ampliaremos el catálogo.
 
 La IA nos ayudará a comprender código, encontrar errores y revisar cambios. Para aprender necesitamos comprobar sus propuestas, ejecutarlas y explicar lo que hemos construido. Una respuesta convincente puede contener un error.
 
 ## Qué necesitas saber antes de empezar
 
-Debes haber preparado [el entorno de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) y practicado [las bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, listas, funciones, clases, constructores y parámetros nombrados. Conviene completar también el [primer ejemplo de widgets](../primer-ejemplo/). Si todavía no has llegado a los widgets, puedes configurar el asistente ahora y volver a la aplicación después.
+Debes haber preparado [el entorno de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) y practicado [las bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, listas, funciones, clases, constructores y parámetros nombrados. Antes de continuar, completa el [primer ejemplo de widgets](../primer-ejemplo/): esta es la segunda sección del recorrido.
 
 No necesitas una clave de una API ni añadir paquetes de IA a `pubspec.yaml`. El asistente se utiliza durante el desarrollo; nuestra aplicación será un catálogo y no incorporará un chat.
 
@@ -19,9 +19,8 @@ No necesitas una clave de una API ni añadir paquetes de IA a `pubspec.yaml`. El
 
 1. [Preparar el proyecto](./preparar-el-proyecto/).
 2. [Configurar y comprobar el asistente](./configurar-el-asistente/).
-3. [Crear habilidades para explicar, depurar y revisar](./crear-skills/).
-4. [Construir el catálogo de widgets](./crear-el-catalogo/).
-5. [Ampliarlo y comprobar lo aprendido](./practicar-y-verificar/).
+3. [Crear habilidades para componentes, pruebas y revisión](./crear-skills/).
+4. [Planificar el catálogo que construiremos en Básicos](./el-proyecto-del-catalogo/).
 
 ## Cuatro conceptos que no debemos confundir
 

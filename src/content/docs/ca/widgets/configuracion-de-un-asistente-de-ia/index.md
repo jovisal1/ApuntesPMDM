@@ -5,13 +5,13 @@ sidebar:
   order: 1
 ---
 
-En esta pràctica prepararem un **assistent de Flutter** i començarem una aplicació que utilitzarem durant el curs: el **Catàleg de widgets**. La pantalla principal mostrarà una llista de components. En prémer una entrada, obrirem una pantalla amb diversos exemples d’eixe widget. Quan aprenguem un component nou, ampliarem el catàleg.
+En esta pràctica prepararem un **assistent de Flutter** i organitzarem el treball sobre el projecte base que crearem en la secció de configuració de l’assistent que ampliarem en **Bàsics**: el **Catàleg de widgets**. La pantalla principal mostrarà una llista de components. En prémer una entrada, obrirem una pantalla amb diversos exemples d’eixe widget. Quan aprenguem un component nou, ampliarem el catàleg.
 
 La IA ens ajudarà a comprendre codi, trobar errors i revisar canvis. Per a aprendre hem de comprovar les propostes, executar-les i explicar què hem construït. Una resposta convincent pot contindre un error.
 
 ## Què has de saber abans de començar
 
-Has d’haver preparat [l’entorn de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) i practicat [les bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, llistes, funcions, classes, constructors i paràmetres amb nom. Convé completar també el [primer exemple de widgets](../primer-ejemplo/). Si encara no has arribat als widgets, pots configurar l’assistent ara i tornar a l’aplicació després.
+Has d’haver preparat [l’entorn de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) i practicat [les bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, llistes, funcions, classes, constructors i paràmetres amb nom. Abans de continuar, completa el [primer exemple de widgets](../primer-ejemplo/): esta és la segona secció del recorregut.
 
 No necessites una clau d’una API ni afegir paquets d’IA a `pubspec.yaml`. L’assistent s’utilitza durant el desenvolupament; la nostra aplicació serà un catàleg i no incorporarà un xat.
 
@@ -19,9 +19,8 @@ No necessites una clau d’una API ni afegir paquets d’IA a `pubspec.yaml`. L�
 
 1. [Preparar el projecte](./preparar-el-proyecto/).
 2. [Configurar i comprovar l’assistent](./configurar-el-asistente/).
-3. [Crear habilitats per a explicar, depurar i revisar](./crear-skills/).
-4. [Construir el catàleg de widgets](./crear-el-catalogo/).
-5. [Ampliar-lo i comprovar què has aprés](./practicar-y-verificar/).
+3. [Crear habilitats per a components, proves i revisió](./crear-skills/).
+4. [Planificar el catàleg que construirem en Bàsics](./el-proyecto-del-catalogo/).
 
 ## Quatre conceptes que no hem de confondre
 

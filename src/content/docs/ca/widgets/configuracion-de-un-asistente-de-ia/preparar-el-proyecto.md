@@ -5,31 +5,11 @@ sidebar:
   order: 2
 ---
 
-Començarem creant **`catalogo_widgets`**, el projecte de Flutter que ampliarem a mesura que aprenguem components nous. La pantalla principal mostrarà una llista de widgets i cada entrada obrirà una pantalla amb exemples diferents del component seleccionat.
-
-El primer pas és generar el projecte, obrir-lo en VS Code i comprovar que l’aplicació inicial s’executa correctament. Després prepararem els fitxers d’instruccions i habilitats de l’assistent d’IA per a treballar sobre este mateix projecte.
-
-## Crea el projecte del curs
-
-Obri una terminal en la carpeta on guardes les pràctiques. Executa cada ordre per separat:
-
-```bash
-flutter doctor
-flutter create catalogo_widgets
-cd catalogo_widgets
-flutter devices
-flutter run
-```
-
-`flutter doctor` comprova les eines instal·lades. Atén els problemes de la plataforma que utilitzaràs; per a executar en web no necessites completar la instal·lació d’iOS. `flutter create` crea un projecte amb eixe nom. `cd` entra en la carpeta i `flutter devices` mostra els destins disponibles. Si n’hi ha diversos, utilitza `flutter run -d ID`, substituint `ID` per un dels identificadors mostrats.
-
-**Resultat esperat:** s’obri l’aplicació inicial de Flutter i pots prémer el seu botó. Fes esta comprovació abans de configurar la IA: així sabràs si un problema pertany a l’entorn o al codi que afegirem.
-
-En VS Code utilitza **Fitxer → Obrir carpeta** i selecciona `catalogo_widgets`. Has de veure `pubspec.yaml` directament en l’explorador. Obri **Terminal → Nova terminal** i comprova que estàs en eixa carpeta.
+Prepara una carpeta de treball per a **`catalogo_widgets`** i comprova l’entorn amb `flutter doctor`. Si ja has creat el projecte, obri’l en VS Code. En [El projecte del catàleg](../el-proyecto-del-catalogo/) trobaràs els passos de creació, el `main.dart` complet i les pantalles inicials. Abans prepararem les instruccions i habilitats que utilitzarem durant el desenvolupament.
 
 ## Organitza el material de l’assistent
 
-Crea una carpeta `ai` al costat de `lib`, no dins. Després crea `instrucciones.md` i una carpeta `skills`:
+Dins de `catalogo_widgets`, crea una carpeta `ai`. Quan generes el projecte Flutter, quedarà al costat de `lib`, no dins. Després crea `instrucciones.md` i una carpeta `skills`:
 
 ```text
 catalogo_widgets/

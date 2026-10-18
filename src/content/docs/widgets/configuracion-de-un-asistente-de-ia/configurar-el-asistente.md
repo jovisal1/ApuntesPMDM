@@ -25,7 +25,9 @@ Si empleo un concepto que no conozco, explícalo antes de continuar.
 Estamos construyendo catalogo_widgets.
 La pantalla principal muestra tipos de widgets.
 Al pulsar un tipo, se abre una pantalla con varios ejemplos.
-Añadiremos entradas conforme las estudiemos en clase.
+El listado y las pantallas vacías vienen implementados.
+Completaremos sus ejemplos conforme los estudiemos en clase.
+No modifiques main.dart ni catalogo_pantalla.dart ni expliques navegación.
 
 ## Forma de ayudarme
 1. Responde en el idioma en el que te pregunto y con lenguaje sencillo.
@@ -82,66 +84,14 @@ Crea `AGENTS.md` en la raíz de `catalogo_widgets` y copia allí el contenido de
 
 Codex descubre [instrucciones de proyecto en `AGENTS.md`](https://learn.chatgpt.com/docs/agent-configuration/agents-md). No debemos suponer que leerá automáticamente cualquier archivo llamado `instrucciones.md`.
 
-## Una prueba de que el asistente da pistas
+## Comprueba la ayuda sobre un fragmento
 
-Vamos a comprobar si el asistente respeta la regla de dar pistas antes de resolver un ejercicio. Utiliza la conversación en la que ya has cargado las instrucciones del apartado anterior.
-
-### 1. Prepara el ejemplo en la aplicación
-
-Abre `lib/main.dart` en VS Code, selecciona todo su contenido y bórralo. Después copia este código completo en el archivo:
+Pega este fragmento **en el chat**, sin sustituir archivos del proyecto base:
 
 ```dart
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Catálogo de widgets',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Catálogo de widgets'),
-        ),
-        body: Center(
-          child: Column(
-            children: const [
-              Text('Catálogo de widgets'),
-              Text('Estoy aprendiendo Flutter'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+const Text('Ruta de la cascada', maxLines: 1)
 ```
 
-Esta aplicación muestra una barra de título y dos textos organizados en una `Column`. Será nuestro punto de partida para la prueba con el asistente.
+Pide: «Quiero que una descripción larga muestre puntos suspensivos si no cabe. Dame una pista sobre qué propiedad falta y qué condiciones de espacio debo revisar. No cambies archivos ni resuelvas todavía el ejercicio».
 
-Guarda `lib/main.dart` y ejecuta la aplicación con `flutter run`. Si ya estaba en marcha, haz un **reinicio en caliente (hot restart)** para cargar la nueva estructura.
-
-Verás los dos textos centrados horizontalmente y situados en la parte superior del cuerpo de la pantalla. El objetivo del ejercicio es conseguir que también queden centrados verticalmente.
-
-### 2. Pide una pista en el chat
-
-Copia el código completo de `lib/main.dart` y pégalo **en el chat del asistente**, acompañado de este mensaje:
-
-```text
-Este es el contenido actual de mi archivo lib/main.dart.
-Quiero centrar los dos textos verticalmente en el cuerpo de la pantalla.
-Dame solo una primera pista sobre la propiedad que debo investigar.
-No escribas todavía la solución ni modifiques archivos.
-```
-
-Comprueba su respuesta: debe orientarte hacia una propiedad de alineación de `Column` y dejar que tú busques cómo utilizarla. Si devuelve el código resuelto, recuérdale que has pedido solo una pista.
-
-### 3. Prueba tu cambio
-
-Vuelve a **`lib/main.dart`** y modifica la `Column` a partir de la pista. Guarda y comprueba el resultado en la aplicación antes de pedir más ayuda. Después explica al asistente qué has cambiado y qué ha ocurrido. Si necesitas otra pista, cuenta también qué has intentado.
-
+La respuesta debe permitirte intentarlo y distinguir el límite de líneas del espacio disponible. Si genera una aplicación completa, recuerda las reglas y pide una pista concreta. Trabajaremos el resultado en el tutorial de `Text`.

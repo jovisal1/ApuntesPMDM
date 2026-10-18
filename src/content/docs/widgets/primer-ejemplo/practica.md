@@ -13,3 +13,5 @@ sidebar:
 :::tip[Antes de continuar ✅]
 Debes poder seguir el recorrido desde `main` hasta el texto del contador, distinguir la aplicación de su pantalla y explicar por qué `_vueltas` está fuera de `build`. En **Básicos** veremos con más detalle las propiedades y variantes de las piezas que acabas de utilizar.
 :::
+
+El siguiente paso es [configurar el asistente de IA](../../configuracion-de-un-asistente-de-ia/). Terminaremos definiendo el catálogo que empezaremos a construir en **Básicos**.

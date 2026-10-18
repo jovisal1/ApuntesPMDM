@@ -4,15 +4,18 @@ sidebar:
   order: 9
 ---
 
-Utiliza el programa de prueba del principio y trabaja con un widget cada vez:
+El resultado de esta unidad es un catálogo de **componentes propios con variantes**, construidos a partir de los widgets estudiados. Completa las actividades de cada apartado y revisa el conjunto.
 
-1. Muestra una descripción con `Text`, limita sus líneas y comprueba el efecto de `TextOverflow.ellipsis`.
-2. Carga una fotografía con `Image` y compara `BoxFit.cover` y `BoxFit.contain`.
-3. Cambia el tamaño y el color de un `Icon`. Después prueba un `IconButton` con `tooltip`.
-4. Compara `ElevatedButton` y `OutlinedButton`; desactiva uno mediante `onPressed: null`.
-5. Cambia el color y el grosor de las líneas de un `Placeholder`.
-6. Añade una acción de información a `AppBar` que muestre una `SnackBar` al pulsarla.
+## 🔎 Revisa los componentes
 
-:::tip[Antes de pasar al siguiente apartado ✅]
-Debes poder elegir un widget básico para una necesidad concreta, localizar su referencia oficial y explicar qué modifican sus propiedades principales. La organización de varios widgets se estudiará en el apartado de contenedores.
-:::
+1. Cada componente vive en su archivo de `lib/componentes/`; las pantallas lo importan y muestran distintas configuraciones.
+2. Los parámetros separan contenido, aspecto y acciones. Una variante visual no altera el texto o el callback recibido sin que lo indique su contrato.
+3. Las variantes se seleccionan mediante booleanos o `enum`, sin duplicar clases para cada combinación.
+4. Muestra todas las variantes pedidas y algún caso límite: texto largo, imagen que falla, botón desactivado o espacio reducido.
+5. Cada ejemplo del catálogo tiene un título y una explicación propia de qué cambia y qué debemos observar.
+
+## ✅ Comprueba y entrega
+
+Ejecuta `dart format lib`, `flutter analyze` y las pruebas creadas con `test-widget`. Revisa que las pruebas se basan en requisitos concretos y distinguen las variantes. Comprueba también la legibilidad y el ajuste visual en una ventana pequeña.
+
+Entrega un único proyecto con los componentes, las pantallas del catálogo y las pruebas. Elige dos componentes y explica por qué has elegido sus parámetros, qué variantes permiten y qué detectaría una de sus pruebas. No necesitas haber implementado el mecanismo de paso entre pantallas.

@@ -54,16 +54,16 @@ export default defineConfig({
               items: [
                 { label: "Introducción", translations: { ca: "Introducció" }, slug: "widgets" },
                 {
-                  label: "Configuración de un asistente de IA",
-                  collapsed: true,
-                  translations: { ca: "Configuració d’un assistent d’IA" },
-                  items: [{ autogenerate: { directory: "widgets/configuracion-de-un-asistente-de-ia", collapsed: true } }],
-                },
-                {
                   label: "Primer ejemplo",
                   collapsed: true,
                   translations: { ca: "Primer exemple" },
                   items: [{ autogenerate: { directory: "widgets/primer-ejemplo", collapsed: true } }],
+                },
+                {
+                  label: "Configuración de un asistente de IA",
+                  collapsed: true,
+                  translations: { ca: "Configuració d’un assistent d’IA" },
+                  items: [{ autogenerate: { directory: "widgets/configuracion-de-un-asistente-de-ia", collapsed: true } }],
                 },
                 {
                   label: "Básicos",

@@ -5,31 +5,11 @@ sidebar:
   order: 2
 ---
 
-Empezaremos creando **`catalogo_widgets`**, el proyecto de Flutter que ampliaremos a medida que aprendamos nuevos componentes. La pantalla principal mostrará una lista de widgets y cada entrada abrirá una pantalla con distintos ejemplos del componente seleccionado.
-
-El primer paso es generar el proyecto, abrirlo en VS Code y comprobar que la aplicación inicial se ejecuta correctamente. Después prepararemos los archivos de instrucciones y habilidades del asistente de IA para trabajar sobre este mismo proyecto.
-
-## Crea el proyecto del curso
-
-Abre una terminal en la carpeta donde guardas tus prácticas. Ejecuta cada orden por separado:
-
-```bash
-flutter doctor
-flutter create catalogo_widgets
-cd catalogo_widgets
-flutter devices
-flutter run
-```
-
-`flutter doctor` comprueba las herramientas instaladas. Atiende los problemas de la plataforma que vayas a utilizar; para ejecutar en web no necesitas completar la instalación de iOS. `flutter create` crea un proyecto con ese nombre. `cd` entra en su carpeta y `flutter devices` muestra los destinos disponibles. Si hay varios, utiliza `flutter run -d ID`, sustituyendo `ID` por uno de los identificadores mostrados.
-
-**Resultado esperado:** se abre la aplicación inicial de Flutter y puedes pulsar su botón. Haz esta comprobación antes de configurar la IA: así sabrás si un problema pertenece al entorno o al código que añadiremos.
-
-En VS Code utiliza **Archivo → Abrir carpeta** y selecciona `catalogo_widgets`. Debes ver `pubspec.yaml` directamente en el explorador. Abre **Terminal → Nueva terminal** y comprueba que estás en esa carpeta.
+Prepara una carpeta de trabajo para **`catalogo_widgets`** y comprueba el entorno con `flutter doctor`. Si ya has creado el proyecto, ábrelo en VS Code. En [El proyecto del catálogo](../el-proyecto-del-catalogo/) encontrarás los pasos de creación, el `main.dart` completo y las pantallas iniciales. Antes prepararemos las instrucciones y habilidades que utilizaremos durante el desarrollo.
 
 ## Organiza el material del asistente
 
-Crea una carpeta `ai` junto a `lib`, no dentro de ella. Después crea `instrucciones.md` y una carpeta `skills`:
+Dentro de `catalogo_widgets`, crea una carpeta `ai`. Cuando generes el proyecto Flutter, quedará junto a `lib`, no dentro de ella. Después crea `instrucciones.md` y una carpeta `skills`:
 
 ```text
 catalogo_widgets/
@@ -50,7 +30,7 @@ Envía este mensaje sin pedir que cambie archivos:
 
 ```text
 Estoy en 2.º de DAM y estoy empezando con Flutter.
-Voy a crear catalogo_widgets, una aplicación con una lista de componentes
+Trabajo sobre el proyecto base catalogo_widgets, una aplicación con una lista de componentes
 que abre una pantalla de ejemplos por cada tipo de widget.
 Explica qué diferencia hay entre Dart, Flutter y un widget.
 No generes código todavía.
