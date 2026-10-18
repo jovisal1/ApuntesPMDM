@@ -90,14 +90,14 @@ Muestra corazón vacío o relleno y una descripción acorde a `marcado`. Es una 
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/pantallas/icon_ejemplos_pantalla.dart`, conserva `IconEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/view/icon_ejemplos_pantalla.dart`, conserva `IconEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
 import '../componentes/icono_estado.dart';
 import '../componentes/icono_favorito.dart';
 ```
 
-`../` sube de `pantallas` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

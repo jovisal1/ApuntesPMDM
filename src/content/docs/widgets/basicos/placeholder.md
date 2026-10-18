@@ -80,14 +80,14 @@ Define `enum TipoMarcador { imagen, mapa, grafico }`. Cada tipo selecciona su et
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/pantallas/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/view/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
 import '../componentes/espacio_pendiente.dart';
 import '../componentes/marcador_prototipo.dart';
 ```
 
-`../` sube de `pantallas` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

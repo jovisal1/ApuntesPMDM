@@ -144,14 +144,14 @@ Construye un botón que muestre una `SnackBar`. El parámetro `flotante` selecci
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/pantallas/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/view/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
 import '../componentes/pantalla_demostracion.dart';
 import '../componentes/boton_aviso.dart';
 ```
 
-`../` sube de `pantallas` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así en el `build` de la pantalla:
 

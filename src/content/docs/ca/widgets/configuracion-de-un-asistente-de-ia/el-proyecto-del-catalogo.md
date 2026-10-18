@@ -32,9 +32,9 @@ Obri en VS Code la carpeta que conté `pubspec.yaml`. Conserva les instruccions 
 
 ## 2. Prepara les pantalles buides
 
-Crea `lib/pantallas/` i els sis fitxers de la taula. Copia la plantilla següent en cadascun: canvia **les dos aparicions del nom de classe** i el títol d’`AppBar` segons la fila. No canvies la resta.
+Crea `lib/view/` i els sis fitxers de la taula. Copia la plantilla següent en cadascun: canvia **les dos aparicions del nom de classe** i el títol d’`AppBar` segons la fila. No canvies la resta.
 
-| Fitxer dins de `lib/pantallas/` | Classe i constructor | Títol |
+| Fitxer dins de `lib/view/` | Classe i constructor | Títol |
 | --- | --- | --- |
 | `text_ejemplos_pantalla.dart` | `TextEjemplosPantalla` | `Ejemplos de Text` |
 | `image_ejemplos_pantalla.dart` | `ImageEjemplosPantalla` | `Ejemplos de Image` |
@@ -73,12 +73,12 @@ Substituïx tot `lib/main.dart` pel codi següent. Inclou l’aplicació i el ll
 ```dart
 import 'package:flutter/material.dart';
 
-import 'pantallas/text_ejemplos_pantalla.dart';
-import 'pantallas/image_ejemplos_pantalla.dart';
-import 'pantallas/icon_ejemplos_pantalla.dart';
-import 'pantallas/botones_ejemplos_pantalla.dart';
-import 'pantallas/placeholder_ejemplos_pantalla.dart';
-import 'pantallas/scaffold_ejemplos_pantalla.dart';
+import 'view/text_ejemplos_pantalla.dart';
+import 'view/image_ejemplos_pantalla.dart';
+import 'view/icon_ejemplos_pantalla.dart';
+import 'view/botones_ejemplos_pantalla.dart';
+import 'view/placeholder_ejemplos_pantalla.dart';
+import 'view/scaffold_ejemplos_pantalla.dart';
 
 void main() => runApp(const CatalogoApp());
 

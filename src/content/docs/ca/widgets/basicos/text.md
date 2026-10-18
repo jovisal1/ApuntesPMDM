@@ -121,14 +121,14 @@ Limita el text amb punts suspensius i canvia l’alineació amb `centrado`. Adme
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/pantallas/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/view/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
 import '../componentes/texto_jerarquico.dart';
 import '../componentes/texto_resumen.dart';
 ```
 
-`../` puja de `pantallas` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

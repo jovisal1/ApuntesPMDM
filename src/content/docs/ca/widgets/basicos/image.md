@@ -139,14 +139,14 @@ Reserva altura, mostra espera i alternativa d’error. Si no és decorativa, exi
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/pantallas/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/view/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
 import '../componentes/imagen_ruta.dart';
 import '../componentes/imagen_remota.dart';
 ```
 
-`../` puja de `pantallas` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

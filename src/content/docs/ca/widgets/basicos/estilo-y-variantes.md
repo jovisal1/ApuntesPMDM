@@ -137,7 +137,7 @@ El constructor pot ser `const` perquè els camps són immutables. `Text(texto, s
 
 ## 4. Compara les dos variants en el catàleg
 
-Utilitzarem la pantalla `Text` preparada en crear el catàleg; encara no cal conéixer altres propietats del widget. Substituïx `lib/pantallas/text_ejemplos_pantalla.dart` per este fitxer complet:
+Utilitzarem la pantalla `Text` preparada en crear el catàleg; encara no cal conéixer altres propietats del widget. Substituïx `lib/view/text_ejemplos_pantalla.dart` per este fitxer complet:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -167,7 +167,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 }
 ```
 
-L’import `../componentes/etiqueta_catalogo.dart` dona accés a la classe. `../` puja de `pantallas` a `lib` i després la ruta entra en `componentes`.
+L’import `../componentes/etiqueta_catalogo.dart` dona accés a la classe. `../` puja de `view` a `lib` i després la ruta entra en `componentes`.
 
 Estes són les peces que utilitzem com a suport per a comparar les etiquetes:
 

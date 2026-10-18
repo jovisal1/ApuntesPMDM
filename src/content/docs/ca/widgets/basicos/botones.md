@@ -130,14 +130,14 @@ Selecciona `FilledButton.icon` per a l’acció principal i `OutlinedButton.icon
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/pantallas/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/view/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
 import '../componentes/boton_accion.dart';
 import '../componentes/boton_con_icono.dart';
 ```
 
-`../` puja de `pantallas` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

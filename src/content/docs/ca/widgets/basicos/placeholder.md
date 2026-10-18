@@ -80,14 +80,14 @@ Definix `enum TipoMarcador { imagen, mapa, grafico }`. Cada tipus selecciona eti
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/pantallas/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/view/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
 import '../componentes/espacio_pendiente.dart';
 import '../componentes/marcador_prototipo.dart';
 ```
 
-`../` puja de `pantallas` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

@@ -32,9 +32,9 @@ Abre en VS Code la carpeta que contiene `pubspec.yaml`. Conserva las instruccion
 
 ## 2. Prepara las pantallas vacías
 
-Crea `lib/pantallas/` y los seis archivos de la tabla. Copia la siguiente plantilla en cada uno: cambia **las dos apariciones del nombre de clase** y el título de `AppBar` según la fila. No cambies el resto.
+Crea `lib/view/` y los seis archivos de la tabla. Copia la siguiente plantilla en cada uno: cambia **las dos apariciones del nombre de clase** y el título de `AppBar` según la fila. No cambies el resto.
 
-| Archivo dentro de `lib/pantallas/` | Clase y constructor | Título |
+| Archivo dentro de `lib/view/` | Clase y constructor | Título |
 | --- | --- | --- |
 | `text_ejemplos_pantalla.dart` | `TextEjemplosPantalla` | `Ejemplos de Text` |
 | `image_ejemplos_pantalla.dart` | `ImageEjemplosPantalla` | `Ejemplos de Image` |
@@ -73,12 +73,12 @@ Sustituye todo `lib/main.dart` por el siguiente código. Incluye la aplicación 
 ```dart
 import 'package:flutter/material.dart';
 
-import 'pantallas/text_ejemplos_pantalla.dart';
-import 'pantallas/image_ejemplos_pantalla.dart';
-import 'pantallas/icon_ejemplos_pantalla.dart';
-import 'pantallas/botones_ejemplos_pantalla.dart';
-import 'pantallas/placeholder_ejemplos_pantalla.dart';
-import 'pantallas/scaffold_ejemplos_pantalla.dart';
+import 'view/text_ejemplos_pantalla.dart';
+import 'view/image_ejemplos_pantalla.dart';
+import 'view/icon_ejemplos_pantalla.dart';
+import 'view/botones_ejemplos_pantalla.dart';
+import 'view/placeholder_ejemplos_pantalla.dart';
+import 'view/scaffold_ejemplos_pantalla.dart';
 
 void main() => runApp(const CatalogoApp());
 

@@ -121,14 +121,14 @@ Limita el texto con puntos suspensivos y cambia su alineación mediante `centrad
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/pantallas/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/view/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
 import '../componentes/texto_jerarquico.dart';
 import '../componentes/texto_resumen.dart';
 ```
 
-`../` sube de `pantallas` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

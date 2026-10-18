@@ -144,14 +144,14 @@ Construïx un botó que mostre una `SnackBar`. `flotante` selecciona `floating` 
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/pantallas/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/view/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
 import '../componentes/pantalla_demostracion.dart';
 import '../componentes/boton_aviso.dart';
 ```
 
-`../` puja de `pantallas` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així en el `build` de la pantalla:
 

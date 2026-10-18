@@ -137,7 +137,7 @@ El constructor puede ser `const` porque los campos son inmutables. En cambio, `T
 
 ## 4. Compara las dos variantes en el catálogo
 
-Utilizaremos la pantalla `Text` que ya preparaste al crear el catálogo; todavía no necesitas conocer otras propiedades de ese widget. Sustituye el contenido de `lib/pantallas/text_ejemplos_pantalla.dart` por el siguiente archivo completo:
+Utilizaremos la pantalla `Text` que ya preparaste al crear el catálogo; todavía no necesitas conocer otras propiedades de ese widget. Sustituye el contenido de `lib/view/text_ejemplos_pantalla.dart` por el siguiente archivo completo:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -167,7 +167,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 }
 ```
 
-El import `../componentes/etiqueta_catalogo.dart` hace accesible nuestra clase. `../` sube desde `pantallas` a `lib`, y después la ruta entra en `componentes`.
+El import `../componentes/etiqueta_catalogo.dart` hace accesible nuestra clase. `../` sube desde `view` a `lib`, y después la ruta entra en `componentes`.
 
 Estas son las piezas de la pantalla, que usamos como soporte para comparar las etiquetas:
 
