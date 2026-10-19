@@ -66,7 +66,7 @@ IconButton(
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -74,7 +74,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `IconoEstado`
 
-`lib/componentes/icono_estado.dart`
+`lib/ui/core/ui/icono_estado.dart`
 
 Parámetros: `EstadoRuta estado`, `double tamano = 32`.
 
@@ -82,7 +82,7 @@ Define `enum EstadoRuta { pendiente, completada, error }`. Cada estado decide s�
 
 ### 2. `IconoFavorito`
 
-`lib/componentes/icono_favorito.dart`
+`lib/ui/core/ui/icono_favorito.dart`
 
 Parámetros: `bool marcado = false`, `double tamano = 32`.
 
@@ -90,14 +90,14 @@ Muestra corazón vacío o relleno y una descripción acorde a `marcado`. Es una 
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/icon_ejemplos_pantalla.dart`, conserva `IconEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/icon_ejemplos_pantalla.dart`, conserva `IconEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/icono_estado.dart';
-import '../componentes/icono_favorito.dart';
+import 'package:catalogo_widgets/ui/core/ui/icono_estado.dart';
+import 'package:catalogo_widgets/ui/core/ui/icono_favorito.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

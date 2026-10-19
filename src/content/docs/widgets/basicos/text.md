@@ -97,7 +97,7 @@ El contenido visible sigue siendo «12 km». Comprueba la descripción mediante 
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -105,7 +105,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `TextoJerarquico`
 
-`lib/componentes/texto_jerarquico.dart`
+`lib/ui/core/ui/texto_jerarquico.dart`
 
 Parámetros: `String texto`, `TipoTexto tipo = TipoTexto.cuerpo`.
 
@@ -113,7 +113,7 @@ Define `enum TipoTexto { titulo, subtitulo, cuerpo }`. Cada opción seleccionar�
 
 ### 2. `TextoResumen`
 
-`lib/componentes/texto_resumen.dart`
+`lib/ui/core/ui/texto_resumen.dart`
 
 Parámetros: `String texto`, `int lineas = 2`, `bool centrado = false`.
 
@@ -121,14 +121,14 @@ Limita el texto con puntos suspensivos y cambia su alineación mediante `centrad
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/text_ejemplos_pantalla.dart`, conserva `TextEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/texto_jerarquico.dart';
-import '../componentes/texto_resumen.dart';
+import 'package:catalogo_widgets/ui/core/ui/texto_jerarquico.dart';
+import 'package:catalogo_widgets/ui/core/ui/texto_resumen.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

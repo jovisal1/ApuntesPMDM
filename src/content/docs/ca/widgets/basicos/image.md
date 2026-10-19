@@ -4,7 +4,7 @@ sidebar:
   order: 4
 ---
 
-**`Image` mostra una imatge**. Els constructors indiquen d’on ix: `Image.network` utilitza un URL i `Image.asset`, un recurs del projecte.
+**`Image` mostra una imatge**. Els constructors indiquen d’on ix: `Image.network` utilitza una URL i `Image.asset`, un recurs del projecte.
 
 ```dart
 Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')
@@ -115,7 +115,7 @@ Respecta la indentació i executa `flutter pub get`. Després pots utilitzar `Im
 
 ## ✍️ Activitat: crea components amb variants
 
-Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/componentes/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
+Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/ui/core/ui/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
 
 Els paràmetres sense valor predeterminat són obligatoris; marca’ls amb `required`, també si admeten `null`. Un tipus acabat en `?` admet `null`. Els `enum` proposats es declaren en el mateix fitxer que el component.
 
@@ -123,7 +123,7 @@ Si necessites recordar com un paràmetre selecciona l’aspecte, consulta [Varia
 
 ### 1. `ImagenRuta`
 
-`lib/componentes/imagen_ruta.dart`
+`lib/ui/core/ui/imagen_ruta.dart`
 
 Paràmetres: `String rutaAsset`, `bool panoramica = false`, `String descripcion`.
 
@@ -131,7 +131,7 @@ Carrega un recurs local. La variant normal mesura 240 × 180 i la panoràmica, 3
 
 ### 2. `ImagenRemota`
 
-`lib/componentes/imagen_remota.dart`
+`lib/ui/core/ui/imagen_remota.dart`
 
 Paràmetres: `String url`, `BoxFit ajuste = BoxFit.cover`, `bool decorativa = false`, `String? descripcion`.
 
@@ -139,14 +139,14 @@ Reserva altura, mostra espera i alternativa d’error. Si no és decorativa, exi
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/view/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/ui/catalogo/ui/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
-import '../componentes/imagen_ruta.dart';
-import '../componentes/imagen_remota.dart';
+import 'package:catalogo_widgets/ui/core/ui/imagen_ruta.dart';
+import 'package:catalogo_widgets/ui/core/ui/imagen_remota.dart';
 ```
 
-`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+En un import `package:`, `catalogo_widgets` identifica el paquet i la ruta següent comença dins de `lib/`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

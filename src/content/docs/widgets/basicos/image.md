@@ -115,7 +115,7 @@ Respeta la indentación y ejecuta `flutter pub get`. Después puedes usar `Image
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -123,7 +123,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `ImagenRuta`
 
-`lib/componentes/imagen_ruta.dart`
+`lib/ui/core/ui/imagen_ruta.dart`
 
 Parámetros: `String rutaAsset`, `bool panoramica = false`, `String descripcion`.
 
@@ -131,7 +131,7 @@ Carga un recurso local. La variante normal mide 240 × 180 y la panorámica, 300
 
 ### 2. `ImagenRemota`
 
-`lib/componentes/imagen_remota.dart`
+`lib/ui/core/ui/imagen_remota.dart`
 
 Parámetros: `String url`, `BoxFit ajuste = BoxFit.cover`, `bool decorativa = false`, `String? descripcion`.
 
@@ -139,14 +139,14 @@ Reserva altura, muestra espera y alternativa de error. Si no es decorativa, exig
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/image_ejemplos_pantalla.dart`, conserva `ImageEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/imagen_ruta.dart';
-import '../componentes/imagen_remota.dart';
+import 'package:catalogo_widgets/ui/core/ui/imagen_ruta.dart';
+import 'package:catalogo_widgets/ui/core/ui/imagen_remota.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

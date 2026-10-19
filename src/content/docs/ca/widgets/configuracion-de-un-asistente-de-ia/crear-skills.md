@@ -8,7 +8,7 @@ Una skill guarda un procediment reutilitzable. En lloc de demanar «fes-ho bé»
 
 ## Prepara els fitxers
 
-Crea esta estructura en l’arrel del projecte. Cada bloc següent és el contingut complet del seu `SKILL.md`. Els procediments es mantenen en castellà en les dos versions per a compartir-los a classe; pots demanar les respostes en valencià.
+Crea esta estructura en l’arrel del projecte. Cada bloc següent és el contingut complet del seu `SKILL.md`. Els noms de les skills, els fitxers i els identificadors del codi es mantenen igual en les dos versions; les instruccions i peticions estan traduïdes al valencià.
 
 ```text
 .agents/skills/
@@ -19,7 +19,7 @@ Crea esta estructura en l’arrel del projecte. Cada bloc següent és el contin
 └── give-hints/SKILL.md
 ```
 
-`name` identifica l’habilitat i coincidix amb la carpeta; `description` indica quan s’ha d’aplicar. Les instruccions del cos definixen el procediment. Si el teu xat no descobrix skills, adjunta el fitxer junt amb `ai/instrucciones.md`. No necessites mantindre una segona còpia en `ai/skills`.
+`name` identifica l’habilitat i coincidix amb la carpeta; `description` indica quan s’ha d’aplicar. Les instruccions del cos definixen el procediment. Si el teu xat no descobrix skills, adjunta el fitxer junt amb `.agents/instrucciones.md`.
 
 ## create-component
 
@@ -28,44 +28,47 @@ Crea esta estructura en l’arrel del projecte. Cada bloc següent és el contin
 ```markdown
 ---
 name: create-component
-description: Crea o adapta un componente Flutter del catálogo con parámetros y estándares del proyecto. Usar al solicitar implementación o extracción de un componente.
+description: Crea o adapta un component Flutter del catàleg amb paràmetres i estàndards del projecte. Utilitza-la quan es demane implementar o extraure un component.
 ---
 
-# Crear componentes del catálogo
-Lee el archivo de destino, las instrucciones del proyecto y el comportamiento pedido.
-Si faltan datos que cambian la API pública o el resultado esperado, acláralos;
-para decisiones menores sigue las convenciones existentes.
+# Crear components del catàleg
+Llig el fitxer de destinació, les instruccions del projecte i el comportament demanat.
+Si falten dades que canvien l’API pública o el resultat esperat, aclarix-les;
+per a decisions menors, seguix les convencions existents.
 
-## Estándares de este proyecto
-- Conserva las clases de pantalla y la infraestructura entregada. No cambies el
-  listado, main.dart ni el mecanismo entre pantallas para añadir un ejemplo.
-- Usa UpperCamelCase para clases, lowerCamelCase para miembros y
-  lower_case_with_underscores.dart para archivos. Respeta el idioma del código.
-- Define una responsabilidad por componente y una API pequeña: campos final,
-  parámetros nombrados, required para datos obligatorios y valores predeterminados
-  cuando tengan sentido. Acepta super.key y usa constructor const si procede.
-- Prefiere StatelessWidget si solo recibe configuración. Usa StatefulWidget
-  cuando deba conservar datos propios; no inicialices ese estado en build.
-- Recibe las acciones mediante callbacks tipados, como VoidCallback?, cuando
-  correspondan. No ejecutes el callback al construir el widget.
-- Expresa las variantes visuales con un parámetro booleano o enum. Guarda cada
-  componente reutilizable en su archivo dentro de lib/componentes/ e impórtalo
-  desde su pantalla. Define el estilo dentro del componente; no crees temas
-  globales ni archivos de estilos en esta unidad.
-- Mantén build sin efectos secundarios. Extrae un widget cuando permita reutilizar
-  una pieza o aclarar responsabilidades; evita capas y paquetes innecesarios.
-- Aporta tooltip a acciones de icono y descripción a imágenes informativas.
-  No comuniques diferencias relevantes solo mediante color.
-- Considera texto largo y espacio limitado; no fijes dimensiones arbitrarias
-  salvo que formen parte de la demostración.
+## Estàndards del projecte
+- Tota peça visual es guarda davall de lib/ui/: les compartides en lib/ui/core/ui/
+  i les específiques en lib/ui/<funcionalitat>/ui/. No crees altres carpetes
+  per a components visuals. Els ViewModels van en ui/<funcionalitat>/view_models/.
+- Conserva les classes de pantalla i la infraestructura preparada. No canvies
+  el llistat, main.dart ni el mecanisme entre pantalles per a afegir un exemple.
+- Utilitza UpperCamelCase per a classes, lowerCamelCase per a membres i
+  lower_case_with_underscores.dart per a fitxers. Respecta l’idioma del codi.
+- Definix una responsabilitat per component i una API menuda: camps final,
+  paràmetres amb nom, required per a dades obligatòries i valors predeterminats
+  quan tinguen sentit. Accepta super.key i utilitza constructor const si correspon.
+- Preferix StatelessWidget si només rep configuració. Utilitza StatefulWidget
+  quan haja de conservar dades pròpies; no inicialitzes eixe estat en build.
+- Rep les accions mitjançant callbacks tipats, com VoidCallback?, quan
+  corresponga. No executes el callback en construir el widget.
+- Expressa les variants visuals amb un paràmetre booleà o enum. Guarda cada
+  component reutilitzable en el seu fitxer de lib/ui/core/ui/ i importa’l
+  des de la pantalla. Definix l’estil dins del component; no crees temes globals
+  ni fitxers d’estils en esta unitat.
+- Mantín build sense efectes secundaris. Extrau un widget quan permeta reutilitzar
+  una peça o aclarir responsabilitats; evita capes i paquets innecessaris.
+- Aporta tooltip a les accions d’icona i descripció a les imatges informatives.
+  No comuniques diferències rellevants només amb color.
+- Considera text llarg i espai limitat; no fixes dimensions arbitràries
+  llevat que formen part de la demostració.
 
-## Entrega y comprobación
-Implementa solo lo pedido. Indica el archivo, los parámetros y un uso real en
-la sección del catálogo, conservando los ejemplos anteriores. Explica la sintaxis
-nueva. Identifica qué comportamiento se podrá comprobar en cada variante.
-Ejecuta dart format sobre los archivos modificados y flutter analyze si puedes.
-Comunica comandos y resultados reales; si no puedes ejecutarlos, indícalo.
-No generes pruebas extensas salvo que se pidan: puedes proponer los casos útiles.
+## Entrega i comprovació
+Implementa només el que s’ha demanat. Indica el fitxer, els paràmetres i un ús real
+en la secció del catàleg, conservant els exemples anteriors. Explica la sintaxi nova.
+Identifica quin comportament es podrà comprovar en cada variant.
+Executa dart format sobre els fitxers modificats i flutter analyze si pots.
+Comunica ordres i resultats reals; si no pots executar-les, indica-ho.
+No generes proves extenses si no es demanen: pots proposar els casos útils.
 ```
 
 ## test-widget
@@ -75,50 +78,51 @@ No generes pruebas extensas salvo que se pidan: puedes proponer los casos útile
 ```markdown
 ---
 name: test-widget
-description: Genera o mejora pruebas de widgets Flutter a partir de requisitos observables. Usar al pedir tests de componentes o variantes del catálogo.
+description: Genera o millora proves de widgets Flutter a partir de requisits observables. Utilitza-la quan es demanen tests de components o variants del catàleg.
 ---
 
-# Pruebas precisas de widgets
-Lee los requisitos, el componente real, sus usos y las pruebas existentes.
-No inventes nombres de clases, rutas, claves ni comportamientos ausentes.
-Si falta un criterio de aceptación esencial, pregunta antes de darlo por supuesto.
+# Proves precises de widgets
+Llig els requisits, el component real, els usos i les proves existents.
+No inventes noms de classes, rutes, claus ni comportaments inexistents.
+Si falta un criteri d’acceptació essencial, pregunta abans de donar-lo per suposat.
 
-## De requisitos a casos
-Prepara una tabla: requisito, configuración/acción, resultado esperado y selector.
-Cubre las variantes solicitadas y los límites relevantes, no combinaciones sin
-sentido. Cada prueba debe detectar un fallo concreto; explica cuál.
-No deduzcas el resultado esperado copiando la lógica de la implementación.
+## Dels requisits als casos
+Prepara una taula: requisit, configuració/acció, resultat esperat i selector.
+Cobrix les variants demanades i els límits rellevants, no combinacions sense sentit.
+Cada prova ha de detectar una errada concreta; explica quina.
+No deduïsques el resultat esperat copiant la lògica de la implementació.
 
-## Construcción de las pruebas
-- Usa flutter_test y testWidgets. Monta el componente aislado con el entorno mínimo
-  necesario (por ejemplo MaterialApp y Scaffold). No incluyas el listado del catálogo
-  si el requisito trata del componente.
-- Organiza preparación, acción y comprobaciones. Usa nombres que describan la
-  condición y el resultado. Crea una instancia nueva para cada caso independiente.
-- Usa find.text, find.byTooltip o find.byKey si son inequívocos. Si hay duplicados,
-  acota el selector al componente con find.descendant; no uses .first para ocultar
-  ambigüedades. Añade una Key estable solo cuando esté justificada.
-- Comprueba contenido y comportamiento: un callback debe contar llamadas, no solo
-  existir. Para desactivación comprueba que no se llama. Prueba cambios de
-  configuración del padre cuando sean parte del contrato.
-- Si el estilo es requisito explícito, comprueba sus valores en el elemento
-  correspondiente y ambas variantes; no afirmes que eso verifica el aspecto
-  renderizado completo. No inspecciones detalles privados ni árboles exactos.
-- Usa pump para reconstrucciones y tiempos concretos para comportamiento temporal.
-  Reserva pumpAndSettle para animaciones finitas: puede no terminar con indicadores
-  de progreso. No añadas pausas arbitrarias para hacer pasar una prueba.
-- No dependas de Internet, reloj real ni recursos remotos. Aísla la carga con una
-  dependencia controlable cuando se solicite probar imágenes o errores de red.
-- Comprueba ausencia de excepciones como complemento, nunca como única aserción.
-  No cambies el requisito, borres aserciones ni modifiques producción solo para
-  conseguir pruebas verdes. Justifica cualquier ajuste de testabilidad.
+## Construcció de les proves
+- Guarda els tests d’interfície davall de test/ui/, reflectint la ruta de lib/ui/.
+- Utilitza flutter_test i testWidgets. Munta el component aïllat amb l’entorn mínim
+  necessari, com MaterialApp i Scaffold. No inclogues el llistat del catàleg
+  si el requisit tracta del component.
+- Organitza preparació, acció i comprovacions. Utilitza noms que descriguen la
+  condició i el resultat. Crea una instància nova per a cada cas independent.
+- Utilitza find.text, find.byTooltip o find.byKey si són inequívocs. Si hi ha duplicats,
+  delimita el selector amb find.descendant; no utilitzes .first per a ocultar
+  ambigüitats. Afig una Key estable només quan estiga justificada.
+- Comprova contingut i comportament: un callback ha de comptar crides, no només
+  existir. Per a la desactivació, comprova que no es crida. Prova els canvis de
+  configuració del pare quan siguen part del contracte.
+- Si l’estil és un requisit explícit, comprova els valors en l’element corresponent
+  i les dos variants; no afirmes que això verifica tot l’aspecte representat.
+  No inspecciones detalls privats ni arbres exactes.
+- Utilitza pump per a reconstruccions i temps concrets per al comportament temporal.
+  Reserva pumpAndSettle per a animacions finites: pot no acabar amb indicadors
+  de progrés. No afegisques pauses arbitràries per a fer passar una prova.
+- No depengues d’Internet, del rellotge real ni de recursos remots. Aïlla la càrrega
+  amb una dependència controlable quan es demane provar imatges o errors de xarxa.
+- Comprova l’absència d’excepcions com a complement, mai com a única asserció.
+  No canvies el requisit, esborres assercions ni modifiques producció només
+  per a aconseguir proves superades. Justifica els ajustos per a facilitar les proves.
 
-## Validación y límites
-Entrega archivos de test ejecutables con imports reales y sin marcadores pendientes.
-Ejecuta flutter test con la ruta concreta y flutter analyze si el entorno lo permite.
-Indica qué ejecutaste, el resultado y qué quedó sin comprobar. No prometas cobertura
-completa ni precisión visual por tener pruebas verdes; señala qué requiere revisión
-manual o pruebas visuales. Si no ejecutaste, dilo expresamente.
+## Validació i límits
+Entrega fitxers de test executables amb imports reals i sense marcadors pendents.
+Executa flutter test amb la ruta concreta i flutter analyze si l’entorn ho permet.
+Indica què has executat, el resultat i què queda sense comprovar. No prometes
+cobertura completa ni precisió visual perquè les proves passen; assenyala què
+requerix revisió manual o proves visuals. Si no has executat, digues-ho expressament.
 ```
 
 ## review-code
@@ -128,18 +132,18 @@ manual o pruebas visuales. Si no ejecutaste, dilo expresamente.
 ```markdown
 ---
 name: review-code
-description: Revisa componentes del catálogo frente a sus requisitos y estándares, sin modificar archivos. Usar cuando se solicite una revisión.
+description: Revisa components del catàleg segons els requisits i estàndards, sense modificar fitxers. Utilitza-la quan es demane una revisió.
 ---
 
-# Revisar componentes
-Lee el objetivo y los archivos aportados. Comprueba que la API, los ejemplos y las
-pruebas cumplen los requisitos. Revisa responsabilidad, parámetros inmutables,
-callbacks, const, estilo por variante, accesibilidad y espacio limitado.
-Prioriza fallos de comportamiento sobre preferencias de estilo. Para cada hallazgo
-indica archivo, causa, efecto y una comprobación concreta. Si no hay problemas,
-dilo sin inventar mejoras ni exigir cambios cosméticos.
-No modifiques archivos en una revisión. Distingue lectura, comandos ejecutados y
-aspectos no comprobados. No introduzcas navegación ni arquitecturas nuevas.
+# Revisar components
+Llig l’objectiu i els fitxers aportats. Comprova que l’API, els exemples i les proves
+complixen els requisits. Revisa responsabilitat, paràmetres immutables, callbacks,
+const, estil per variant, accessibilitat i espai limitat.
+Prioritza les errades de comportament sobre les preferències d’estil. Per a cada
+problema, indica fitxer, causa, efecte i una comprovació concreta. Si no hi ha
+problemes, digues-ho sense inventar millores ni exigir canvis cosmètics.
+No modifiques fitxers en una revisió. Distingix lectura, ordres executades i aspectes
+no comprovats. No introduïsques navegació ni arquitectures noves.
 ```
 
 ## explain-widget
@@ -149,15 +153,15 @@ aspectos no comprobados. No introduzcas navegación ni arquitecturas nuevas.
 ```markdown
 ---
 name: explain-widget
-description: Explica un widget o propiedad con un ejemplo incremental del catálogo. Usar para consultas de comprensión.
+description: Explica un widget o una propietat amb un exemple incremental del catàleg. Utilitza-la per a consultes de comprensió.
 ---
 
 # Explicar un widget
-Sitúa la explicación en la sección y archivo actuales del catálogo.
-Explica el propósito y las propiedades nuevas. Muestra el fragmento mínimo y dónde
-añadirlo sin borrar las demostraciones anteriores. Indica un resultado observable,
-un error frecuente y una variación para que la resuelva el alumno.
-No reescribas la aplicación ni expliques navegación en esta unidad.
+Situa l’explicació en la secció i el fitxer actuals del catàleg.
+Explica el propòsit i les propietats noves. Mostra el fragment mínim i on afegir-lo
+sense esborrar les demostracions anteriors. Indica un resultat observable,
+un error freqüent i una variació perquè la resolga l’alumne.
+No reescrigues l’aplicació ni expliques navegació en esta unitat.
 ```
 
 ## give-hints
@@ -167,15 +171,15 @@ No reescribas la aplicación ni expliques navegación en esta unidad.
 ```markdown
 ---
 name: give-hints
-description: Da pistas progresivas ante errores del catálogo. Usar cuando el alumno pida orientación sin solución completa.
+description: Dona pistes progressives davant d’errors del catàleg. Utilitza-la quan l’alumne demane orientació sense una solució completa.
 ---
 
-# Dar pistas
-Pide el fragmento, el error exacto y el resultado esperado si faltan.
-Distingue error de análisis, ejecución y problema visual. Da una pista concreta
-sobre el archivo o propiedad relevante y espera el intento del alumno.
-Si pide la solución, muestra el cambio mínimo y explica su causa.
-No inventes ejecuciones ni reconstruyas la aplicación completa.
+# Donar pistes
+Demana el fragment, l’error exacte i el resultat esperat si falten.
+Distingix errors d’anàlisi, d’execució i problemes visuals. Dona una pista concreta
+sobre el fitxer o la propietat rellevant i espera l’intent de l’alumne.
+Si demana la solució, mostra el canvi mínim i explica’n la causa.
+No inventes execucions ni reconstruïsques l’aplicació completa.
 ```
 
 ## Prova una petició productiva
@@ -183,25 +187,25 @@ No inventes ejecuciones ni reconstruyas la aplicación completa.
 Després del tutorial d’estils, aporta el fitxer real i demana:
 
 ```text
-Utiliza create-component y las instrucciones del proyecto.
-Crea lib/componentes/etiqueta_catalogo.dart con EtiquetaCatalogo.
-Importa el componente desde text_ejemplos_pantalla.dart para mostrarlo.
-Debe recibir texto obligatorio y destacada=false por defecto.
-Normal: tamaño 16 y peso normal. Destacada: tamaño 22 y negrita.
-Ambas deben mostrar exactamente el texto recibido.
-Conserva la clase de pantalla y añade dos ejemplos del mismo contenido.
-No cambies main.dart ni el listado. Explica las decisiones y valida el cambio.
+Utilitza create-component i les instruccions del projecte.
+Crea lib/ui/core/ui/etiqueta_catalogo.dart amb EtiquetaCatalogo.
+Importa el component des de lib/ui/catalogo/ui/text_ejemplos_pantalla.dart.
+Ha de rebre texto obligatori i destacada=false per defecte.
+Normal: grandària 16 i pes normal. Destacada: grandària 22 i negreta.
+Les dos variants han de mostrar exactament el text rebut.
+Conserva la classe de pantalla i afig dos exemples del mateix contingut.
+No canvies main.dart ni el llistat. Explica les decisions i valida el canvi.
 ```
 
 Després aporta la implementació que has acceptat i demana les proves:
 
 ```text
-Utiliza test-widget sobre el EtiquetaCatalogo real que adjunto.
-Genera test/etiqueta_catalogo_test.dart con los imports del proyecto.
-Verifica el contenido, el valor predeterminado de destacada, los dos tamaños
-y pesos, y que al recibir otro texto del padre se actualiza el contenido.
-Presenta primero la tabla de casos. Comprueba ambas variantes de forma aislada.
-Ejecuta la prueba si puedes e indica el resultado real y sus límites.
+Utilitza test-widget sobre l’EtiquetaCatalogo real que adjunte.
+Genera test/ui/core/ui/etiqueta_catalogo_test.dart amb els imports del projecte.
+Verifica el contingut, el valor predeterminat de destacada, les dos grandàries
+i pesos, i que en rebre un altre text del pare s’actualitza el contingut.
+Presenta primer la taula de casos. Comprova les dos variants de manera aïllada.
+Executa la prova si pots i indica el resultat real i els límits.
 ```
 
 ## Comprova que les skills són útils
@@ -219,6 +223,6 @@ Una prova que només troba `Text` no distingix estes variants. Tampoc comprova e
 
 Obri una conversa nova en un editor compatible i demana explícitament la skill pel nom. En VS Code comprova que les cinc apareixen entre les habilitats disponibles; si no, revisa la carpeta oberta, el nom `SKILL.md` i la capçalera. El descobriment i el procediment seguit són comprovacions diferents. Consulta la [documentació de skills de VS Code](https://code.visualstudio.com/docs/agent-customization/agent-skills).
 
-Com a activitat, aplica `create-component` a una peça menuda que ja hages escrit. Defineix dos criteris d’acceptació abans de generar proves amb `test-widget`. Revisa quina errada detectaria cada prova i executa-la. Si no hi ha entorn d’execució, conserva eixa limitació en l’entrega.
+Com a activitat, aplica `create-component` a una peça menuda que ja hages escrit. Definix dos criteris d’acceptació abans de generar proves amb `test-widget`. Revisa quina errada detectaria cada prova i executa-la. Si no hi ha entorn d’execució, conserva eixa limitació en l’entrega.
 
-Referències: [Effective Dart](https://dart.dev/effective-dart/style) · [Pruebas de widgets en Flutter](https://docs.flutter.dev/cookbook/testing/widget/introduction).
+Referències: [Effective Dart](https://dart.dev/effective-dart/style) · [Proves de widgets en Flutter](https://docs.flutter.dev/cookbook/testing/widget/introduction).

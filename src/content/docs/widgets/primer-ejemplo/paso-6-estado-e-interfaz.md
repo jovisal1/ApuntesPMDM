@@ -9,7 +9,7 @@ Podríamos intentar declarar `int vueltas = 0` dentro de `build`, mostrarlo con 
 - Cambiar una variable no solicita por sí solo que Flutter reconstruya la interfaz. La consola puede mostrar un número nuevo mientras el texto sigue mostrando el anterior.
 - Una variable local de `build` vuelve a inicializarse cuando se ejecuta ese método. No es un lugar adecuado para conservar el contador entre reconstrucciones.
 
-Necesitamos guardar el dato en un objeto `State` y solicitar la actualización con `setState`. **Sustituye todo `lib/presentation/screens/pantalla_entrenamiento.dart`** por esta versión final:
+Necesitamos guardar el dato en un objeto `State` y solicitar la actualización con `setState`. **Sustituye todo `lib/ui/entrenamiento/ui/pantalla_entrenamiento.dart`** por esta versión final:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ En **`lib/main.dart`**, el contenido final debe ser:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:contador_vueltas/presentation/screens/pantalla_entrenamiento.dart';
+import 'package:contador_vueltas/ui/entrenamiento/ui/pantalla_entrenamiento.dart';
 
 void main() => runApp(const EntrenamientoApp());
 

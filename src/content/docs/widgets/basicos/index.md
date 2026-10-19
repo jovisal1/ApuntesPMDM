@@ -20,7 +20,7 @@ Imagina una ficha de una ruta: tiene un título, una fotografía, un icono que i
 | Mostrar la barra superior | `AppBar` |
 | Organizar las zonas de una pantalla Material | `Scaffold` |
 
-Trabajaremos directamente sobre el proyecto base creado en la sección de configuración del asistente. La pantalla principal, el listado y las secciones vacías ya están preparados. Cada apartado empieza explicando el widget con un ejemplo mínimo y sus propiedades principales. Después crearás componentes parametrizados en archivos de `lib/componentes/` y mostrarás sus variantes en la pantalla correspondiente del catálogo. Los ejemplos de propiedades sirven para comprender el widget; el resultado de la actividad son tus componentes reutilizables. Consulta el [esquema del proyecto](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
+Trabajaremos directamente sobre el proyecto base creado en la sección de configuración del asistente. La pantalla principal, el listado y las secciones vacías ya están preparados. Cada apartado empieza explicando el widget con un ejemplo mínimo y sus propiedades principales. Después crearás componentes parametrizados en archivos de `lib/ui/core/ui/` y mostrarás sus variantes en la pantalla correspondiente del catálogo. Los ejemplos de propiedades sirven para comprender el widget; el resultado de la actividad son tus componentes reutilizables. Consulta el [esquema del proyecto](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
 
 ## 🔎 Claves para leer y entender un widget
 

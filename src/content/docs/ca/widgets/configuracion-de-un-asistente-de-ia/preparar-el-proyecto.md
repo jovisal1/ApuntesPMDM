@@ -9,11 +9,11 @@ Prepara una carpeta de treball per a **`catalogo_widgets`** i comprova l’entor
 
 ## Organitza el material de l’assistent
 
-Dins de `catalogo_widgets`, crea una carpeta `ai`. Quan generes el projecte Flutter, quedarà al costat de `lib`, no dins. Després crea `instrucciones.md` i una carpeta `skills`:
+Dins de `catalogo_widgets`, crea una carpeta `.agents`. Quan generes el projecte Flutter, quedarà al costat de `lib`, no dins. Després crea `instrucciones.md` i una carpeta `skills`:
 
 ```text
 catalogo_widgets/
-├── ai/
+├── .agents/
 │   ├── instrucciones.md
 │   └── skills/
 ├── lib/
@@ -21,6 +21,8 @@ catalogo_widgets/
 ├── test/
 └── pubspec.yaml
 ```
+
+Centralitzem tot el material de l’assistent en **`.agents/`**: `instrucciones.md` reunix el context i les regles generals; `skills/` conté una carpeta per procediment reutilitzable. El punt inicial forma part del nom: és `.agents`, no `agents`. Si l’explorador oculta la carpeta, activa la visualització de fitxers ocults.
 
 Un fitxer `.md` és text amb format Markdown. Es pot editar amb VS Code i obrir com a text. Estos fitxers documenten com volem treballar amb l’assistent; Flutter no els executa ni els mostra en l’aplicació.
 

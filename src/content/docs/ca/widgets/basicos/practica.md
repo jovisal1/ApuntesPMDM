@@ -8,7 +8,7 @@ El resultat d’esta unitat és un catàleg de **components propis amb variants*
 
 ## 🔎 Revisa els components
 
-1. Cada component viu en el seu fitxer de `lib/componentes/`; les pantalles l’importen i mostren configuracions diferents.
+1. Cada component viu en el seu fitxer de `lib/ui/core/ui/`; les pantalles l’importen i mostren configuracions diferents.
 2. Els paràmetres separen contingut, aspecte i accions. Una variant visual no altera el text o el callback rebut sense que el contracte ho indique.
 3. Les variants es seleccionen amb booleans o `enum`, no amb classes duplicades per a cada combinació.
 4. Mostra totes les variants demanades i algun cas límit: text llarg, imatge que falla, botó desactivat o espai reduït.

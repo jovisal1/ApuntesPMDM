@@ -81,8 +81,8 @@ Guardarem el component en el seu fitxer per a importar-lo i utilitzar-lo des de 
 
 En l’explorador de VS Code:
 
-1. Dins de `lib`, crea `componentes` si encara no existix.
-2. Dins, crea `etiqueta_catalogo.dart`. Contindrà la classe `EtiquetaCatalogo`; en Dart utilitzem guions baixos per al nom del fitxer i majúscules inicials per al de la classe.
+1. Dins de `lib`, crea la ruta de carpetes `ui/core/ui` si encara no existix. Allí guardarem les peces visuals compartides.
+2. Dins, crea `etiqueta_catalogo.dart`. Contindrà la classe `EtiquetaCatalogo`; en Dart utilitzem guions baixos per al nom del fitxer i majúscules inicials per al nom de la classe.
 3. Copia el codi complet següent i guarda el fitxer.
 
 L’`import` dona accés a les classes de Flutter que utilitzarem. Després trobaràs els camps que guarden la configuració, el constructor que la rep i el mètode `build` que la convertix en interfície. Just davall llegirem cadascuna de les parts:
@@ -137,12 +137,12 @@ El constructor pot ser `const` perquè els camps són immutables. `Text(texto, s
 
 ## 4. Compara les dos variants en el catàleg
 
-Utilitzarem la pantalla `Text` preparada en crear el catàleg; encara no cal conéixer altres propietats del widget. Substituïx `lib/view/text_ejemplos_pantalla.dart` per este fitxer complet:
+Utilitzarem la pantalla `Text` preparada en crear el catàleg; encara no cal conéixer altres propietats del widget. Substituïx `lib/ui/catalogo/ui/text_ejemplos_pantalla.dart` per este fitxer complet:
 
 ```dart
 import 'package:flutter/material.dart';
 
-import '../componentes/etiqueta_catalogo.dart';
+import 'package:catalogo_widgets/ui/core/ui/etiqueta_catalogo.dart';
 
 class TextEjemplosPantalla extends StatelessWidget {
   const TextEjemplosPantalla({super.key});
@@ -167,7 +167,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 }
 ```
 
-L’import `../componentes/etiqueta_catalogo.dart` dona accés a la classe. `../` puja de `view` a `lib` i després la ruta entra en `componentes`.
+L’import `package:catalogo_widgets/ui/core/ui/etiqueta_catalogo.dart` dona accés a la classe. En un import `package:`, `catalogo_widgets` és el paquet i la resta de la ruta comença dins de `lib/`.
 
 Estes són les peces que utilitzem com a suport per a comparar les etiquetes:
 
@@ -222,6 +222,6 @@ Un ús seria `EtiquetaCatalogo(texto: 'Revisa la ruta', variante: VarianteEtique
 3. Canvia la grandària de la variant destacada en el component i comprova que totes les instàncies destacades s’actualitzen en recarregar l’aplicació.
 4. Comprova que el text es conserva en totes les variants i que l’avís es distingix per pes o grandària, a més del color. Utilitza un contingut com «Avís: revisa la ruta» per a expressar-ne el significat amb paraules.
 
-Conserva la classe reutilitzable en `lib/componentes/` i les instàncies de demostració en la pantalla. Este serà el patró de les activitats següents: **un component amb paràmetres i diverses configuracions mostrades en el catàleg**.
+Conserva la classe reutilitzable en `lib/ui/core/ui/` i les instàncies de demostració en la pantalla. Este serà el patró de les activitats següents: **un component amb paràmetres i diverses configuracions mostrades en el catàleg**.
 
 Referència: [`TextStyle`](https://api.flutter.dev/flutter/painting/TextStyle-class.html).

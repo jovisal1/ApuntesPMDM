@@ -56,7 +56,7 @@ const SizedBox(
 
 ## ✍️ Activitat: crea components amb variants
 
-Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/componentes/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
+Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/ui/core/ui/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
 
 Els paràmetres sense valor predeterminat són obligatoris; marca’ls amb `required`, també si admeten `null`. Un tipus acabat en `?` admet `null`. Els `enum` proposats es declaren en el mateix fitxer que el component.
 
@@ -64,7 +64,7 @@ Si necessites recordar com un paràmetre selecciona l’aspecte, consulta [Varia
 
 ### 1. `EspacioPendiente`
 
-`lib/componentes/espacio_pendiente.dart`
+`lib/ui/core/ui/espacio_pendiente.dart`
 
 Paràmetres: `String etiqueta`, `bool compacto = false`.
 
@@ -72,7 +72,7 @@ Combina `SizedBox`, `Placeholder`, `Center` i `Text`. El mode compacte tindrà a
 
 ### 2. `MarcadorPrototipo`
 
-`lib/componentes/marcador_prototipo.dart`
+`lib/ui/core/ui/marcador_prototipo.dart`
 
 Paràmetres: `TipoMarcador tipo`, `double alto = 120`.
 
@@ -80,14 +80,14 @@ Definix `enum TipoMarcador { imagen, mapa, grafico }`. Cada tipus selecciona eti
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/view/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/ui/catalogo/ui/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
-import '../componentes/espacio_pendiente.dart';
-import '../componentes/marcador_prototipo.dart';
+import 'package:catalogo_widgets/ui/core/ui/espacio_pendiente.dart';
+import 'package:catalogo_widgets/ui/core/ui/marcador_prototipo.dart';
 ```
 
-`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+En un import `package:`, `catalogo_widgets` identifica el paquet i la ruta següent comença dins de `lib/`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

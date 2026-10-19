@@ -7,11 +7,11 @@ sidebar:
 
 Recorda que el **context** és la informació que proporcionem a l’assistent perquè entenga la nostra situació i puga ajustar la resposta. En la nostra pràctica, inclou què sabem de Dart i Flutter, quina aplicació estem construint i en quina part del projecte estem treballant. Com més clar siga eixe context, més fàcil serà que les explicacions s’ajusten al que necessitem.
 
-En esta secció recollirem eixe context en `ai/instrucciones.md`, juntament amb les regles sobre com volem que ens ajude. Després el proporcionarem a l’assistent i farem una prova amb un widget per a comprovar que adapta les explicacions al nostre nivell i ens oferix pistes abans de mostrar la solució.
+En esta secció recollirem eixe context en `.agents/instrucciones.md`, juntament amb les regles sobre com volem que ens ajude. Després el proporcionarem a l’assistent i farem una prova amb un widget per a comprovar que adapta les explicacions al nostre nivell i ens oferix pistes abans de mostrar la solució.
 
 ## Escriu el context i les regles
 
-Copia el contingut següent en `ai/instrucciones.md`. Llig cada regla: després hauràs de comprovar si l’assistent la respecta. La llista de coneixements és un punt de partida; ajusta-la al que ja has treballat.
+Copia el contingut següent en `.agents/instrucciones.md`. Llig cada regla: després hauràs de comprovar si l’assistent la respecta. La llista de coneixements és un punt de partida; ajusta-la al que ja has treballat.
 
 ```markdown
 # Assistent de Flutter de 2n de DAM
@@ -42,6 +42,9 @@ No modifiques main.dart ni el llistat ni expliques navegació.
 10. Distingix què has comprovat de què només estàs proposant.
 
 ## Qualitat que revisarem
+Tota peça visual es guarda davall de lib/ui/: compartides en lib/ui/core/ui/
+i específiques en lib/ui/<funcionalitat>/ui/. Les proves reflectixen estes rutes
+davall de test/ui/. Mantín la convenció en el codi nou.
 Noms clars, indentació, composició comprensible i const quan pertoque.
 No proposes encara Riverpod, Bloc ni Clean Architecture.
 
@@ -51,16 +54,18 @@ Explicació breu, exemple menut, lectura de l’exemple i mini exercici.
 
 El context evita preguntes massa obertes. Per exemple, «fes una aplicació» permet moltes interpretacions; indicar que aprenem composició i que el catàleg creix per components delimita una tasca que podem revisar.
 
+Guardar les instruccions en `.agents/instrucciones.md` és la nostra convenció per a reunir el material en una carpeta. **Això no garantix que l’eina les carregue automàticament**: pots adjuntar-les al xat o utilitzar el fitxer d’entrada específic de l’editor, com expliquem a continuació. El descobriment de les skills en `.agents/skills/` és independent de la càrrega d’estes instruccions generals.
+
 ## Opció A. Utilitzar l’assistent des de qualsevol xat
 
 1. Obri una conversa dedicada a esta pràctica.
-2. Adjunta `ai/instrucciones.md` o apega’n el contingut complet.
+2. Adjunta `.agents/instrucciones.md` o apega’n el contingut complet.
 3. Envia el missatge d’activació que apareix davall.
 4. Per a consultar codi, adjunta el fitxer o apega el fragment rellevant, indicant-ne la ruta.
 5. Quan comences una altra conversa, torna a proporcionar les instruccions i l’estat actual del projecte.
 
 ```text
-Utilitza el fitxer instrucciones.md que t’he proporcionat com a guia d’esta pràctica.
+Utilitza el fitxer .agents/instrucciones.md que t’he proporcionat com a guia d’esta pràctica.
 Resumix el meu nivell, l’objectiu del catàleg i tres regles que seguiràs.
 Després explica per a què servix Text i proposa un exercici menut.
 No canvies fitxers ni resolgues l’exercici.
@@ -70,11 +75,13 @@ No canvies fitxers ni resolgues l’exercici.
 
 ## Opció B. Carregar instruccions en un assistent integrat
 
-Els noms dels fitxers depenen de l’eina. `ai/instrucciones.md` continua sent el nostre document de referència, però la càrrega automàtica no és universal.
+Els noms dels fitxers depenen de l’eina. `.agents/instrucciones.md` continua sent el nostre document de referència, però la càrrega automàtica no és universal.
+
+Els fitxers d’entrada següents només són necessaris si tries eixa integració automàtica. La referència serà `.agents/instrucciones.md`; si en copies el contingut a un altre fitxer, actualitza la còpia quan canvien les regles.
 
 ### GitHub Copilot en VS Code
 
-Crea `.github/copilot-instructions.md` en l’arrel del projecte i copia-hi el contingut de `ai/instrucciones.md`. Si ja existix, integra les regles de la pràctica sense esborrar les que tinga. Obri una conversa nova i envia la pregunta de control anterior.
+Crea `.github/copilot-instructions.md` en l’arrel del projecte i copia-hi el contingut de `.agents/instrucciones.md`. Si ja existix, integra les regles de la pràctica sense esborrar les que tinga. Obri una conversa nova i envia la pregunta de control anterior.
 
 Este és el fitxer d’[instruccions de projecte de Copilot](https://code.visualstudio.com/docs/agent-customization/custom-instructions). Quan actualitzes les instruccions, mantín sincronitzada esta còpia.
 

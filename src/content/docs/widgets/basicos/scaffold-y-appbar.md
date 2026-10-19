@@ -118,7 +118,7 @@ Otras zonas como `drawer` y `bottomNavigationBar` se estudiarán más adelante. 
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -128,7 +128,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `PantallaDemostracion`
 
-`lib/componentes/pantalla_demostracion.dart`
+`lib/ui/core/ui/pantalla_demostracion.dart`
 
 Parámetros: `String titulo`, `Widget contenido`, `bool destacada = false`, `bool centrarTitulo = false`.
 
@@ -136,7 +136,7 @@ Construye un `Scaffold` con `AppBar`. La variante destacada cambia los colores l
 
 ### 2. `BotonAviso`
 
-`lib/componentes/boton_aviso.dart`
+`lib/ui/core/ui/boton_aviso.dart`
 
 Parámetros: `String etiqueta`, `String mensaje`, `bool flotante = false`, `int segundos = 3`.
 
@@ -144,14 +144,14 @@ Construye un botón que muestre una `SnackBar`. El parámetro `flotante` selecci
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/pantalla_demostracion.dart';
-import '../componentes/boton_aviso.dart';
+import 'package:catalogo_widgets/ui/core/ui/pantalla_demostracion.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_aviso.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así en el `build` de la pantalla:
 

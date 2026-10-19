@@ -104,7 +104,7 @@ Los puntos suspensivos de la tabla representan valores que faltan, no código pa
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -114,7 +114,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `BotonAccion`
 
-`lib/componentes/boton_accion.dart`
+`lib/ui/core/ui/boton_accion.dart`
 
 Parámetros: `String texto`, `VoidCallback? onPressed`, `bool destacado = false`.
 
@@ -122,7 +122,7 @@ Usa `FilledButton` con estilo local: la variante destacada tendrá más espacio 
 
 ### 2. `BotonConIcono`
 
-`lib/componentes/boton_con_icono.dart`
+`lib/ui/core/ui/boton_con_icono.dart`
 
 Parámetros: `String texto`, `IconData icono`, `VoidCallback? onPressed`, `bool secundario = false`.
 
@@ -130,14 +130,14 @@ Selecciona `FilledButton.icon` para la acción principal y `OutlinedButton.icon`
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/boton_accion.dart';
-import '../componentes/boton_con_icono.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_accion.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_con_icono.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

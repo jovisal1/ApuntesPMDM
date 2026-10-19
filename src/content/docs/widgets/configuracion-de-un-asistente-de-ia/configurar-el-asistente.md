@@ -7,11 +7,11 @@ sidebar:
 
 Recuerda que el **contexto** es la información que proporcionamos al asistente para que entienda nuestra situación y pueda ajustar su respuesta. En nuestra práctica, incluye qué sabemos de Dart y Flutter, qué aplicación estamos construyendo y en qué parte del proyecto estamos trabajando. Cuanto más claro sea ese contexto, más fácil será que sus explicaciones se ajusten a lo que necesitamos.
 
-En esta sección vamos a recoger ese contexto en `ai/instrucciones.md`, junto con las reglas sobre cómo queremos que nos ayude. Después se lo proporcionaremos al asistente y haremos una prueba con un widget para comprobar que adapta sus explicaciones a nuestro nivel y nos ofrece pistas antes de mostrar la solución.
+En esta sección vamos a recoger ese contexto en `.agents/instrucciones.md`, junto con las reglas sobre cómo queremos que nos ayude. Después se lo proporcionaremos al asistente y haremos una prueba con un widget para comprobar que adapta sus explicaciones a nuestro nivel y nos ofrece pistas antes de mostrar la solución.
 
 ## Escribe el contexto y las reglas
 
-Copia el siguiente contenido en `ai/instrucciones.md`. Lee cada regla: después tendrás que comprobar si el asistente la respeta. La lista de conocimientos es un punto de partida; ajústala a lo que ya has trabajado.
+Copia el siguiente contenido en `.agents/instrucciones.md`. Lee cada regla: después tendrás que comprobar si el asistente la respeta. La lista de conocimientos es un punto de partida; ajústala a lo que ya has trabajado.
 
 ```markdown
 # Asistente de Flutter de 2.º de DAM
@@ -42,6 +42,9 @@ No modifiques main.dart ni catalogo_pantalla.dart ni expliques navegación.
 10. Distingue lo que has comprobado de lo que solo estás proponiendo.
 
 ## Calidad que revisaremos
+Toda pieza visual se guarda bajo lib/ui/: compartidas en lib/ui/core/ui/
+y específicas en lib/ui/<funcionalidad>/ui/. Las pruebas reflejan estas rutas
+bajo test/ui/. Mantén esta convención en todo código nuevo.
 Nombres claros, indentación, composición comprensible y const cuando proceda.
 No propongas todavía Riverpod, Bloc ni Clean Architecture.
 
@@ -51,16 +54,18 @@ Explicación breve, ejemplo pequeño, lectura del ejemplo y mini ejercicio.
 
 El contexto evita preguntas demasiado abiertas. Por ejemplo, «haz una aplicación» permite muchas interpretaciones; indicar que estamos aprendiendo composición y que el catálogo crece por componentes delimita una tarea que podemos revisar.
 
+Guardar las instrucciones en `.agents/instrucciones.md` es nuestra convención para reunir el material en una sola carpeta. **Eso no garantiza que la herramienta las cargue automáticamente**: puedes adjuntarlas al chat o utilizar el archivo de entrada específico de tu editor, como se explica a continuación. El descubrimiento de las skills en `.agents/skills/` es independiente de la carga de estas instrucciones generales.
+
 ## Opción A. Utilizar el asistente desde cualquier chat
 
 1. Abre una conversación dedicada a esta práctica.
-2. Adjunta `ai/instrucciones.md` o pega su contenido completo.
+2. Adjunta `.agents/instrucciones.md` o pega su contenido completo.
 3. Envía el mensaje de activación que aparece debajo.
 4. Para consultar código, adjunta el archivo o pega el fragmento relevante, indicando su ruta.
 5. Al empezar otra conversación, vuelve a proporcionar las instrucciones y el estado actual del proyecto.
 
 ```text
-Utiliza el instrucciones.md que te he proporcionado como guía de esta práctica.
+Utiliza el archivo .agents/instrucciones.md que te he proporcionado como guía de esta práctica.
 Resume mi nivel, el objetivo del catálogo y tres reglas que vas a seguir.
 Después explica para qué sirve Text y propón un ejercicio pequeño.
 No cambies archivos ni resuelvas el ejercicio.
@@ -70,11 +75,13 @@ No cambies archivos ni resuelvas el ejercicio.
 
 ## Opción B. Cargar instrucciones en un asistente integrado
 
-Los nombres de los archivos dependen de la herramienta. `ai/instrucciones.md` sigue siendo nuestro documento de referencia, pero su carga automática no es universal.
+Los nombres de los archivos dependen de la herramienta. `.agents/instrucciones.md` sigue siendo nuestro documento de referencia, pero su carga automática no es universal.
+
+Los archivos de entrada que aparecen debajo solo son necesarios si eliges esa integración automática. La referencia que mantendremos es `.agents/instrucciones.md`; si copias su contenido a otro archivo, actualiza esa copia cuando cambien las reglas.
 
 ### GitHub Copilot en VS Code
 
-Crea `.github/copilot-instructions.md` en la raíz del proyecto y copia en él el contenido de `ai/instrucciones.md`. Si ya existe, integra las reglas de la práctica sin borrar las que ya tenga. Abre una conversación nueva y envía la pregunta de control anterior.
+Crea `.github/copilot-instructions.md` en la raíz del proyecto y copia en él el contenido de `.agents/instrucciones.md`. Si ya existe, integra las reglas de la práctica sin borrar las que ya tenga. Abre una conversación nueva y envía la pregunta de control anterior.
 
 Este es el archivo de [instrucciones de proyecto de Copilot](https://code.visualstudio.com/docs/agent-customization/custom-instructions). Cuando actualices las instrucciones, mantén sincronizada esta copia.
 

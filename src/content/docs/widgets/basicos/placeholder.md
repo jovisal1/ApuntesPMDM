@@ -56,7 +56,7 @@ const SizedBox(
 
 ## ✍️ Actividad: crea componentes con variantes
 
-Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/componentes/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
+Implementa **los dos componentes** siguientes como `StatelessWidget`, cada uno en el archivo indicado dentro de `lib/ui/core/ui/`. Los nombres y parámetros son el contrato que debes cumplir, no una solución implementada. Usa campos `final`, parámetros con nombre, `super.key` y constructor `const` cuando sea posible. Las variantes se eligen mediante parámetros: no necesitan estado propio.
 
 Los parámetros sin valor predeterminado son obligatorios; márcalos con `required`, también si admiten `null`. Un tipo terminado en `?` admite `null`. Los `enum` propuestos se declaran en el mismo archivo que el componente.
 
@@ -64,7 +64,7 @@ Si necesitas recordar cómo un parámetro selecciona el aspecto, consulta [Varia
 
 ### 1. `EspacioPendiente`
 
-`lib/componentes/espacio_pendiente.dart`
+`lib/ui/core/ui/espacio_pendiente.dart`
 
 Parámetros: `String etiqueta`, `bool compacto = false`.
 
@@ -72,7 +72,7 @@ Combina `SizedBox`, `Placeholder`, `Center` y `Text`. El modo compacto tendrá a
 
 ### 2. `MarcadorPrototipo`
 
-`lib/componentes/marcador_prototipo.dart`
+`lib/ui/core/ui/marcador_prototipo.dart`
 
 Parámetros: `TipoMarcador tipo`, `double alto = 120`.
 
@@ -80,14 +80,14 @@ Define `enum TipoMarcador { imagen, mapa, grafico }`. Cada tipo selecciona su et
 
 ## 🧩 Muestra los componentes en el catálogo
 
-En `lib/view/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
+En `lib/ui/catalogo/ui/placeholder_ejemplos_pantalla.dart`, conserva `PlaceholderEjemplosPantalla` e importa los archivos nuevos. Cada import va al principio, fuera de las clases:
 
 ```dart
-import '../componentes/espacio_pendiente.dart';
-import '../componentes/marcador_prototipo.dart';
+import 'package:catalogo_widgets/ui/core/ui/espacio_pendiente.dart';
+import 'package:catalogo_widgets/ui/core/ui/marcador_prototipo.dart';
 ```
 
-`../` sube de `view` a `lib`; después entra en `componentes`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
+En un import `package:`, `catalogo_widgets` identifica el paquete y la ruta siguiente comienza dentro de `lib/`. Los imports hacen accesibles las clases y los `enum` públicos de esos archivos.
 
 Cuando hayas implementado los componentes, podrás utilizarlos así dentro de `children`:
 

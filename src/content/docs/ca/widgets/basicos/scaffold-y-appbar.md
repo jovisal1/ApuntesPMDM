@@ -118,7 +118,7 @@ Zones com `drawer` i `bottomNavigationBar` s’estudiaran més avant. `resizeToA
 
 ## ✍️ Activitat: crea components amb variants
 
-Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/componentes/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
+Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/ui/core/ui/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
 
 Els paràmetres sense valor predeterminat són obligatoris; marca’ls amb `required`, també si admeten `null`. Un tipus acabat en `?` admet `null`. Els `enum` proposats es declaren en el mateix fitxer que el component.
 
@@ -128,7 +128,7 @@ Si necessites recordar com un paràmetre selecciona l’aspecte, consulta [Varia
 
 ### 1. `PantallaDemostracion`
 
-`lib/componentes/pantalla_demostracion.dart`
+`lib/ui/core/ui/pantalla_demostracion.dart`
 
 Paràmetres: `String titulo`, `Widget contenido`, `bool destacada = false`, `bool centrarTitulo = false`.
 
@@ -136,7 +136,7 @@ Construïx un `Scaffold` amb `AppBar`. La variant destacada canvia els colors lo
 
 ### 2. `BotonAviso`
 
-`lib/componentes/boton_aviso.dart`
+`lib/ui/core/ui/boton_aviso.dart`
 
 Paràmetres: `String etiqueta`, `String mensaje`, `bool flotante = false`, `int segundos = 3`.
 
@@ -144,14 +144,14 @@ Construïx un botó que mostre una `SnackBar`. `flotante` selecciona `floating` 
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/view/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/ui/catalogo/ui/scaffold_ejemplos_pantalla.dart`, conserva `ScaffoldEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
-import '../componentes/pantalla_demostracion.dart';
-import '../componentes/boton_aviso.dart';
+import 'package:catalogo_widgets/ui/core/ui/pantalla_demostracion.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_aviso.dart';
 ```
 
-`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+En un import `package:`, `catalogo_widgets` identifica el paquet i la ruta següent comença dins de `lib/`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així en el `build` de la pantalla:
 

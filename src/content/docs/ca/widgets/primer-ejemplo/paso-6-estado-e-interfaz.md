@@ -9,7 +9,7 @@ Podríem intentar declarar `int voltes = 0` dins de `build`, mostrar-lo amb `Tex
 - Canviar una variable no sol·licita per si sol que Flutter reconstruïsca la interfície. La consola pot mostrar un número nou mentre el text continua mostrant l’anterior.
 - Una variable local de `build` torna a inicialitzar-se quan s’executa eixe mètode. No és un lloc adequat per a conservar el comptador entre reconstruccions.
 
-Necessitem guardar la dada en un objecte `State` i sol·licitar l’actualització amb `setState`. **Substituïx tot `lib/presentation/screens/pantalla_entrenament.dart`** per esta versió final:
+Necessitem guardar la dada en un objecte `State` i sol·licitar l’actualització amb `setState`. **Substituïx tot `lib/ui/entrenamiento/ui/pantalla_entrenament.dart`** per esta versió final:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ En **`lib/main.dart`**, el contingut final ha de ser:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:contador_vueltas/presentation/screens/pantalla_entrenament.dart';
+import 'package:contador_vueltas/ui/entrenamiento/ui/pantalla_entrenament.dart';
 
 void main() => runApp(const EntrenamentApp());
 

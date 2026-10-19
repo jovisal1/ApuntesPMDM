@@ -19,7 +19,7 @@ Crea esta estructura en la raíz del proyecto. Cada bloque siguiente es el conte
 └── give-hints/SKILL.md
 ```
 
-`name` identifica la habilidad y coincide con su carpeta; `description` indica cuándo aplicarla. Las instrucciones del cuerpo definen el procedimiento. Si tu chat no descubre skills, adjunta el archivo junto con `ai/instrucciones.md`. No necesitas mantener una segunda copia en `ai/skills`.
+`name` identifica la habilidad y coincide con su carpeta; `description` indica cuándo aplicarla. Las instrucciones del cuerpo definen el procedimiento. Si tu chat no descubre skills, adjunta el archivo junto con `.agents/instrucciones.md`.
 
 ## create-component
 
@@ -37,6 +37,9 @@ Si faltan datos que cambian la API pública o el resultado esperado, acláralos;
 para decisiones menores sigue las convenciones existentes.
 
 ## Estándares de este proyecto
+- Toda pieza visual se guarda bajo lib/ui/: las compartidas en lib/ui/core/ui/
+  y las específicas en lib/ui/<funcionalidad>/ui/. No crees otras carpetas
+  para componentes visuales. Los ViewModels van en ui/<funcionalidad>/view_models/.
 - Conserva las clases de pantalla y la infraestructura entregada. No cambies el
   listado, main.dart ni el mecanismo entre pantallas para añadir un ejemplo.
 - Usa UpperCamelCase para clases, lowerCamelCase para miembros y
@@ -49,7 +52,7 @@ para decisiones menores sigue las convenciones existentes.
 - Recibe las acciones mediante callbacks tipados, como VoidCallback?, cuando
   correspondan. No ejecutes el callback al construir el widget.
 - Expresa las variantes visuales con un parámetro booleano o enum. Guarda cada
-  componente reutilizable en su archivo dentro de lib/componentes/ e impórtalo
+  componente reutilizable en su archivo dentro de lib/ui/core/ui/ e impórtalo
   desde su pantalla. Define el estilo dentro del componente; no crees temas
   globales ni archivos de estilos en esta unidad.
 - Mantén build sin efectos secundarios. Extrae un widget cuando permita reutilizar
@@ -90,6 +93,7 @@ sentido. Cada prueba debe detectar un fallo concreto; explica cuál.
 No deduzcas el resultado esperado copiando la lógica de la implementación.
 
 ## Construcción de las pruebas
+- Guarda los tests de interfaz bajo test/ui/, reflejando la ruta de lib/ui/.
 - Usa flutter_test y testWidgets. Monta el componente aislado con el entorno mínimo
   necesario (por ejemplo MaterialApp y Scaffold). No incluyas el listado del catálogo
   si el requisito trata del componente.
@@ -184,8 +188,8 @@ Después del tutorial de estilos, aporta el archivo real y pide:
 
 ```text
 Utiliza create-component y las instrucciones del proyecto.
-Crea lib/componentes/etiqueta_catalogo.dart con EtiquetaCatalogo.
-Importa el componente desde text_ejemplos_pantalla.dart para mostrarlo.
+Crea lib/ui/core/ui/etiqueta_catalogo.dart con EtiquetaCatalogo.
+Importa el componente desde lib/ui/catalogo/ui/text_ejemplos_pantalla.dart.
 Debe recibir texto obligatorio y destacada=false por defecto.
 Normal: tamaño 16 y peso normal. Destacada: tamaño 22 y negrita.
 Ambas deben mostrar exactamente el texto recibido.
@@ -197,7 +201,7 @@ Después aporta la implementación que has aceptado y pide las pruebas:
 
 ```text
 Utiliza test-widget sobre el EtiquetaCatalogo real que adjunto.
-Genera test/etiqueta_catalogo_test.dart con los imports del proyecto.
+Genera test/ui/core/ui/etiqueta_catalogo_test.dart con los imports del proyecto.
 Verifica el contenido, el valor predeterminado de destacada, los dos tamaños
 y pesos, y que al recibir otro texto del padre se actualiza el contenido.
 Presenta primero la tabla de casos. Comprueba ambas variantes de forma aislada.

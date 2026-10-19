@@ -104,7 +104,7 @@ Els punts suspensius representen valors que falten, no codi per a copiar. Substi
 
 ## ✍️ Activitat: crea components amb variants
 
-Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/componentes/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
+Implementa **els dos components** següents com a `StatelessWidget`, cadascun en el fitxer indicat dins de `lib/ui/core/ui/`. Els noms i paràmetres són el contracte que has de complir, no una solució implementada. Usa camps `final`, paràmetres amb nom, `super.key` i constructor `const` quan siga possible. Les variants es trien amb paràmetres: no necessiten estat propi.
 
 Els paràmetres sense valor predeterminat són obligatoris; marca’ls amb `required`, també si admeten `null`. Un tipus acabat en `?` admet `null`. Els `enum` proposats es declaren en el mateix fitxer que el component.
 
@@ -114,7 +114,7 @@ Si necessites recordar com un paràmetre selecciona l’aspecte, consulta [Varia
 
 ### 1. `BotonAccion`
 
-`lib/componentes/boton_accion.dart`
+`lib/ui/core/ui/boton_accion.dart`
 
 Paràmetres: `String texto`, `VoidCallback? onPressed`, `bool destacado = false`.
 
@@ -122,7 +122,7 @@ Utilitza `FilledButton` amb estil local: la variant destacada tindrà més espai
 
 ### 2. `BotonConIcono`
 
-`lib/componentes/boton_con_icono.dart`
+`lib/ui/core/ui/boton_con_icono.dart`
 
 Paràmetres: `String texto`, `IconData icono`, `VoidCallback? onPressed`, `bool secundario = false`.
 
@@ -130,14 +130,14 @@ Selecciona `FilledButton.icon` per a l’acció principal i `OutlinedButton.icon
 
 ## 🧩 Mostra els components en el catàleg
 
-En `lib/view/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
+En `lib/ui/catalogo/ui/botones_ejemplos_pantalla.dart`, conserva `BotonesEjemplosPantalla` i importa els fitxers nous. Cada import va al principi, fora de les classes:
 
 ```dart
-import '../componentes/boton_accion.dart';
-import '../componentes/boton_con_icono.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_accion.dart';
+import 'package:catalogo_widgets/ui/core/ui/boton_con_icono.dart';
 ```
 
-`../` puja de `view` a `lib`; després entra en `componentes`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
+En un import `package:`, `catalogo_widgets` identifica el paquet i la ruta següent comença dins de `lib/`. Els imports fan accessibles les classes i els `enum` públics d’eixos fitxers.
 
 Quan hages implementat els components, podràs utilitzar-los així dins de `children`:
 

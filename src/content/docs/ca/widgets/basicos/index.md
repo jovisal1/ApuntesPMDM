@@ -20,7 +20,7 @@ Imagina una fitxa d’una ruta: té un títol, una fotografia, una icona que ind
 | Mostrar la barra superior | `AppBar` |
 | Organitzar les zones d’una pantalla Material | `Scaffold` |
 
-Treballarem directament sobre el projecte base que crearem en la secció de configuració de l’assistent. La pantalla principal, el llistat i les seccions buides ja estan preparats. Cada apartat explica el widget amb un exemple mínim i les propietats principals. Després crearàs components amb paràmetres en fitxers de `lib/componentes/` i mostraràs les variants en la pantalla corresponent del catàleg. Els exemples de propietats ajuden a comprendre el widget; el resultat de l’activitat són els teus components reutilitzables. Consulta l’[esquema del projecte](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
+Treballarem directament sobre el projecte base que crearem en la secció de configuració de l’assistent. La pantalla principal, el llistat i les seccions buides ja estan preparats. Cada apartat explica el widget amb un exemple mínim i les propietats principals. Després crearàs components amb paràmetres en fitxers de `lib/ui/core/ui/` i mostraràs les variants en la pantalla corresponent del catàleg. Els exemples de propietats ajuden a comprendre el widget; el resultat de l’activitat són els teus components reutilitzables. Consulta l’[esquema del projecte](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
 
 ## 🔎 Claus per a llegir i entendre un widget
 

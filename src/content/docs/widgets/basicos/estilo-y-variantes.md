@@ -81,7 +81,7 @@ Guardaremos el componente en su propio archivo para poder importarlo y utilizarl
 
 En el explorador de VS Code:
 
-1. Dentro de `lib`, crea la carpeta `componentes` si todavía no existe.
+1. Dentro de `lib`, crea la ruta de carpetas `ui/core/ui` si todavía no existe. Ahí guardaremos las piezas visuales compartidas.
 2. Dentro de esa carpeta, crea `etiqueta_catalogo.dart`. Este archivo contendrá la clase `EtiquetaCatalogo`; en Dart usamos guiones bajos para el nombre del archivo y mayúsculas iniciales para el de la clase.
 3. Copia el código completo siguiente y guarda el archivo.
 
@@ -137,12 +137,12 @@ El constructor puede ser `const` porque los campos son inmutables. En cambio, `T
 
 ## 4. Compara las dos variantes en el catálogo
 
-Utilizaremos la pantalla `Text` que ya preparaste al crear el catálogo; todavía no necesitas conocer otras propiedades de ese widget. Sustituye el contenido de `lib/view/text_ejemplos_pantalla.dart` por el siguiente archivo completo:
+Utilizaremos la pantalla `Text` que ya preparaste al crear el catálogo; todavía no necesitas conocer otras propiedades de ese widget. Sustituye el contenido de `lib/ui/catalogo/ui/text_ejemplos_pantalla.dart` por el siguiente archivo completo:
 
 ```dart
 import 'package:flutter/material.dart';
 
-import '../componentes/etiqueta_catalogo.dart';
+import 'package:catalogo_widgets/ui/core/ui/etiqueta_catalogo.dart';
 
 class TextEjemplosPantalla extends StatelessWidget {
   const TextEjemplosPantalla({super.key});
@@ -167,7 +167,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 }
 ```
 
-El import `../componentes/etiqueta_catalogo.dart` hace accesible nuestra clase. `../` sube desde `view` a `lib`, y después la ruta entra en `componentes`.
+El import `package:catalogo_widgets/ui/core/ui/etiqueta_catalogo.dart` hace accesible nuestra clase. En un import `package:`, `catalogo_widgets` es el paquete y el resto de la ruta comienza dentro de `lib/`.
 
 Estas son las piezas de la pantalla, que usamos como soporte para comparar las etiquetas:
 
@@ -222,6 +222,6 @@ Un uso sería `EtiquetaCatalogo(texto: 'Revisa la ruta', variante: VarianteEtiqu
 3. Cambia el tamaño de la variante destacada en el componente y verifica que todas sus instancias destacadas se actualizan al recargar la aplicación.
 4. Comprueba que el texto recibido se conserva en todas las variantes y que el aviso se distingue por peso o tamaño, además de por color. Usa un contenido como «Aviso: revisa la ruta» para expresar también su significado con palabras.
 
-Conserva la clase reutilizable en `lib/componentes/` y las instancias de demostración en la pantalla. Este será el patrón de las actividades de los siguientes apartados: **un componente con parámetros y varias configuraciones mostradas en el catálogo**.
+Conserva la clase reutilizable en `lib/ui/core/ui/` y las instancias de demostración en la pantalla. Este será el patrón de las actividades de los siguientes apartados: **un componente con parámetros y varias configuraciones mostradas en el catálogo**.
 
 Referencia: [`TextStyle`](https://api.flutter.dev/flutter/painting/TextStyle-class.html).

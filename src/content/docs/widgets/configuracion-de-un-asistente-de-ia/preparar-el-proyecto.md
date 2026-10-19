@@ -9,11 +9,11 @@ Prepara una carpeta de trabajo para **`catalogo_widgets`** y comprueba el entorn
 
 ## Organiza el material del asistente
 
-Dentro de `catalogo_widgets`, crea una carpeta `ai`. Cuando generes el proyecto Flutter, quedará junto a `lib`, no dentro de ella. Después crea `instrucciones.md` y una carpeta `skills`:
+Dentro de `catalogo_widgets`, crea una carpeta `.agents`. Cuando generes el proyecto Flutter, quedará junto a `lib`, no dentro de ella. Después crea `instrucciones.md` y una carpeta `skills`:
 
 ```text
 catalogo_widgets/
-├── ai/
+├── .agents/
 │   ├── instrucciones.md
 │   └── skills/
 ├── lib/
@@ -21,6 +21,8 @@ catalogo_widgets/
 ├── test/
 └── pubspec.yaml
 ```
+
+Centralizamos todo el material del asistente en **`.agents/`**: `instrucciones.md` reúne el contexto y las reglas generales; `skills/` contiene una carpeta por procedimiento reutilizable. El punto inicial forma parte del nombre: es `.agents`, no `agents`. Si tu explorador oculta esta carpeta, activa la visualización de archivos ocultos.
 
 Un archivo `.md` es texto con formato Markdown. Se puede editar con VS Code y abrir como texto. Estos archivos documentan cómo queremos trabajar con el asistente; Flutter no los ejecuta ni los muestra en la aplicación.
 

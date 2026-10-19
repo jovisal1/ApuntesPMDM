@@ -8,7 +8,7 @@ El resultado de esta unidad es un catálogo de **componentes propios con variant
 
 ## 🔎 Revisa los componentes
 
-1. Cada componente vive en su archivo de `lib/componentes/`; las pantallas lo importan y muestran distintas configuraciones.
+1. Cada componente vive en su archivo de `lib/ui/core/ui/`; las pantallas lo importan y muestran distintas configuraciones.
 2. Los parámetros separan contenido, aspecto y acciones. Una variante visual no altera el texto o el callback recibido sin que lo indique su contrato.
 3. Las variantes se seleccionan mediante booleanos o `enum`, sin duplicar clases para cada combinación.
 4. Muestra todas las variantes pedidas y algún caso límite: texto largo, imagen que falla, botón desactivado o espacio reducido.
