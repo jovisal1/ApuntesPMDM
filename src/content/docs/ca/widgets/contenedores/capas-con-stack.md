@@ -61,7 +61,7 @@ SizedBox(
 )
 ```
 
-`Chip` aporta l’etiqueta. `Positioned` ha de quedar davall de l’`Stack`, no directament en la llista. `PositionedDirectional` permet `start` i `end` per a seguir el sentit de lectura.
+`Chip` aporta l’etiqueta. `Positioned` ha de quedar davall de l’`Stack`, no directament en la llista. `PositionedDirectional` permet utilitzar `start` i `end` quan la posició ha de seguir el sentit de lectura.
 
 ### 3. `fit` i `Positioned.fill`: cobrir l’àrea
 
@@ -112,7 +112,7 @@ Implementa els dos components en fitxers de `lib/ui/core/ui/`. Cada classe rep l
 
 Paràmetres: `String titulo`, `bool nueva = false`, `bool etiquetaAbajo = false`.
 
-Dibuixa un fons sense imatges externes i superposa títol i insígnia. `nueva` mostra la insígnia; l’altre paràmetre tria cantonada superior o inferior. Reserva altura explícita.
+Dibuixa un fons sense imatges externes i superposa títol i insígnia. `nueva` mostra la insígnia; l’altre paràmetre tria cantonada superior o inferior. Reserva una altura explícita.
 
 ### 2. `IconoConAviso`
 

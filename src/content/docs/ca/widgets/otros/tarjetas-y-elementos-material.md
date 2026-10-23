@@ -4,7 +4,7 @@ sidebar:
   order: 2
 ---
 
-**`Card` agrupa informació relacionada en una superfície Material.** `ListTile` organitza una fila, `Divider` separa grups i `CircleAvatar` representa una persona. Complementen la composició; no tots són contenidors de layout.
+**`Card` agrupa informació relacionada en una superfície Material.** `ListTile` organitza una fila, `Divider` separa grups i `CircleAvatar` representa una persona. Complementen la composició; no tots són contenidors de disposició.
 
 ```dart
 const Card(child: Padding(padding: EdgeInsets.all(16), child: Text('Grupo de senderismo')))
@@ -32,7 +32,7 @@ Card(
 
 ### 2. ListTile: `title`, `subtitle`, `leading` i `trailing`
 
-Ordena informació principal i secundària amb símbols opcionals. És útil per a membres d’un grup, ajustos o resums.
+Organitza la informació principal i secundària amb símbols opcionals. És útil per a mostrar membres d’un grup, ajustos o resums de rutes.
 
 ```dart
 const ListTile(
@@ -47,7 +47,7 @@ const ListTile(
 
 ### 3. `onTap`, `enabled` i `isThreeLine`
 
-Permeten que la fila responga, indicar disponibilitat i reservar espai per a un subtítol de dos línies. Són útils per a files amb més explicació.
+Permeten configurar l’acció de la fila, indicar si està disponible i reservar espai per a un subtítol de dos línies. Són útils per a files amb més explicació.
 
 ```dart
 ListTile(
@@ -59,7 +59,7 @@ ListTile(
 )
 ```
 
-`isThreeLine` no afig salts ni retalla: reserva tres línies totals. L’exemple inclou `\n` en el subtítol. `enabled: false` desactiva la interacció; `visualDensity: VisualDensity.compact` permet comparar una presentació compacta.
+`isThreeLine` no afig salts de línia ni retalla el text: reserva una disposició de tres línies en total. L’exemple inclou `\n` en el subtítol. `enabled: false` desactiva la interacció; `visualDensity: VisualDensity.compact` permet comparar una presentació compacta.
 
 ### 4. Divider: `height`, `thickness`, `indent` i `endIndent`
 
@@ -88,13 +88,13 @@ const ListTile(
 )
 ```
 
-`CircleAvatar` ocupa el `leading`; el nom complet queda en `title`. `backgroundImage: AssetImage(...)` permet una foto local: `AssetImage` és un proveïdor d’imatge, no un widget. `foregroundImage` afig una imatge de primer pla; no calen per a les inicials.
+`CircleAvatar` ocupa el `leading`; el nom complet queda en `title`. `backgroundImage: AssetImage(...)` permet una foto local: `AssetImage` és un proveïdor d’imatge, no un widget. `foregroundImage` afig una imatge de primer pla; per a mostrar inicials no necessitem cap proveïdor d’imatge.
 
 ## ✍️ Activitat: crea components amb variants
 
 Implementa els dos components en fitxers de `lib/ui/core/ui/`. Cada classe rep la configuració amb paràmetres amb nom i camps `final`; utilitza `StatelessWidget` i constructor `const` quan siga possible. Els paràmetres sense valor predeterminat són obligatoris (`required`), encara que admeten `null`. Les variants decidixen la presentació sense duplicar la classe.
 
-`VoidCallback` és una funció sense arguments ni resultat; `?` permet `null`. `Future<void> Function()` és una funció sense arguments que retorna una operació asíncrona sense dada final.
+`VoidCallback` és el tipus d’una funció sense arguments ni valor retornat; `VoidCallback?` admet també `null`, com indica el contracte de `FilaParticipante`.
 
 ### 1. `TarjetaSalida`
 
@@ -110,7 +110,7 @@ Combina `Card`, `ListTile` i, si cal, `Padding`. Canvia elevació i fons segons 
 
 Paràmetres: `String nombre`, `String iniciales`, `bool guia = false`, `VoidCallback? onTap`.
 
-Utilitza avatar i mostra el paper amb paraules. Ser guia canvia la informació secundària; el callback s’entrega des de la pantalla.
+Utilitza un avatar i indica amb paraules el paper del participant. El paràmetre `guia` canvia la informació secundària; la pantalla proporciona el callback.
 
 ## 🧩 Mostra les variants en el catàleg
 
@@ -133,7 +133,7 @@ FilaParticipante(
 ),
 ```
 
-Mostra les quatre combinacions de targeta i dos participants amb paper diferent. Prova un nom llarg i callback nul. Comprova la llegibilitat amb densitat compacta.
+Mostra les quatre combinacions de la targeta i dos participants amb papers diferents. Prova un nom llarg i un callback nul. Comprova que l’avatar i el text continuen sent llegibles amb la densitat compacta.
 
 Completa les variants que falten amb títols i explicacions pròpies. Utilitza `create-component` per a revisar el teu intent i `test-widget` per a comprovar requisits concrets. Executa `dart format lib test`, `flutter analyze` i les proves. Revisa també el resultat visual: una prova superada no garantix que el text es llija bé.
 

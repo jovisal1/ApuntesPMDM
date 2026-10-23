@@ -4,7 +4,7 @@ sidebar:
   order: 3
 ---
 
-**Un contenidor visual no sempre és interactiu.** `GestureDetector` reconeix gestos sobre un fill; `InkWell` afig resposta visual Material al toc. `RefreshIndicator` reconeix arrossegar una llista per a actualitzar. Complementen la composició, no substituïxen un botó per a accions estàndard.
+**Un contenidor visual no sempre és interactiu.** `GestureDetector` reconeix gestos sobre un fill; `InkWell` afig resposta visual Material al toc. `RefreshIndicator` detecta el gest d’arrossegar una llista per a demanar una actualització del contingut. Estos widgets complementen la composició, però no substituïxen un botó quan necessitem una acció estàndard.
 
 ```dart
 GestureDetector(
@@ -31,11 +31,11 @@ GestureDetector(
 )
 ```
 
-`behavior: opaque` fa que tota la caixa reba el gest, també zones buides; no la pinta. Si reconeix doble toc, la resposta d’un toc pot esperar per a distingir-lo. No amagues accions essencials darrere de gestos difícils de descobrir.
+`behavior: opaque` fa que tota la caixa reba el gest, també les zones buides; no la pinta. Si també reconeix el doble toc, la resposta a un únic toc pot retardar-se per a distingir els dos gestos. No amagues accions essencials darrere de gestos difícils de descobrir.
 
 ### 2. InkWell: superfície Material i ona visible
 
-És útil per a targetes i zones tàctils amb confirmació visual. Necessita un avantpassat `Material` on pintar l’ona.
+És útil per a targetes i zones tàctils amb confirmació visual. Necessita un widget `Material` per damunt en l’arbre, sobre el qual es dibuixa l’ona.
 
 ```dart
 Material(
@@ -53,7 +53,7 @@ Material(
 
 ### 3. RefreshIndicator: `onRefresh` i llista desplaçable
 
-Permet demanar una actualització en arrossegar cap avall des de l’inici d’una llista vertical. `onRefresh` retorna un `Future<void>`: l’indicador espera que acabe.
+Permet demanar una actualització en arrossegar cap avall des de l’inici d’una llista vertical. `onRefresh` retorna un `Future<void>`: l’indicador es manté fins que acaba l’operació.
 
 ```dart
 SizedBox(
@@ -85,7 +85,7 @@ Implementa els dos components en fitxers de `lib/ui/core/ui/`. Cada classe rep l
 
 Paràmetres: `String texto`, `bool conOnda = true`, `VoidCallback onTap`.
 
-Selecciona `Material` amb `InkWell` o `GestureDetector`. Conserva acció i dimensions; afig etiqueta accessible i explica com activar l’àrea.
+Segons `conOnda`, utilitza un `Material` amb `InkWell` o un `GestureDetector`. Conserva la mateixa acció i les mateixes dimensions; afig una etiqueta accessible i explica com activar l’àrea.
 
 ### 2. `ListaActualizable`
 
@@ -121,7 +121,7 @@ SizedBox(
 ),
 ```
 
-Compara la mateixa acció amb ona i sense i compta les crides: una activació, una crida. Prova l’actualització amb llista curta i llarga. El callback no canvia les dades per si mateix: més avant el pare gestionarà l’estat. En tests controla el Future, sense pauses reals ni `pumpAndSettle` mentre gire un indicador indefinit.
+Compara la mateixa acció amb ona i sense i compta les crides: una activació, una crida. Prova l’actualització amb llista curta i llarga. El callback no canvia les dades per si mateix: més avant el pare gestionarà l’estat. En les proves, controla quan es completa el `Future`, sense pauses reals ni `pumpAndSettle` mentre hi haja un indicador que gire indefinidament.
 
 Completa les variants que falten amb títols i explicacions pròpies. Utilitza `create-component` per a revisar el teu intent i `test-widget` per a comprovar requisits concrets. Executa `dart format lib test`, `flutter analyze` i les proves. Revisa també el resultat visual: una prova superada no garantix que el text es llija bé.
 

@@ -4,7 +4,7 @@ sidebar:
   order: 3
 ---
 
-**`Row` col·loca fills en horitzontal i `Column`, en vertical.** Servixen per a compondre una fitxa amb icones, textos i accions. Cap afig desplaçament ni canvia automàticament de línia: per a això utilitzarem `Wrap`.
+**`Row` col·loca fills en horitzontal i `Column`, en vertical.** Servixen per a compondre una fitxa amb icones, textos i accions. Cap dels dos afig desplaçament ni passa automàticament els fills a una altra línia: per a això utilitzarem `Wrap`.
 
 ```dart
 const Row(children: [Icon(Icons.hiking), Text('Ruta del río')])
@@ -114,7 +114,7 @@ Implementa els dos components en fitxers de `lib/ui/core/ui/`. Cada classe rep l
 
 Paràmetres: `String nombre`, `String distancia`, `bool vertical = false`.
 
-Organitza nom i distància en fila o columna. En horitzontal limita el text perquè no desborde. Conserva el contingut.
+Organitza nom i distància en fila o columna. En horitzontal, limita el text perquè un nom llarg no desborde. Conserva el contingut.
 
 ### 2. `GrupoEtiquetas`
 

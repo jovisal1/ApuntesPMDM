@@ -94,7 +94,7 @@ const ListTile(
 
 Implementa los dos componentes en archivos de `lib/ui/core/ui/`. Cada clase recibe la configuración mediante parámetros con nombre y campos `final`; utiliza `StatelessWidget` y constructor `const` cuando sea posible. Los parámetros sin valor predeterminado son obligatorios (`required`), aunque admitan `null`. Las variantes deciden la presentación sin duplicar la clase.
 
-`VoidCallback` es una función sin argumentos ni resultado; `?` permite `null`. `Future<void> Function()` es una función sin argumentos que devuelve una operación asíncrona sin dato final.
+`VoidCallback` es el tipo de una función sin argumentos ni valor devuelto; `VoidCallback?` permite también `null`, como indica el contrato de `FilaParticipante`.
 
 ### 1. `TarjetaSalida`
 

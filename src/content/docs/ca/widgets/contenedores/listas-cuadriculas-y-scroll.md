@@ -38,7 +38,7 @@ SizedBox(
 )
 ```
 
-`Axis.horizontal` canvia l’eix. Els `SizedBox` interiors reserven amplària per element. `EdgeInsets` configura l’espai interior. `AlwaysScrollableScrollPhysics` permet arrossegar encara amb poc contingut; l’utilitzarem amb l’actualització per gest.
+`Axis.horizontal` canvia l’eix. Els `SizedBox` interiors reserven amplària per element. `EdgeInsets` configura l’espai interior. `AlwaysScrollableScrollPhysics` permet arrossegar encara que hi haja poc contingut; l’utilitzarem en l’apartat de gestos de la secció Altres.
 
 ### 2. `itemCount` i `itemBuilder`: construir des de dades
 
@@ -155,7 +155,7 @@ Utilitza `ListView.builder`. En horitzontal dona amplària finita a cada element
 
 Paràmetres: `List<String> nombres`, `bool adaptable = false`, `int columnas = 2`.
 
-Alterna columnes fixes positives i màxim de 180. Utilitza un builder i mostra cada nom una vegada per dada.
+Segons `adaptable`, alterna un delegate amb un nombre positiu de columnes fixes i un altre amb una amplària màxima de 180. Utilitza un builder i mostra cada nom una vegada per dada rebuda.
 
 ## 🧩 Mostra les variants en el catàleg
 
@@ -179,7 +179,7 @@ const SizedBox(
 ),
 ```
 
-Prova dades buides, una i trenta. Desplaça’t fins a l’última i reduïx l’amplària. En proves de builders no exigisques trobar tots els elements abans de desplaçar-te: alguns encara no s’han construït.
+Prova una llista buida, una amb un element i una altra amb trenta. Desplaça’t fins a l’últim element i reduïx l’amplària de la finestra. En proves de builders no exigisques trobar tots els elements abans de desplaçar-te: alguns encara no s’han construït.
 
 Completa les variants que falten amb títols i explicacions pròpies. Utilitza `create-component` per a revisar el teu intent i `test-widget` per a comprovar requisits concrets. Executa `dart format lib test`, `flutter analyze` i les proves. Revisa també el resultat visual: una prova superada no garantix que el text es llija bé.
 
