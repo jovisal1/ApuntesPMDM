@@ -1,7 +1,7 @@
 ---
 title: "Practica amb els widgets bàsics"
 sidebar:
-  order: 9
+  order: 10
 ---
 
 El resultat d’esta unitat és un catàleg de **components propis amb variants**, construïts a partir dels widgets estudiats. Completa les activitats de cada apartat i revisa el conjunt.
@@ -19,3 +19,5 @@ El resultat d’esta unitat és un catàleg de **components propis amb variants*
 Executa `dart format lib`, `flutter analyze` i les proves creades amb `test-widget`. Revisa que les proves es basen en requisits concrets i que distingixen les variants. Comprova també la llegibilitat i l’ajust visual en una finestra menuda.
 
 Entrega un únic projecte amb els components, les pantalles del catàleg i les proves. Tria dos components i explica per què has triat els seus paràmetres, quines variants permeten i què detectaria una de les proves. No cal que hages implementat el mecanisme de pas entre pantalles.
+
+Inclou també les activitats de [Contenidors](../../contenedores/), comprovant les variants en finestres de diferents grandàries.

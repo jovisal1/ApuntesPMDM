@@ -19,6 +19,7 @@ Imagina una fitxa d’una ruta: té un títol, una fotografia, una icona que ind
 | Reservar el lloc d’una peça pendent | `Placeholder` |
 | Mostrar la barra superior | `AppBar` |
 | Organitzar les zones d’una pantalla Material | `Scaffold` |
+| Organitzar contingut i desplaçament | `Container`, `Row`, `Column`, `Stack`, `ListView`, `GridView` |
 
 Treballarem directament sobre el projecte base que crearem en la secció de configuració de l’assistent. La pantalla principal, el llistat i les seccions buides ja estan preparats. Cada apartat explica el widget amb un exemple mínim i les propietats principals. Després crearàs components amb paràmetres en fitxers de `lib/ui/core/ui/` i mostraràs les variants en la pantalla corresponent del catàleg. Els exemples de propietats ajuden a comprendre el widget; el resultat de l’activitat són els teus components reutilitzables. Consulta l’[esquema del projecte](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
 
@@ -64,4 +65,6 @@ Abans de modificar un exemple, intenta respondre: **quin widget configure, quin 
 - [Botons: respondre a una acció](./botones/)
 - [Placeholder: reservar un espai provisional](./placeholder/)
 - [Scaffold i AppBar: donar estructura a la pantalla](./scaffold-y-appbar/)
+- [Contenidors: composició, espai i desplaçament](../contenedores/)
+- [Altres widgets: presentació i interacció](../otros/)
 - [Practica amb els widgets bàsics](./practica/)

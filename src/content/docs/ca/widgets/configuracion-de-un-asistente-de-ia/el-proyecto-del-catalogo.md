@@ -52,7 +52,9 @@ catalogo_widgets/
 │               ├── icon_ejemplos_pantalla.dart
 │               ├── botones_ejemplos_pantalla.dart
 │               ├── placeholder_ejemplos_pantalla.dart
-│               └── scaffold_ejemplos_pantalla.dart
+│               ├── scaffold_ejemplos_pantalla.dart
+│               ├── contenedores_ejemplos_pantalla.dart
+│               └── otros_ejemplos_pantalla.dart
 ├── test/
 │   ├── widget_test.dart
 │   └── ui/
@@ -114,7 +116,7 @@ Els noms de fitxers, classes i paràmetres del catàleg, i les cadenes dels exem
 
 ## 2. Prepara les pantalles buides
 
-Crea `lib/ui/catalogo/ui/` i els sis fitxers de la taula. Copia la plantilla següent en cadascun: canvia **les dos aparicions del nom de classe** i el títol d’`AppBar` segons la fila. No canvies la resta.
+Crea `lib/ui/catalogo/ui/` i els huit fitxers de la taula. Copia la plantilla següent en cadascun: canvia **les dos aparicions del nom de classe** i el títol d’`AppBar` segons la fila. No canvies la resta.
 
 | Fitxer dins de `lib/ui/catalogo/ui/` | Classe i constructor | Títol |
 | --- | --- | --- |
@@ -124,6 +126,8 @@ Crea `lib/ui/catalogo/ui/` i els sis fitxers de la taula. Copia la plantilla seg
 | `botones_ejemplos_pantalla.dart` | `BotonesEjemplosPantalla` | `Ejemplos de Botones` |
 | `placeholder_ejemplos_pantalla.dart` | `PlaceholderEjemplosPantalla` | `Ejemplos de Placeholder` |
 | `scaffold_ejemplos_pantalla.dart` | `ScaffoldEjemplosPantalla` | `Ejemplos de Scaffold y AppBar` |
+| `contenedores_ejemplos_pantalla.dart` | `ContenedoresEjemplosPantalla` | `Ejemplos de Contenedores` |
+| `otros_ejemplos_pantalla.dart` | `OtrosEjemplosPantalla` | `Ejemplos de Otros` |
 
 ```dart
 import 'package:flutter/material.dart';
@@ -150,7 +154,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 
 ## 3. Completa el llistat i el punt d’entrada
 
-Crea `lib/ui/catalogo/ui/catalogo_pantalla.dart` amb este contingut complet. Les sis pantalles del pas anterior estan en la mateixa carpeta; per això els imports només indiquen el nom del fitxer. El mecanisme entre pantalles ja està resolt i l’estudiarem més avant:
+Crea `lib/ui/catalogo/ui/catalogo_pantalla.dart` amb este contingut complet. Les huit pantalles del pas anterior estan en la mateixa carpeta; per això els imports només indiquen el nom del fitxer. El mecanisme entre pantalles ja està resolt i l’estudiarem més avant:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -161,6 +165,8 @@ import 'icon_ejemplos_pantalla.dart';
 import 'botones_ejemplos_pantalla.dart';
 import 'placeholder_ejemplos_pantalla.dart';
 import 'scaffold_ejemplos_pantalla.dart';
+import 'contenedores_ejemplos_pantalla.dart';
+import 'otros_ejemplos_pantalla.dart';
 
 class CatalogoPantalla extends StatelessWidget {
   const CatalogoPantalla({super.key});
@@ -243,6 +249,30 @@ class CatalogoPantalla extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.dashboard_outlined),
+            title: const Text('Contenedores'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const ContenedoresEjemplosPantalla(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.more_horiz),
+            title: const Text('Otros'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const OtrosEjemplosPantalla(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -275,7 +305,7 @@ class CatalogoApp extends StatelessWidget {
 
 ## 4. Comprova el punt de partida
 
-Guarda els huit fitxers i executa des de l’arrel del projecte:
+Guarda els deu fitxers i executa des de l’arrel del projecte:
 
 ```bash
 dart format lib
@@ -284,9 +314,9 @@ flutter run
 
 `dart format lib` aplica el format estàndard de Dart a tots els fitxers `.dart` de la carpeta `lib` i les subcarpetes. Ajusta la indentació, els espais i els salts de línia, i guarda els canvis en eixos fitxers. No executa l’aplicació ni comprova el comportament. Després, `flutter run` inicia l’aplicació per a revisar el resultat en pantalla.
 
-Has de veure les sis entrades. Obri cadascuna i comprova el títol i el cos buit; torna al llistat amb el control de la barra. Si un import falla, revisa que el nom del fitxer i el de classe coincidisquen amb la taula.
+Has de veure les huit entrades. Obri cadascuna i comprova el títol i el cos buit; torna al llistat amb el control de la barra. Si un import falla, revisa que el nom del fitxer i el de classe coincidisquen amb la taula.
 
-Per a comprovar este punt de partida, pots demanar a `test-widget` que prepare `test/widget_test.dart` i verifique que `CatalogoApp` mostra el títol i les sis etiquetes. Executa `flutter analyze` per a detectar problemes en el codi i `flutter test` per a executar les proves, sense estudiar encara el mecanisme entre pantalles.
+Per a comprovar este punt de partida, pots demanar a `test-widget` que prepare `test/widget_test.dart` i verifique que `CatalogoApp` mostra el títol i les huit etiquetes. Executa `flutter analyze` per a detectar problemes en el codi i `flutter test` per a executar les proves, sense estudiar encara el mecanisme entre pantalles.
 
 ## 5. 🤖 Avança en el catàleg amb l’assistent
 

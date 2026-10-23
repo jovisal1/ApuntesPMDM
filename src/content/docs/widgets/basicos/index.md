@@ -19,6 +19,7 @@ Imagina una ficha de una ruta: tiene un título, una fotografía, un icono que i
 | Reservar el lugar de una pieza pendiente | `Placeholder` |
 | Mostrar la barra superior | `AppBar` |
 | Organizar las zonas de una pantalla Material | `Scaffold` |
+| Organizar contenido y desplazamiento | `Container`, `Row`, `Column`, `Stack`, `ListView`, `GridView` |
 
 Trabajaremos directamente sobre el proyecto base creado en la sección de configuración del asistente. La pantalla principal, el listado y las secciones vacías ya están preparados. Cada apartado empieza explicando el widget con un ejemplo mínimo y sus propiedades principales. Después crearás componentes parametrizados en archivos de `lib/ui/core/ui/` y mostrarás sus variantes en la pantalla correspondiente del catálogo. Los ejemplos de propiedades sirven para comprender el widget; el resultado de la actividad son tus componentes reutilizables. Consulta el [esquema del proyecto](../configuracion-de-un-asistente-de-ia/el-proyecto-del-catalogo/).
 
@@ -64,4 +65,6 @@ Antes de modificar un ejemplo, intenta responder: **¿qué widget estoy configur
 - [Botones: responder a una acción](./botones/)
 - [Placeholder: reservar un espacio provisional](./placeholder/)
 - [Scaffold y AppBar: dar estructura a la pantalla](./scaffold-y-appbar/)
+- [Contenedores: composición, espacio y desplazamiento](../contenedores/)
+- [Otros widgets: presentación e interacción](../otros/)
 - [Practica con los widgets básicos](./practica/)

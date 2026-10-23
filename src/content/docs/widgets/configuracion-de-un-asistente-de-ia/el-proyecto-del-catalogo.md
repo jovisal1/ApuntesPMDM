@@ -52,7 +52,9 @@ catalogo_widgets/
 │               ├── icon_ejemplos_pantalla.dart
 │               ├── botones_ejemplos_pantalla.dart
 │               ├── placeholder_ejemplos_pantalla.dart
-│               └── scaffold_ejemplos_pantalla.dart
+│               ├── scaffold_ejemplos_pantalla.dart
+│               ├── contenedores_ejemplos_pantalla.dart
+│               └── otros_ejemplos_pantalla.dart
 ├── test/
 │   ├── widget_test.dart
 │   └── ui/
@@ -112,7 +114,7 @@ Por ahora separaremos la pantalla de sus componentes reutilizables. Decidir el t
 
 ## 2. Prepara las pantallas vacías
 
-Crea `lib/ui/catalogo/ui/` y los seis archivos de la tabla. Copia la siguiente plantilla en cada uno: cambia **las dos apariciones del nombre de clase** y el título de `AppBar` según la fila. No cambies el resto.
+Crea `lib/ui/catalogo/ui/` y los ocho archivos de la tabla. Copia la siguiente plantilla en cada uno: cambia **las dos apariciones del nombre de clase** y el título de `AppBar` según la fila. No cambies el resto.
 
 | Archivo dentro de `lib/ui/catalogo/ui/` | Clase y constructor | Título |
 | --- | --- | --- |
@@ -122,6 +124,8 @@ Crea `lib/ui/catalogo/ui/` y los seis archivos de la tabla. Copia la siguiente p
 | `botones_ejemplos_pantalla.dart` | `BotonesEjemplosPantalla` | `Ejemplos de Botones` |
 | `placeholder_ejemplos_pantalla.dart` | `PlaceholderEjemplosPantalla` | `Ejemplos de Placeholder` |
 | `scaffold_ejemplos_pantalla.dart` | `ScaffoldEjemplosPantalla` | `Ejemplos de Scaffold y AppBar` |
+| `contenedores_ejemplos_pantalla.dart` | `ContenedoresEjemplosPantalla` | `Ejemplos de Contenedores` |
+| `otros_ejemplos_pantalla.dart` | `OtrosEjemplosPantalla` | `Ejemplos de Otros` |
 
 ```dart
 import 'package:flutter/material.dart';
@@ -148,7 +152,7 @@ class TextEjemplosPantalla extends StatelessWidget {
 
 ## 3. Completa el listado y el punto de entrada
 
-Crea `lib/ui/catalogo/ui/catalogo_pantalla.dart` con este contenido completo. Las seis pantallas del paso anterior están en la misma carpeta; por eso los imports solo indican el nombre del archivo. El mecanismo entre pantallas ya está resuelto y lo estudiaremos más adelante:
+Crea `lib/ui/catalogo/ui/catalogo_pantalla.dart` con este contenido completo. Las ocho pantallas del paso anterior están en la misma carpeta; por eso los imports solo indican el nombre del archivo. El mecanismo entre pantallas ya está resuelto y lo estudiaremos más adelante:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -159,6 +163,8 @@ import 'icon_ejemplos_pantalla.dart';
 import 'botones_ejemplos_pantalla.dart';
 import 'placeholder_ejemplos_pantalla.dart';
 import 'scaffold_ejemplos_pantalla.dart';
+import 'contenedores_ejemplos_pantalla.dart';
+import 'otros_ejemplos_pantalla.dart';
 
 class CatalogoPantalla extends StatelessWidget {
   const CatalogoPantalla({super.key});
@@ -241,6 +247,30 @@ class CatalogoPantalla extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.dashboard_outlined),
+            title: const Text('Contenedores'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const ContenedoresEjemplosPantalla(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.more_horiz),
+            title: const Text('Otros'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const OtrosEjemplosPantalla(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -273,7 +303,7 @@ class CatalogoApp extends StatelessWidget {
 
 ## 4. Comprueba el punto de partida
 
-Guarda los ocho archivos y ejecuta desde la raíz del proyecto:
+Guarda los diez archivos y ejecuta desde la raíz del proyecto:
 
 ```bash
 dart format lib
@@ -282,9 +312,9 @@ flutter run
 
 `dart format lib` aplica el formato estándar de Dart a todos los archivos `.dart` de la carpeta `lib` y sus subcarpetas. Ajusta la indentación, los espacios y los saltos de línea, y guarda los cambios en esos archivos. No ejecuta la aplicación ni comprueba su comportamiento. Después, `flutter run` inicia la aplicación para revisar el resultado en pantalla.
 
-Debes ver las seis entradas. Abre cada una y comprueba su título y el cuerpo vacío; vuelve al listado con el control de la barra. Si falla un import, revisa que el nombre del archivo y el de la clase coincidan con la tabla.
+Debes ver las ocho entradas. Abre cada una y comprueba su título y el cuerpo vacío; vuelve al listado con el control de la barra. Si falla un import, revisa que el nombre del archivo y el de la clase coincidan con la tabla.
 
-Para comprobar este punto de partida, puedes pedir a `test-widget` que prepare `test/widget_test.dart` y verifique que `CatalogoApp` muestra el título y las seis etiquetas. Ejecuta `flutter analyze` para detectar problemas en el código y `flutter test` para ejecutar las pruebas, sin estudiar todavía el mecanismo entre pantallas.
+Para comprobar este punto de partida, puedes pedir a `test-widget` que prepare `test/widget_test.dart` y verifique que `CatalogoApp` muestra el título y las ocho etiquetas. Ejecuta `flutter analyze` para detectar problemas en el código y `flutter test` para ejecutar las pruebas, sin estudiar todavía el mecanismo entre pantallas.
 
 ## 5. 🤖 Avanza en el catálogo con el asistente
 
