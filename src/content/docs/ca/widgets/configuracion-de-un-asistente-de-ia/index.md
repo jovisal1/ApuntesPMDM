@@ -9,18 +9,17 @@ En esta pràctica prepararem un **assistent de Flutter** i organitzarem el treba
 
 La IA ens ajudarà a comprendre codi, trobar errors i revisar canvis. Per a aprendre hem de comprovar les propostes, executar-les i explicar què hem construït. Una resposta convincent pot contindre un error.
 
+## 🎯 Què aprendràs
+
+- Preparar el context i les instruccions d’un assistent per a treballar amb Flutter.
+- Distingir agents, habilitats, regles i context.
+- Organitzar el catàleg de widgets i comprovar les propostes de l’assistent.
+
 ## Què has de saber abans de començar
 
 Has d’haver preparat [l’entorn de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) i practicat [les bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, llistes, funcions, classes, constructors i paràmetres amb nom. Abans de continuar, completa el [primer exemple de widgets](../primer-ejemplo/): esta és la segona secció del recorregut.
 
 No necessites una clau d’una API ni afegir paquets d’IA a `pubspec.yaml`. L’assistent s’utilitza durant el desenvolupament; la nostra aplicació serà un catàleg i no incorporarà un xat.
-
-## Recorregut de la pràctica
-
-1. [Preparar el projecte](./preparar-el-proyecto/).
-2. [Configurar i comprovar l’assistent](./configurar-el-asistente/).
-3. [Crear habilitats per a components, proves i revisió](./crear-skills/).
-4. [Planificar el catàleg que construirem en Bàsics](./el-proyecto-del-catalogo/).
 
 ## Quatre conceptes que no hem de confondre
 

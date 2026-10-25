@@ -14,3 +14,9 @@ L’element fonamental sobre el qual es construïx qualsevol interfície en Flut
 Al llarg d’esta unitat aprendrem a construir interfícies combinant diferents tipus de widgets. Veurem com organitzar i distribuir els elements en pantalla, com aplicar estils i, progressivament, com aconseguir que les nostres interfícies puguen respondre a les accions de l’usuari i als canvis que es produïsquen en l’aplicació.
 
 L’objectiu no serà únicament conéixer una col·lecció de widgets, sinó comprendre **com pensa Flutter a l’hora de construir una interfície**, ja que esta filosofia serà la base sobre la qual desenvoluparem les nostres aplicacions.
+
+## 🎯 Què aprendràs
+
+- Reconéixer el paper de Flutter en la creació d’aplicacions amb interfície gràfica.
+- Entendre l’enfocament declaratiu i la composició d’una pantalla amb widgets.
+- Relacionar les dades de l’aplicació amb el que es mostra en pantalla.

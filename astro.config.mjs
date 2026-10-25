@@ -100,33 +100,65 @@ export default defineConfig({
               collapsed: true,
               translations: { ca: "Formularis i navegació" },
               items: [
-                { autogenerate: { directory: "formularis-i-navegacio", collapsed: true } },
-              ],
-            },
-            {
-              label: "Gestión del estado",
-              collapsed: true,
-              translations: { ca: "Gestió de l'estat" },
-              items: [{ autogenerate: { directory: "gestio-de-l-estat", collapsed: true } }],
-            },
-            {
-              label: "Persistencia",
-              collapsed: true,
-              translations: { ca: "Persistència" },
-              items: [{ autogenerate: { directory: "persistencia", collapsed: true } }],
-            },
-            {
-              label: "Paquetes y recursos",
-              collapsed: true,
-              translations: { ca: "Paquets i recursos" },
-              items: [{ autogenerate: { directory: "paquets-i-recursos", collapsed: true } }],
-            },
-            {
-              label: "Desarrollo de juegos en 2D y 3D",
-              collapsed: true,
-              translations: { ca: "Desenvolupament de jocs en 2D i 3D" },
-              items: [
-                { autogenerate: { directory: "desenvolupament-de-jocs", collapsed: true } },
+                { slug: "formularis-i-navegacio" },
+                {
+                  label: "Formularios",
+                  translations: { ca: "Formularis" },
+                  collapsed: true,
+                  items: [
+                    {
+                      label: "Elementos de un formulario",
+                      translations: { ca: "Elements d’un formulari" },
+                      collapsed: true,
+                      items: [{ autogenerate: { directory: "formularis-i-navegacio/controles-de-entrada" } }],
+                    },
+                    {
+                      label: "Crear un formulario",
+                      translations: { ca: "Crear un formulari" },
+                      collapsed: true,
+                      items: [{ autogenerate: { directory: "formularis-i-navegacio/formulario-con-viewmodel" } }],
+                    },
+                    { slug: "formularis-i-navegacio/formularios-actividades" },
+                  ],
+                },
+                {
+                  label: "Navegación",
+                  translations: { ca: "Navegació" },
+                  collapsed: true,
+                  items: [
+                    { slug: "formularis-i-navegacio/navegacion" },
+                    {
+                      label: "Navigator",
+                      collapsed: true,
+                      items: [{
+                        slug: "formularis-i-navegacio/navegacion/entre-pantallas",
+                        label: "Abrir pantallas y volver",
+                        translations: { ca: "Obrir pantalles i tornar" },
+                      }],
+                    },
+                    {
+                      label: "Secciones",
+                      translations: { ca: "Seccions" },
+                      collapsed: true,
+                      items: [{
+                        slug: "formularis-i-navegacio/navegacion/widgets-de-navegacion",
+                        label: "Organizar las secciones",
+                        translations: { ca: "Organitzar les seccions" },
+                      }],
+                    },
+                    {
+                      label: "Diálogos",
+                      translations: { ca: "Diàlegs" },
+                      collapsed: true,
+                      items: [{
+                        slug: "formularis-i-navegacio/navegacion/dialogos",
+                        label: "Mostrar diálogos",
+                        translations: { ca: "Mostrar diàlegs" },
+                      }],
+                    },
+                    { slug: "formularis-i-navegacio/navegacion/actividades" },
+                  ],
+                },
               ],
             },
           ],

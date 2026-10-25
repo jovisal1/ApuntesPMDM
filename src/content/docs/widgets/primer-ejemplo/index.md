@@ -10,6 +10,12 @@ Vamos a poner en práctica lo que hemos visto en la introducción. Empezaremos m
 
 No hace falta conocer todavía todas las propiedades de cada widget. La idea es **hacer un cambio, observar el resultado y entender por qué ocurre**. Cada bloque indica si debes sustituir un archivo completo o modificar solo una parte.
 
+## 🎯 Qué aprenderás
+
+- Crear y ejecutar un proyecto Flutter y mostrar una primera pantalla.
+- Extraer un widget propio y organizar la pantalla en su archivo.
+- Construir un contador de vueltas y actualizarlo al pulsar un botón.
+
 ## Apartados
 
 - [Prepara y ejecuta el proyecto](./prepara-y-ejecuta-el-proyecto/)

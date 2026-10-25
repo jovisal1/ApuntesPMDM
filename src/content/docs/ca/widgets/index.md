@@ -18,6 +18,12 @@ La imatge mostra l’**arbre de widgets**. La seua arrel és el widget situat m�
 
 Esta pantalla es pot expressar amb el següent programa complet. Apega’l en `lib/main.dart` d’un projecte Flutter o en un exemple Flutter de [DartPad](https://dartpad.dev/):
 
+## 🎯 Què aprendràs
+
+- Llegir l’arbre de widgets i combinar elements per a construir una pantalla.
+- Distingir widgets amb estat propi i sense, i reconéixer-ne el cicle de vida.
+- Configurar constructors i respondre a canvis de dades en la interfície.
+
 ```dart
 import 'package:flutter/material.dart';
 

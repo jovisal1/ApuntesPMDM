@@ -13,3 +13,9 @@ Para trabajar con Flutter y desarrollar aplicaciones para Android, necesitaremos
 * **Emuladores de Android**: configuraremos dispositivos virtuales que nos permitirán **ejecutar y probar nuestras aplicaciones** sin necesidad de utilizar un dispositivo físico. Para ello podremos utilizar los emuladores proporcionados por Android Studio y, cuando sea necesario, herramientas como **Genymotion**.
 
 Una vez configurados estos componentes, tendremos preparado nuestro entorno para comenzar a desarrollar y probar aplicaciones Flutter sobre Android.
+
+## 🎯 Qué aprenderás
+
+- Instalar y configurar el SDK de Flutter y las herramientas de Android.
+- Preparar Visual Studio Code para trabajar con Dart y Flutter.
+- Configurar un emulador y comprobar que el entorno permite ejecutar aplicaciones.

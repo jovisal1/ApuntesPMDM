@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="465" viewBox="0 0 1100 465" role="img" aria-labelledby="title desc">
+<title id="title">Enviar dades i rebre un resultat</title>
+<desc id="desc">Inicio obri Detalle amb un argument. En triar, Detalle fa pop amb un resultat i continua el codi que esperava amb await.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#42648d" stroke-width="2"/></marker></defs>
+<rect width="1100" height="465" rx="20" fill="#f1f5fb"/>
+<g font-family="Arial, sans-serif" fill="#172c47">
+<text x="26" y="38" font-size="24" font-weight="700">Un viatge d’anada i tornada entre pantalles</text>
+<rect x="26" y="77" width="330" height="268" rx="15" fill="white" stroke="#b4c5db" stroke-width="2"/>
+<text x="48" y="115" font-size="23" font-weight="700">InicioPantalla</text>
+<text x="48" y="150" font-size="17">Obri la ruta i espera el tancament</text>
+<rect x="48" y="170" width="286" height="52" rx="8" fill="#edf3ff"/><text x="62" y="202" font-family="monospace" font-size="15">await push&lt;String&gt;(...)</text>
+<text x="48" y="269" font-size="17">En rebre el resultat:</text><text x="48" y="304" font-size="19" font-weight="700">SnackBar: Has recibido: Text</text>
+<rect x="744" y="77" width="330" height="268" rx="15" fill="white" stroke="#b4c5db" stroke-width="2"/>
+<text x="766" y="115" font-size="23" font-weight="700">DetallePantalla</text>
+<text x="766" y="150" font-size="17">Rep l’argument per constructor</text>
+<rect x="766" y="170" width="286" height="52" rx="8" fill="#edf3ff"/><text x="780" y="202" font-family="monospace" font-size="15">nombre: 'Text'</text>
+<rect x="766" y="253" width="286" height="48" rx="24" fill="#245cca"/><text x="909" y="283" font-size="18" fill="white" text-anchor="middle">Triar → tancar amb resultat</text>
+<text x="550" y="121" font-size="18" font-weight="700" text-anchor="middle">1. Obrir amb un argument</text>
+<text x="550" y="151" font-family="monospace" font-size="17" text-anchor="middle">nombre: 'Text'</text>
+<path d="M370 176h358" fill="none" stroke="#42648d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="550" y="247" font-size="18" font-weight="700" text-anchor="middle">2. Tornar amb una resposta</text>
+<text x="550" y="276" font-family="monospace" font-size="17" text-anchor="middle">pop&lt;String&gt;(nombre)</text>
+<path d="M730 302H372" fill="none" stroke="#42648d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="26" y="390" font-size="18">await continua quan es tanca Detalle; la interfície continua responent mentrestant.</text>
+<text x="26" y="430" font-size="18">Si tornes amb la fletxa sense triar, el resultat és null.</text>
+</g></svg>

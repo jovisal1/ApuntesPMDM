@@ -14,3 +14,9 @@ El elemento fundamental sobre el que se construye cualquier interfaz en Flutter 
 A lo largo de esta unidad aprenderemos a construir interfaces combinando diferentes tipos de widgets. Veremos cómo organizar y distribuir los elementos en pantalla, cómo aplicar estilos y, progresivamente, cómo conseguir que nuestras interfaces puedan responder a las acciones del usuario y a los cambios que se produzcan en la aplicación.
 
 El objetivo no será únicamente conocer una colección de widgets, sino comprender **cómo piensa Flutter a la hora de construir una interfaz**, ya que esta filosofía será la base sobre la que desarrollaremos nuestras aplicaciones.
+
+## 🎯 Qué aprenderás
+
+- Reconocer el papel de Flutter en la creación de aplicaciones con interfaz gráfica.
+- Entender el enfoque declarativo y la composición de una pantalla con widgets.
+- Relacionar los datos de la aplicación con lo que se muestra en pantalla.

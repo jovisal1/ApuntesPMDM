@@ -9,6 +9,12 @@ El desenvolupament d'aplicacions mòbils és fonamental en el món actual ja que
 
 <figure><img src="https://3028613194-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fo3ypBHctTBoV6BFwWe0Y%2Fuploads%2F3xUnXi4uVVuk35lr65s5%2FLogoAssignatura.jpg?alt=media&amp;token=f6427cd8-acf5-4037-801d-c676830b4788" alt="" width="375"><figcaption></figcaption></figure>
 
+## 🎯 Què aprendràs
+
+- Distingir els principals enfocaments de desenvolupament multiplataforma.
+- Identificar què oferix Flutter i quines són les seues limitacions.
+- Reconéixer les capes de la seua arquitectura i les plataformes en què pot executar-se.
+
 ## Enfocaments per al desenvolupament multiplataforma
 
 Amb l'objectiu de reduir el desenvolupament específic per a cada plataforma i, per tant, els costos associats, han aparegut diferents solucions per a crear aplicacions multiplataforma. Moltes d'elles tenen el seu origen en les tecnologies web.

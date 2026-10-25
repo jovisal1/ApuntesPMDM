@@ -10,6 +10,12 @@ Ja sabem que una pantalla es construïx combinant widgets. Ara coneixerem les pe
 
 Imagina una fitxa d’una ruta: té un títol, una fotografia, una icona que indica la dificultat i un botó per a guardar-la. Estes peces es col·loquen dins d’una pantalla amb una barra superior. Al llarg de l’apartat construirem els elements d’esta interfície.
 
+## 🎯 Què aprendràs
+
+- Mostrar textos, imatges i icones i configurar-ne l’aspecte.
+- Incorporar botons i donar estructura a una pantalla amb Scaffold i AppBar.
+- Crear components amb paràmetres i comparar-ne les variants en el catàleg.
+
 | Necessitat | Widget |
 | --- | --- |
 | Mostrar un text | `Text` |

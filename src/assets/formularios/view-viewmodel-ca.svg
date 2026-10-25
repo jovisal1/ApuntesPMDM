@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600" role="img" aria-labelledby="title desc">
+<title id="title">El formulari: View i ViewModel</title><desc id="desc">1. Escrius en Nombre → la View crida cambiarNombre(texto). 2. El ViewModel actualitza la dada i crida notifyListeners(). 3. ListenableBuilder reconstruïx la View amb les dades actuals.</desc>
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#245cca" stroke-width="2"/></marker></defs>
+<rect width="1100" height="600" rx="20" fill="#f1f5fb"/>
+<g font-family="Arial, sans-serif" fill="#172c47">
+<text x="24" y="35" font-size="23" font-weight="700">El formulari: View i ViewModel</text>
+<rect x="24" y="57" width="430" height="371" rx="16" fill="white" stroke="#9bb5d9" stroke-width="2"/>
+<rect x="646" y="57" width="430" height="371" rx="16" fill="white" stroke="#9bb5d9" stroke-width="2"/>
+<text x="46" y="93" font-size="24" font-weight="700">View</text><text x="46" y="121" font-size="16">La pantalla que usa l’alumne</text>
+<text x="46" y="146" font-size="14" fill="#52667f">InscripcionPantalla</text>
+<text x="46" y="179" font-size="13">Nom</text><rect x="46" y="189" width="386" height="39" rx="6" fill="#f8fafc" stroke="#8295ae"/><text x="58" y="215" font-size="16">Ana</text>
+<text x="46" y="250" font-size="13">Correu</text><rect x="46" y="260" width="386" height="39" rx="6" fill="#f8fafc" stroke="#8295ae"/><text x="58" y="286" font-size="16">ana@centro.es</text>
+<rect x="46" y="315" width="386" height="39" rx="19" fill="#245cca"/><text x="239" y="341" font-size="16" fill="white" text-anchor="middle">Previsualitzar</text>
+<text x="46" y="382" font-size="16">Camps, errors, teclat i controladors</text><text x="46" y="407" font-size="16">Mostra el resum quan existix</text>
+<text x="668" y="93" font-size="24" font-weight="700">ViewModel</text><text x="668" y="121" font-size="16">Les dades i les regles del formulari</text><text x="668" y="146" font-size="14" fill="#52667f">InscripcionViewModel</text>
+<text x="668" y="187" font-size="16">Conserva nom, correu i resum</text>
+<rect x="668" y="200" width="386" height="84" rx="8" fill="#edf3ff"/>
+<text x="682" y="224" font-family="monospace" font-size="15">nombre: 'Ana'</text><text x="682" y="248" font-family="monospace" font-size="15">correo: 'ana@centro.es'</text><text x="682" y="272" font-family="monospace" font-size="15">resumen: null / String</text>
+<text x="668" y="315" font-size="16">Comprova el nom i el correu</text><text x="668" y="341" font-family="monospace" font-size="14">validarNombre() · validarCorreo()</text>
+<text x="668" y="380" font-size="16">Genera el resum si les dades són vàlides</text><text x="668" y="406" font-family="monospace" font-size="15">previsualizar()</text>
+<text x="550" y="207" font-size="15" text-anchor="middle">Text i accions</text><path d="M466 224H632" stroke="#245cca" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="550" y="310" font-size="15" text-anchor="middle">Avís de canvi</text><path d="M634 328H468" stroke="#245cca" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="550" y="356" font-family="monospace" font-size="12" text-anchor="middle">notifyListeners()</text>
+<text x="26" y="479" font-size="19">1. Escrius en Nombre → la View crida cambiarNombre(texto).</text><text x="26" y="521" font-size="19">2. El ViewModel actualitza la dada i crida notifyListeners().</text><text x="26" y="563" font-size="19">3. ListenableBuilder reconstruïx la View amb les dades actuals.</text>
+</g></svg>

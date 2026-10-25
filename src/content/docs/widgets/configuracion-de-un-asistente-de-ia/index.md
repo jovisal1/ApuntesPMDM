@@ -9,18 +9,17 @@ En esta práctica vamos a preparar un **asistente de Flutter** y organizar el tr
 
 La IA nos ayudará a comprender código, encontrar errores y revisar cambios. Para aprender necesitamos comprobar sus propuestas, ejecutarlas y explicar lo que hemos construido. Una respuesta convincente puede contener un error.
 
+## 🎯 Qué aprenderás
+
+- Preparar el contexto y las instrucciones de un asistente para trabajar con Flutter.
+- Distinguir agentes, habilidades, reglas y contexto.
+- Organizar el catálogo de widgets y comprobar las propuestas del asistente.
+
 ## Qué necesitas saber antes de empezar
 
 Debes haber preparado [el entorno de Flutter](../../introduccion-a-flutter/preparacion-del-entorno/) y practicado [las bases de Dart](../../introduccion-a-flutter/el-lenguaje-dart/): variables, listas, funciones, clases, constructores y parámetros nombrados. Antes de continuar, completa el [primer ejemplo de widgets](../primer-ejemplo/): esta es la segunda sección del recorrido.
 
 No necesitas una clave de una API ni añadir paquetes de IA a `pubspec.yaml`. El asistente se utiliza durante el desarrollo; nuestra aplicación será un catálogo y no incorporará un chat.
-
-## Recorrido de la práctica
-
-1. [Preparar el proyecto](./preparar-el-proyecto/).
-2. [Configurar y comprobar el asistente](./configurar-el-asistente/).
-3. [Crear habilidades para componentes, pruebas y revisión](./crear-skills/).
-4. [Planificar el catálogo que construiremos en Básicos](./el-proyecto-del-catalogo/).
 
 ## Cuatro conceptos que no debemos confundir
 

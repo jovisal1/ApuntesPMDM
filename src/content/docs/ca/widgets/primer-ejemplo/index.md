@@ -10,6 +10,12 @@ Posarem en pràctica el que hem vist en la introducció. Començarem mostrant **
 
 No cal conéixer encara totes les propietats de cada widget. La idea és **fer un canvi, observar el resultat i entendre per què ocorre**. Cada bloc indica si has de substituir un arxiu complet o modificar només una part.
 
+## 🎯 Què aprendràs
+
+- Crear i executar un projecte Flutter i mostrar una primera pantalla.
+- Extraure un widget propi i organitzar la pantalla en el seu arxiu.
+- Construir un comptador de voltes i actualitzar-lo en prémer un botó.
+
 ## Apartats
 
 - [Prepara i executa el projecte](./prepara-y-ejecuta-el-proyecto/)

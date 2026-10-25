@@ -15,6 +15,12 @@ Algunas de las características más importantes del lenguaje Dart son:
 * **Tipado estático**: las variables tienen un tipo determinado, lo que permite detectar numerosos errores antes de ejecutar la aplicación.
 * **Inferencia de tipos**: aunque es un lenguaje tipado, Dart puede deducir automáticamente el tipo de muchas variables mediante `var`.
 
+## 🎯 Qué aprenderás
+
+- Utilizar variables, tipos, colecciones y estructuras de control en Dart.
+- Escribir funciones y trabajar con clases, objetos y constructores.
+- Interpretar la seguridad frente a valores nulos y las operaciones asíncronas que usaremos en Flutter.
+
 ```
 var nombre = 'Flutter'; // Dart infiere Stringvar edad = 20;          // Dart infiere int
 ```

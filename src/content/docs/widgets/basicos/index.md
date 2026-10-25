@@ -10,6 +10,12 @@ Ya sabemos que una pantalla se construye combinando widgets. Ahora vamos a conoc
 
 Imagina una ficha de una ruta: tiene un título, una fotografía, un icono que indica su dificultad y un botón para guardarla. Estas piezas se colocan dentro de una pantalla con una barra superior. A lo largo del apartado construiremos los elementos de esa interfaz.
 
+## 🎯 Qué aprenderás
+
+- Mostrar textos, imágenes e iconos y configurar su aspecto.
+- Incorporar botones y dar estructura a una pantalla con Scaffold y AppBar.
+- Crear componentes con parámetros y comparar sus variantes en el catálogo.
+
 | Necesidad | Widget |
 | --- | --- |
 | Mostrar un texto | `Text` |

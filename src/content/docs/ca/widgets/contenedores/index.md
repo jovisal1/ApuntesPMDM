@@ -7,6 +7,12 @@ sidebar:
 
 Un text, una icona o un botó resolen peces concretes. Els **widgets de composició** decidixen com s’agrupen, quin espai ocupen i com accedim al contingut que no cap. Construirem panells, fitxes i col·leccions per al catàleg.
 
+## 🎯 Què aprendràs
+
+- Distribuir widgets, ajustar-ne la grandària i aplicar espais i alineacions.
+- Combinar files, columnes i superposicions respectant les restriccions de grandària.
+- Presentar llistes i graelles i permetre el desplaçament del contingut.
+
 ## 🧭 Triar la peça segons el problema
 
 | Necessitat | Widgets |

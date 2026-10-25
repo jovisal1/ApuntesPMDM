@@ -7,6 +7,12 @@ sidebar:
 
 Un texto, un icono o un botón resuelven piezas concretas. Los **widgets de composición** deciden cómo se agrupan, qué espacio ocupan y cómo se accede al contenido que no cabe. En esta sección construiremos paneles, fichas y colecciones para nuestro catálogo.
 
+## 🎯 Qué aprenderás
+
+- Distribuir widgets, ajustar su tamaño y aplicar espacios y alineaciones.
+- Combinar filas, columnas y superposiciones respetando las restricciones de tamaño.
+- Presentar listas y cuadrículas y permitir el desplazamiento del contenido.
+
 ## 🧭 Elegir la pieza según el problema
 
 | Necesidad | Widgets |

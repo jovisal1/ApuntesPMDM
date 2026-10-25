@@ -7,6 +7,12 @@ sidebar:
 
 En esta sección reunimos widgets que complementan los básicos y los contenedores. Primero veremos cómo presentar información con elementos Material; después, cómo responder a gestos y solicitar una actualización del contenido.
 
+## 🎯 Qué aprenderás
+
+- Presentar información con tarjetas, filas, separadores y avatares.
+- Responder a gestos y pulsaciones mediante GestureDetector e InkWell.
+- Solicitar una actualización del contenido al arrastrar una lista.
+
 | Necesidad | Widgets |
 | --- | --- |
 | Agrupar información relacionada | `Card` |

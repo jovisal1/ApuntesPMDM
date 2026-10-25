@@ -18,6 +18,12 @@ La imagen muestra el **árbol de widgets**. Su raíz es el widget situado más a
 
 Esta pantalla se puede expresar con el siguiente programa completo. Pégalo en `lib/main.dart` de un proyecto Flutter o en un ejemplo Flutter de [DartPad](https://dartpad.dev/):
 
+## 🎯 Qué aprenderás
+
+- Leer el árbol de widgets y combinar elementos para construir una pantalla.
+- Distinguir widgets con y sin estado propio y reconocer su ciclo de vida.
+- Configurar constructores y responder a cambios de datos en la interfaz.
+
 ```dart
 import 'package:flutter/material.dart';
 

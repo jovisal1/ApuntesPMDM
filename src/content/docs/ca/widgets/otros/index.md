@@ -7,6 +7,12 @@ sidebar:
 
 En esta secció reunim widgets que complementen els bàsics i els contenidors. Primer veurem com presentar informació amb elements Material; després, com respondre a gestos i demanar una actualització del contingut.
 
+## 🎯 Què aprendràs
+
+- Presentar informació amb targetes, files, separadors i avatars.
+- Respondre a gestos i pulsacions amb GestureDetector i InkWell.
+- Sol·licitar una actualització del contingut en arrossegar una llista.
+
 | Necessitat | Widgets |
 | --- | --- |
 | Agrupar informació relacionada | `Card` |

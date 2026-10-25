@@ -15,6 +15,12 @@ Algunes de les característiques més importants del llenguatge Dart són:
 * **Tipatge estàtic**: les variables tenen un tipus determinat, la qual cosa permet detectar nombrosos errors abans d'executar l'aplicació.
 * **Inferència de tipus**: encara que és un llenguatge tipat, Dart pot deduir automàticament el tipus de moltes variables mitjançant `var`.
 
+## 🎯 Què aprendràs
+
+- Usar variables, tipus, col·leccions i estructures de control en Dart.
+- Escriure funcions i treballar amb classes, objectes i constructors.
+- Interpretar la seguretat davant de valors nuls i les operacions asíncrones que usarem en Flutter.
+
 ```
 var nombre = 'Flutter'; // Dart infereix Stringvar edat = 20;          // Dart infereix int
 ```

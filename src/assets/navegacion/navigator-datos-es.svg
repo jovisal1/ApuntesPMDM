@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="465" viewBox="0 0 1100 465" role="img" aria-labelledby="title desc">
+<title id="title">Enviar datos y recibir un resultado</title>
+<desc id="desc">Inicio abre Detalle con un argumento. Al elegir, Detalle hace pop con un resultado y continúa el código que esperaba con await.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#42648d" stroke-width="2"/></marker></defs>
+<rect width="1100" height="465" rx="20" fill="#f1f5fb"/>
+<g font-family="Arial, sans-serif" fill="#172c47">
+<text x="26" y="38" font-size="24" font-weight="700">Un viaje de ida y vuelta entre pantallas</text>
+<rect x="26" y="77" width="330" height="268" rx="15" fill="white" stroke="#b4c5db" stroke-width="2"/>
+<text x="48" y="115" font-size="23" font-weight="700">InicioPantalla</text>
+<text x="48" y="150" font-size="17">Abre la ruta y espera su cierre</text>
+<rect x="48" y="170" width="286" height="52" rx="8" fill="#edf3ff"/><text x="62" y="202" font-family="monospace" font-size="15">await push&lt;String&gt;(...)</text>
+<text x="48" y="269" font-size="17">Al recibir el resultado:</text><text x="48" y="304" font-size="19" font-weight="700">SnackBar: Has recibido: Text</text>
+<rect x="744" y="77" width="330" height="268" rx="15" fill="white" stroke="#b4c5db" stroke-width="2"/>
+<text x="766" y="115" font-size="23" font-weight="700">DetallePantalla</text>
+<text x="766" y="150" font-size="17">Recibe el argumento por constructor</text>
+<rect x="766" y="170" width="286" height="52" rx="8" fill="#edf3ff"/><text x="780" y="202" font-family="monospace" font-size="15">nombre: 'Text'</text>
+<rect x="766" y="253" width="286" height="48" rx="24" fill="#245cca"/><text x="909" y="283" font-size="18" fill="white" text-anchor="middle">Elegir → cerrar con resultado</text>
+<text x="550" y="121" font-size="18" font-weight="700" text-anchor="middle">1. Abrir con un argumento</text>
+<text x="550" y="151" font-family="monospace" font-size="17" text-anchor="middle">nombre: 'Text'</text>
+<path d="M370 176h358" fill="none" stroke="#42648d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="550" y="247" font-size="18" font-weight="700" text-anchor="middle">2. Volver con una respuesta</text>
+<text x="550" y="276" font-family="monospace" font-size="17" text-anchor="middle">pop&lt;String&gt;(nombre)</text>
+<path d="M730 302H372" fill="none" stroke="#42648d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="26" y="390" font-size="18">await continúa cuando se cierra Detalle; la interfaz sigue respondiendo mientras tanto.</text>
+<text x="26" y="430" font-size="18">Si vuelves con la flecha sin elegir, el resultado es null.</text>
+</g></svg>
