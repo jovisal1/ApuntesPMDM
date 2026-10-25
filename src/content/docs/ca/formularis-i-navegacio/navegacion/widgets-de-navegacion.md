@@ -18,7 +18,7 @@ Començarem amb `NavigationBar`, situada davall, i provarem després altres pres
 
 **`NavigationBar` manté visibles les destinacions principals en la part inferior.** Cada opció combina una icona i una etiqueta, i l’opció activa queda ressaltada. És una forma de passar amb rapidesa entre les àrees principals, especialment en una disposició de mòbil.
 
-En la demostració, prémer Formulario actualitzarà l’índex seleccionat, el títol i el `body`. La barra continuarà al seu lloc per a poder triar després Catálogo o Cuenta.
+En la demostració, prémer Formulari actualitzarà l’índex seleccionat, el títol i el `body`. La barra continuarà al seu lloc per a poder triar després Catàleg o Compte.
 
 ![Barra inferior amb Formulari seleccionat i el contingut visible.](../../../../../assets/navegacion/tipo-bar-ca.svg)
 
@@ -36,11 +36,11 @@ class SeccionesPantalla extends StatefulWidget {
 
 class _SeccionesPantallaState extends State<SeccionesPantalla> {
   int _indice = 0;
-  static const _titulos = ['Catálogo', 'Formulario', 'Cuenta'];
+  static const _titulos = ['Catàleg', 'Formulari', 'Compte'];
   static const _contenidos = [
-    Center(child: Text('Contenido del catálogo')),
-    Center(child: Text('Contenido del formulario')),
-    Center(child: Text('Contenido de la cuenta')),
+    Center(child: Text('Contingut del catàleg')),
+    Center(child: Text('Contingut del formulari')),
+    Center(child: Text('Contingut del compte')),
   ];
 
   @override
@@ -54,9 +54,9 @@ class _SeccionesPantallaState extends State<SeccionesPantalla> {
           setState(() => _indice = indice);
         },
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.widgets), label: 'Catálogo'),
-          NavigationDestination(icon: Icon(Icons.edit), label: 'Formulario'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Cuenta'),
+          NavigationDestination(icon: Icon(Icons.widgets), label: 'Catàleg'),
+          NavigationDestination(icon: Icon(Icons.edit), label: 'Formulari'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Compte'),
         ],
       ),
     );
@@ -67,13 +67,13 @@ class _SeccionesPantallaState extends State<SeccionesPantalla> {
 En `catalogo_pantalla.dart`, afig l’import i una entrada nova:
 
 ```dart
-// Junto a los imports existentes:
+// Al costat dels imports existents:
 import '../../navegacion/ui/secciones_pantalla.dart';
 
 // En children del ListView:
 ListTile(
   leading: const Icon(Icons.view_quilt_outlined),
-  title: const Text('Secciones: barra inferior'),
+  title: const Text('Seccions: barra inferior'),
   onTap: () {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => const SeccionesPantalla()),
@@ -82,7 +82,7 @@ ListTile(
 ),
 ```
 
-Executa el catàleg i obri «Secciones: barra inferior». Podràs canviar les destinacions i tornar al llistat amb la fletxa de la barra superior. Conserva este fitxer i la seua entrada: els exemples següents s’afegiran sense modificar esta pantalla.
+Executa el catàleg i obri «Seccions: barra inferior». Podràs canviar les destinacions i tornar al llistat amb la fletxa de la barra superior. Conserva este fitxer i la seua entrada: els exemples següents s’afegiran sense modificar esta pantalla.
 
 `selectedIndex` indica la destinació activa. `onDestinationSelected` rep l’índex triat i `setState` reconstruïx la pantalla amb el títol i contingut corresponents. Els textos de demostració permeten observar quina secció està activa.
 
@@ -108,11 +108,11 @@ class SeccionesRailPantalla extends StatefulWidget {
 
 class _SeccionesRailPantallaState extends State<SeccionesRailPantalla> {
   int _indice = 0;
-  static const _titulos = ['Catálogo', 'Formulario', 'Cuenta'];
+  static const _titulos = ['Catàleg', 'Formulari', 'Compte'];
   static const _contenidos = [
-    Center(child: Text('Contenido del catálogo')),
-    Center(child: Text('Contenido del formulario')),
-    Center(child: Text('Contenido de la cuenta')),
+    Center(child: Text('Contingut del catàleg')),
+    Center(child: Text('Contingut del formulari')),
+    Center(child: Text('Contingut del compte')),
   ];
 
   @override
@@ -129,11 +129,11 @@ class _SeccionesRailPantallaState extends State<SeccionesRailPantalla> {
             labelType: NavigationRailLabelType.all,
             destinations: const [
               NavigationRailDestination(
-                icon: Icon(Icons.widgets), label: Text('Catálogo')),
+                icon: Icon(Icons.widgets), label: Text('Catàleg')),
               NavigationRailDestination(
-                icon: Icon(Icons.edit), label: Text('Formulario')),
+                icon: Icon(Icons.edit), label: Text('Formulari')),
               NavigationRailDestination(
-                icon: Icon(Icons.person), label: Text('Cuenta')),
+                icon: Icon(Icons.person), label: Text('Compte')),
             ],
           ),
           const VerticalDivider(width: 1),
@@ -148,13 +148,13 @@ class _SeccionesRailPantallaState extends State<SeccionesRailPantalla> {
 En `catalogo_pantalla.dart`, afig este import i una altra entrada al mateix llistat, mantenint les anteriors:
 
 ```dart
-// Junto a los imports existentes:
+// Al costat dels imports existents:
 import '../../navegacion/ui/secciones_rail_pantalla.dart';
 
-// Añade otro ListTile a children del ListView:
+// Afig un altre ListTile a children del ListView:
 ListTile(
   leading: const Icon(Icons.view_sidebar_outlined),
-  title: const Text('Secciones: rail lateral'),
+  title: const Text('Seccions: rail lateral'),
   onTap: () {
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const SeccionesRailPantalla()),
@@ -187,11 +187,11 @@ class SeccionesDrawerPantalla extends StatefulWidget {
 
 class _SeccionesDrawerPantallaState extends State<SeccionesDrawerPantalla> {
   int _indice = 0;
-  static const _titulos = ['Catálogo', 'Formulario', 'Cuenta'];
+  static const _titulos = ['Catàleg', 'Formulari', 'Compte'];
   static const _contenidos = [
-    Center(child: Text('Contenido del catálogo')),
-    Center(child: Text('Contenido del formulario')),
-    Center(child: Text('Contenido de la cuenta')),
+    Center(child: Text('Contingut del catàleg')),
+    Center(child: Text('Contingut del formulari')),
+    Center(child: Text('Contingut del compte')),
   ];
 
   @override
@@ -207,11 +207,11 @@ class _SeccionesDrawerPantallaState extends State<SeccionesDrawerPantalla> {
         },
         children: const [
           NavigationDrawerDestination(
-            icon: Icon(Icons.widgets), label: Text('Catálogo')),
+            icon: Icon(Icons.widgets), label: Text('Catàleg')),
           NavigationDrawerDestination(
-            icon: Icon(Icons.edit), label: Text('Formulario')),
+            icon: Icon(Icons.edit), label: Text('Formulari')),
           NavigationDrawerDestination(
-            icon: Icon(Icons.person), label: Text('Cuenta')),
+            icon: Icon(Icons.person), label: Text('Compte')),
         ],
       ),
     );
@@ -222,13 +222,13 @@ class _SeccionesDrawerPantallaState extends State<SeccionesDrawerPantalla> {
 En `catalogo_pantalla.dart`, afig este import i una altra entrada al mateix llistat, mantenint les anteriors:
 
 ```dart
-// Junto a los imports existentes:
+// Al costat dels imports existents:
 import '../../navegacion/ui/secciones_drawer_pantalla.dart';
 
-// Añade otro ListTile a children del ListView:
+// Afig un altre ListTile a children del ListView:
 ListTile(
   leading: const Icon(Icons.menu),
-  title: const Text('Secciones: cajón'),
+  title: const Text('Seccions: calaix'),
   onTap: () {
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const SeccionesDrawerPantalla()),
@@ -241,7 +241,7 @@ L’`AppBar` mostra el botó que obri el calaix. En triar una destinació actual
 
 ## Organitzar contingut amb pestanyes
 
-**Les pestanyes permeten alternar entre continguts relacionats dins d’una secció.** Per exemple, en «Exemples de text» podem separar els exemples guiats dels que afig l’alumne. La selecció ja no representa Catálogo, Formulario o Cuenta, sinó dos vistes del mateix tema.
+**Les pestanyes permeten alternar entre continguts relacionats dins d’una secció.** Per exemple, en «Exemples de text» podem separar els exemples guiats dels que afig l’alumne. La selecció ja no representa Catàleg, Formulari o Compte, sinó dos vistes del mateix tema.
 
 `TabBar` mostra les pestanyes i assenyala l’activa; `TabBarView` presenta el panell corresponent. `DefaultTabController` manté sincronitzades les dos parts. L’usuari pot prémer una pestanya o desplaçar-se horitzontalment entre els panells.
 
@@ -261,15 +261,15 @@ class SeccionesTabsPantalla extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Ejemplos de texto'),
+          title: const Text('Exemples de text'),
           bottom: const TabBar(
-            tabs: [Tab(text: 'Guiados'), Tab(text: 'Mis ejemplos')],
+            tabs: [Tab(text: 'Guiats'), Tab(text: 'Els meus exemples')],
           ),
         ),
         body: const TabBarView(
           children: [
-            Center(child: Text('Ejemplos guiados')),
-            Center(child: Text('Ejemplos del alumno')),
+            Center(child: Text('Exemples guiats')),
+            Center(child: Text('Exemples de l’alumne')),
           ],
         ),
       ),
@@ -281,13 +281,13 @@ class SeccionesTabsPantalla extends StatelessWidget {
 En `catalogo_pantalla.dart`, afig este import i una altra entrada al mateix llistat, mantenint les anteriors:
 
 ```dart
-// Junto a los imports existentes:
+// Al costat dels imports existents:
 import '../../navegacion/ui/secciones_tabs_pantalla.dart';
 
-// Añade otro ListTile a children del ListView:
+// Afig un altre ListTile a children del ListView:
 ListTile(
   leading: const Icon(Icons.tab),
-  title: const Text('Secciones: pestañas'),
+  title: const Text('Seccions: pestanyes'),
   onTap: () {
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const SeccionesTabsPantalla()),

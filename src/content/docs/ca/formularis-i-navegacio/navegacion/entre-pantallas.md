@@ -27,7 +27,7 @@ class InicioPantalla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Navegación: inicio')),
+      appBar: AppBar(title: const Text('Navegació: inici')),
       body: Center(
         child: FilledButton(
           onPressed: () {
@@ -37,7 +37,7 @@ class InicioPantalla extends StatelessWidget {
               ),
             );
           },
-          child: const Text('Abrir Text'),
+          child: const Text('Obrir Text'),
         ),
       ),
     );
@@ -62,7 +62,7 @@ class DetallePantalla extends StatelessWidget {
       body: Center(
         child: FilledButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Volver'),
+          child: const Text('Tornar'),
         ),
       ),
     );
@@ -73,13 +73,13 @@ class DetallePantalla extends StatelessWidget {
 En `lib/ui/catalogo/ui/catalogo_pantalla.dart`, afig l’import i esta entrada a la llista, conservant les anteriors:
 
 ```dart
-// Junto a los imports existentes:
+// Al costat dels imports existents:
 import '../../navegacion/ui/inicio_pantalla.dart';
 
 // En children del ListView:
 ListTile(
   leading: const Icon(Icons.route_outlined),
-  title: const Text('Navegación entre pantallas'),
+  title: const Text('Navegació entre pantalles'),
   onTap: () {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => const InicioPantalla()),
@@ -90,7 +90,7 @@ ListTile(
 
 Conserva `main.dart`: el `MaterialApp` del catàleg ja proporciona el `Navigator`.
 
-Executa `flutter run`, obri «Navegación entre pantallas» en el catàleg i prem «Abrir Text» i després «Volver». El botó de retrocés d’`AppBar` també permet tornar quan existix una ruta anterior.
+Executa `flutter run`, obri «Navegació entre pantalles» en el catàleg i prem «Obrir Text» i després «Tornar». El botó de retrocés d’`AppBar` també permet tornar quan existix una ruta anterior.
 
 ## Navigator i les seues operacions
 
@@ -122,8 +122,8 @@ Estos mètodes es criden sobre l’objecte que obtenim amb `Navigator.of(context
 | `pushNamed(nombre, arguments: ...)` | Afig una ruta identificada per un nom registrat; permet passar arguments. | Obrir `'/detalle'` si s’ha declarat en la configuració de [rutes amb nom](#reconéixer-altres-formes-de-definir-rutes). |
 | `pop()` | Retira la ruta superior. | Tancar Detalle i tornar a Inicio. |
 | `pop(resultado)` | Retira la ruta i retorna un valor al codi que l’ha oberta. | Tancar Detalle retornant `'Text'`. |
-| `canPop()` | Consulta si la pila permet retirar una ruta; no canvia la pantalla. | Comprovar si hi ha una ruta anterior abans d’oferir «Volver». |
-| `maybePop()` | Tramita una petició de retrocés segons les regles de la ruta actual. | Respondre a una acció «Volver» que haja de respectar eixes regles. |
+| `canPop()` | Consulta si la pila permet retirar una ruta; no canvia la pantalla. | Comprovar si hi ha una ruta anterior abans d’oferir «Tornar». |
+| `maybePop()` | Tramita una petició de retrocés segons les regles de la ruta actual. | Respondre a una acció «Tornar» que haja de respectar eixes regles. |
 | `popUntil(condició)` | Retira rutes fins a trobar-ne una que complisca la condició; la conserva. | Tornar al catàleg amb `(route) => route.isFirst`. |
 | `pushReplacement(ruta)` | Obri una ruta nova i substituïx l’actual, conservant les anteriors. | Passar d’Inicio a Detalle sense deixar Inicio en l’historial. |
 | `pushAndRemoveUntil(ruta, condició)` | Obri una ruta i elimina les anteriors fins a trobar-ne una que conservar. | Obrir un Inicio nou i llevar els passos intermedis, mantenint el catàleg. |
@@ -138,18 +138,18 @@ En l’exemple, `nombre: 'Text'` passa una dada al constructor. `final String no
 
 Obrirem Detalle des d’Inicio i permetrem que retorne el nom triat. Hi ha dos parts: **Detalle envia el valor en tancar-se; Inicio l’arreplega quan acaba l’`await`**.
 
-![Inicio envia el nom Text en obrir Detalle; Detalle retorna eixe nom en tancar amb Elegir i es reprén l’await d’Inicio.](../../../../../assets/navegacion/navigator-datos-ca.svg)
+![Inicio envia el nom Text en obrir Detalle; Detalle retorna eixe nom en tancar amb Triar i es reprén l’await d’Inicio.](../../../../../assets/navegacion/navigator-datos-ca.svg)
 
 ### En Detalle: tancar i enviar la dada
 
-En `lib/ui/navegacion/ui/detalle_pantalla.dart`, substituïx el botó «Volver» per este:
+En `lib/ui/navegacion/ui/detalle_pantalla.dart`, substituïx el botó «Tornar» per este:
 
 ```dart
 FilledButton(
   onPressed: () {
     Navigator.of(context).pop<String>(nombre);
   },
-  child: const Text('Elegir'),
+  child: const Text('Triar'),
 )
 ```
 
@@ -161,42 +161,42 @@ En `lib/ui/navegacion/ui/inicio_pantalla.dart`, afig este mètode **dins d’`In
 
 ```dart
 Future<void> _abrirDetalle(BuildContext context) async {
-  // 1. Abrimos el detalle y esperamos a que se cierre.
+  // 1. Obrim el detall i esperem que es tanque.
   final String? elegido = await Navigator.of(context).push<String>(
     MaterialPageRoute<String>(
       builder: (_) => const DetallePantalla(nombre: 'Text'),
     ),
   );
 
-  // 2. Aquí ya hemos vuelto: elegido contiene la respuesta del pop.
+  // 2. Ací ja hem tornat: elegido conté la resposta del pop.
   if (!context.mounted) return;
 
-  // 3. Si se cerró sin elegir, no procesamos ningún dato.
+  // 3. Si s’ha tancat sense triar, no processem cap dada.
   if (elegido == null) return;
 
-  // 4. Usamos el dato recibido en la pantalla de origen.
+  // 4. Usem la dada rebuda en la pantalla d’origen.
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Has recibido: $elegido')),
+    SnackBar(content: Text('Has rebut: $elegido')),
   );
 }
 ```
 
 **La variable `elegido` arreplega la dada retornada.** `push<String>` retorna un `Future<String?>`: en tancar-se Detalle, `await` obté el resultat i l’assigna a eixa variable.
 
-La funció queda pendent durant la visita al detall, però la interfície continua responent. En tornar, el codi continua en la línia que seguix l’`await`. Comprovem `context.mounted` abans d’usar el context i descartem `null`, que rebríem si l’usuari tornara amb la fletxa sense prémer «Elegir».
+La funció queda pendent durant la visita al detall, però la interfície continua responent. En tornar, el codi continua en la línia que seguix l’`await`. Comprovem `context.mounted` abans d’usar el context i descartem `null`, que rebríem si l’usuari tornara amb la fletxa sense prémer «Triar».
 
 ### Connectar el mètode al botó d’Inicio
 
-En el `build` d’`InicioPantalla`, substituïx el botó «Abrir Text» per este. Este mètode reemplaça el `push` anterior; no mantingues les dos crides:
+En el `build` d’`InicioPantalla`, substituïx el botó «Obrir Text» per este. Este mètode reemplaça el `push` anterior; no mantingues les dos crides:
 
 ```dart
 FilledButton(
   onPressed: () => _abrirDetalle(context),
-  child: const Text('Abrir Text'),
+  child: const Text('Obrir Text'),
 )
 ```
 
-En provar-ho, «Elegir» ha de mostrar «Has recibido: Text» en Inicio; tornar amb la fletxa no ha de mostrar cap missatge.
+En provar-ho, «Triar» ha de mostrar «Has rebut: Text» en Inicio; tornar amb la fletxa no ha de mostrar cap missatge.
 
 ## Reconéixer altres formes de definir rutes
 
@@ -225,7 +225,7 @@ class CatalogoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Catálogo de widgets',
+      title: 'Catàleg de widgets',
       home: const CatalogoPantalla(),
       routes: {
         '/detalle': (_) => const DetallePantalla(nombre: 'Text'),

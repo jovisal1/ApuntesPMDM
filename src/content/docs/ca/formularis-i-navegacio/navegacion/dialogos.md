@@ -15,12 +15,12 @@ Future<bool?> confirmar(BuildContext context) {
   return showDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: const Text('¿Continuar?'),
-      content: const Text('Se abrirá el formulario de inscripción.'),
+      title: const Text('Continuar?'),
+      content: const Text('S’obrirà el formulari d’inscripció.'),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancelar'),
+          child: const Text('Cancel·lar'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -41,12 +41,12 @@ onPressed: () async {
   final aceptado = await confirmar(context);
   if (!context.mounted || aceptado != true) return;
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Has confirmado la acción')),
+    const SnackBar(content: Text('Has confirmat l’acció')),
   );
 },
 ```
 
-«Continuar» retorna `true`; «Cancelar», `false`. Tancar sense triar pot retornar `null`, així que només actuem si el resultat és `true`. Per defecte es permet tancar tocant fora: `barrierDismissible: false` impedix eixe gest, però no garantix per si sol bloquejar totes les formes de retrocés.
+«Continuar» retorna `true`; «Cancel·lar», `false`. Tancar sense triar pot retornar `null`, així que només actuem si el resultat és `true`. Per defecte es permet tancar tocant fora: `barrierDismissible: false` impedix eixe gest, però no garantix per si sol bloquejar totes les formes de retrocés.
 
 ## Triar entre diverses opcions
 
@@ -57,7 +57,7 @@ Future<String?> elegirSeccion(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (dialogContext) => SimpleDialog(
-      title: const Text('Elige una sección'),
+      title: const Text('Tria una secció'),
       children: [
         for (final nombre in ['Text', 'Image', 'Icon'])
           SimpleDialogOption(
@@ -109,11 +109,11 @@ class _NombreDialogoState extends State<NombreDialogo> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Nombre para la inscripción',
+              Text('Nom per a la inscripció',
                   style: Theme.of(context).textTheme.titleLarge),
               TextFormField(
                 controller: _controller,
-                decoration: const InputDecoration(labelText: 'Nombre'),
+                decoration: const InputDecoration(labelText: 'Nom'),
                 validator: widget.viewModel.validarNombre,
               ),
               const SizedBox(height: 16),
@@ -122,7 +122,7 @@ class _NombreDialogoState extends State<NombreDialogo> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Cancelar'),
+                    child: const Text('Cancel·lar'),
                   ),
                   FilledButton(
                     onPressed: () {
@@ -130,7 +130,7 @@ class _NombreDialogoState extends State<NombreDialogo> {
                         Navigator.of(context).pop(_controller.text.trim());
                       }
                     },
-                    child: const Text('Aceptar'),
+                    child: const Text('Acceptar'),
                   ),
                 ],
               ),
@@ -143,12 +143,12 @@ class _NombreDialogoState extends State<NombreDialogo> {
 }
 ```
 
-El contingut de `Dialog` es definix amb `child`. `mainAxisSize: MainAxisSize.min` ajusta la columna al contingut i el desplaçament permet accedir-hi si apareix el teclat. «Aceptar» valida i retorna el text; «Cancelar» retorna `null`. El diàleg allibera el controlador, però no destruïx el ViewModel rebut.
+El contingut de `Dialog` es definix amb `child`. `mainAxisSize: MainAxisSize.min` ajusta la columna al contingut i el desplaçament permet accedir-hi si apareix el teclat. «Acceptar» valida i retorna el text; «Cancel·lar» retorna `null`. El diàleg allibera el controlador, però no destruïx el ViewModel rebut.
 
 Importa `nombre_dialogo.dart` en `inscripcion_pantalla.dart` i afig este mètode al `State`:
 
 ```dart
-// Dentro del State de InscripcionPantalla:
+// Dins del State d’InscripcionPantalla:
 Future<void> _pedirNombre() async {
   final nombre = await showDialog<String>(
     context: context,
@@ -156,7 +156,7 @@ Future<void> _pedirNombre() async {
   );
   if (!mounted || nombre == null) return;
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Nombre elegido: $nombre')),
+    SnackBar(content: Text('Nom triat: $nombre')),
   );
 }
 ```
@@ -185,16 +185,16 @@ Future<String?> seleccionarTurno(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Elige un turno',
+            Text('Tria un torn',
                 style: Theme.of(sheetContext).textTheme.titleLarge),
             ListTile(
               leading: const Icon(Icons.wb_sunny_outlined),
-              title: const Text('Mañana'),
+              title: const Text('Matí'),
               onTap: () => Navigator.of(sheetContext).pop('manana'),
             ),
             ListTile(
               leading: const Icon(Icons.nights_stay_outlined),
-              title: const Text('Tarde'),
+              title: const Text('Vesprada'),
               onTap: () => Navigator.of(sheetContext).pop('tarde'),
             ),
           ],
@@ -217,10 +217,10 @@ FilledButton(
     final turno = await seleccionarTurno(context);
     if (!context.mounted || turno == null) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Turno elegido: $turno')),
+      SnackBar(content: Text('Torn triat: $turno')),
     );
   },
-  child: const Text('Elegir turno desde abajo'),
+  child: const Text('Triar torn des de baix'),
 ),
 ```
 
@@ -234,6 +234,6 @@ Referències: [showModalBottomSheet](https://api.flutter.dev/flutter/material/sh
 
 ## Comprovar els diàlegs i el panell inferior
 
-Prova confirmar, cancel·lar i tancar tocant fora. En el diàleg de nom, un valor buit no ha de tancar-lo en acceptar. Un nom vàlid ha de tornar a la pantalla i mostrar-se en el missatge. Obri també el panell inferior: tria Tarde i comprova la resposta; després torna a obrir-lo i tanca’l tocant fora. En cancel·lar no ha d’aparéixer un altre missatge de selecció.
+Prova confirmar, cancel·lar i tancar tocant fora. En el diàleg de nom, un valor buit no ha de tancar-lo en acceptar. Un nom vàlid ha de tornar a la pantalla i mostrar-se en el missatge. Obri també el panell inferior: tria Vesprada i comprova la resposta; després torna a obrir-lo i tanca’l tocant fora. En cancel·lar no ha d’aparéixer un altre missatge de selecció.
 
 Referència: [showDialog](https://api.flutter.dev/flutter/material/showDialog.html), [AlertDialog](https://api.flutter.dev/flutter/material/AlertDialog-class.html), [SimpleDialog](https://api.flutter.dev/flutter/material/SimpleDialog-class.html) i [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html).
