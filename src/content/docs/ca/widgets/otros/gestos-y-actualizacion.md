@@ -1,5 +1,5 @@
 ---
-title: "Gestos: GestureDetector, InkWell i RefreshIndicator"
+title: "Gestos: GestureDetector i RefreshIndicator"
 sidebar:
   order: 3
 ---
@@ -33,25 +33,7 @@ GestureDetector(
 
 `behavior: opaque` fa que tota la caixa reba el gest, també les zones buides; no la pinta. Si també reconeix el doble toc, la resposta a un únic toc pot retardar-se per a distingir els dos gestos. No amagues accions essencials darrere de gestos difícils de descobrir.
 
-### 2. InkWell: superfície Material i ona visible
-
-És útil per a targetes i zones tàctils amb confirmació visual. Necessita un widget `Material` per damunt en l’arbre, sobre el qual es dibuixa l’ona.
-
-```dart
-Material(
-  color: Colors.teal.shade50,
-  borderRadius: BorderRadius.circular(12),
-  clipBehavior: Clip.antiAlias,
-  child: InkWell(
-    onTap: () { debugPrint('Área activada'); },
-    child: const Padding(padding: EdgeInsets.all(20), child: Text('Ver preparación')),
-  ),
-)
-```
-
-`Material` aporta superfície i retalla cantonades. `InkWell` gestiona el toc i `Padding`, l’espai. El color es pinta en `Material`, no en un `Container` opac que amagaria l’ona. Un botó resol més detalls d’interacció i accessibilitat per a una acció habitual.
-
-### 3. RefreshIndicator: `onRefresh` i llista desplaçable
+### 2. RefreshIndicator: `onRefresh` i llista desplaçable
 
 Permet demanar una actualització en arrossegar cap avall des de l’inici d’una llista vertical. `onRefresh` retorna un `Future<void>`: l’indicador es manté fins que acaba l’operació.
 

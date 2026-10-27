@@ -112,6 +112,8 @@ Este segundo árbol es una previsión: todavía no debes crear esas clases. Una 
 
 Por ahora separaremos la pantalla de sus componentes reutilizables. Decidir el tamaño de una etiqueta es una responsabilidad visual; guardar favoritos no lo es. Las dependencias se recibirán desde fuera para poder sustituirlas en pruebas. Añadiremos ViewModels y repositorios cuando trabajemos estado y persistencia, manteniendo las carpetas `ui` para todas las piezas visuales.
 
+Ahora desarrollaremos estas responsabilidades con datos locales en [Ejemplo con datos](../../ejemplo-con-datos/): modelos relacionados, servicio, repositorio, ViewModel y vista, sin persistencia ni conexiones externas.
+
 ## 2. Prepara las pantallas vacías
 
 Crea `lib/ui/catalogo/ui/` y los ocho archivos de la tabla. Copia la siguiente plantilla en cada uno: cambia **las dos apariciones del nombre de clase** y el título de `AppBar` según la fila. No cambies el resto.

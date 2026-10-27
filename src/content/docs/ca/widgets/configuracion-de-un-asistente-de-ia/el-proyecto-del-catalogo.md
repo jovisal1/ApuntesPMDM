@@ -114,6 +114,8 @@ Ara separarem la pantalla dels components reutilitzables. Triar la grandària d�
 
 Els noms de fitxers, classes i paràmetres del catàleg, i les cadenes dels exemples Dart, es mantenen igual en les dos versions dels apunts per a compartir el mateix projecte i les mateixes proves. Les explicacions estan en valencià.
 
+Ara desenvoluparem estes responsabilitats amb dades locals en [Exemple amb dades](../../ejemplo-con-datos/): models relacionats, servici, repositori, ViewModel i vista, sense persistència ni connexions externes.
+
 ## 2. Prepara les pantalles buides
 
 Crea `lib/ui/catalogo/ui/` i els huit fitxers de la taula. Copia la plantilla següent en cadascun: canvia **les dos aparicions del nom de classe** i el títol d’`AppBar` segons la fila. No canvies la resta.

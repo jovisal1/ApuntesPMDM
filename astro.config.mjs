@@ -93,6 +93,12 @@ export default defineConfig({
                   collapsed: true,
                   items: [{ autogenerate: { directory: "widgets/otros", collapsed: true } }],
                 },
+                {
+                  label: "Ejemplo con datos",
+                  translations: { ca: "Exemple amb dades" },
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "widgets/ejemplo-con-datos", collapsed: true } }],
+                },
               ],
             },
             {

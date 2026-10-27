@@ -1,5 +1,5 @@
 ---
-title: "Gestos: GestureDetector, InkWell y RefreshIndicator"
+title: "Gestos: GestureDetector y RefreshIndicator"
 sidebar:
   order: 3
 ---
@@ -33,25 +33,7 @@ GestureDetector(
 
 `behavior: opaque` hace que toda la caja reciba el gesto, incluso las zonas vacías; no la colorea. Al reconocer también el doble toque, la respuesta de un toque puede esperar para distinguirlo. No ocultes acciones esenciales tras gestos difíciles de descubrir.
 
-### 2. InkWell: superficie Material y onda visible
-
-Es útil para tarjetas y zonas táctiles que deben confirmar visualmente la pulsación. Necesita un antepasado `Material` donde pintar la onda.
-
-```dart
-Material(
-  color: Colors.teal.shade50,
-  borderRadius: BorderRadius.circular(12),
-  clipBehavior: Clip.antiAlias,
-  child: InkWell(
-    onTap: () { debugPrint('Área activada'); },
-    child: const Padding(padding: EdgeInsets.all(20), child: Text('Ver preparación')),
-  ),
-)
-```
-
-`Material` aporta la superficie y recorta sus esquinas. `InkWell` gestiona el toque y `Padding` el espacio. El color se pinta en `Material`, no en un `Container` opaco entre la superficie y la onda, que la ocultaría. Para una acción habitual, un botón ya resuelve más detalles de interacción y accesibilidad.
-
-### 3. RefreshIndicator: `onRefresh` y lista desplazable
+### 2. RefreshIndicator: `onRefresh` y lista desplazable
 
 Permite solicitar una actualización al arrastrar hacia abajo desde el inicio de una lista vertical. `onRefresh` devuelve un `Future<void>`: el indicador espera a que termine esa operación.
 
