@@ -5,13 +5,14 @@ sidebar:
   order: 1
 ---
 
-En esta secció reunim widgets que complementen els bàsics i els contenidors. Primer veurem com presentar informació amb elements Material; després, com respondre a gestos i demanar una actualització del contingut.
+En esta secció reunim widgets que complementen els bàsics i els contenidors. Primer veurem com presentar informació amb elements Material; després, com respondre a gestos, demanar una actualització del contingut i adaptar la composició a l’espai disponible.
 
 ## 🎯 Què aprendràs
 
 - Presentar informació amb targetes, files, separadors i avatars.
 - Respondre a gestos i pulsacions amb GestureDetector i InkWell.
 - Sol·licitar una actualització del contingut en arrossegar una llista.
+- Adaptar la interfície a l’amplària de la finestra i a l’espai que rep cada component.
 
 | Necessitat | Widgets |
 | --- | --- |
@@ -22,6 +23,8 @@ En esta secció reunim widgets que complementen els bàsics i els contenidors. P
 | Reconéixer gestos sobre un fill | `GestureDetector` |
 | Respondre a un toc amb una ona Material | `InkWell` |
 | Demanar una actualització en arrossegar una llista | `RefreshIndicator` |
+| Canviar la composició segons les restriccions del pare | `LayoutBuilder` |
+| Consultar la grandària de la finestra | `MediaQuery.sizeOf` |
 
 ## 🧩 El seu lloc en el catàleg
 
@@ -70,4 +73,5 @@ Els components reutilitzables es mantenen en `lib/ui/core/ui/`; ací importarem 
 ## Apartats
 
 - [Card, ListTile, Divider i CircleAvatar](./tarjetas-y-elementos-material/)
-- [Gestos: GestureDetector, InkWell i RefreshIndicator](./gestos-y-actualizacion/)
+- [Gestos: GestureDetector i RefreshIndicator](./gestos-y-actualizacion/)
+- [Disseny adaptable: LayoutBuilder i MediaQuery](./diseno-adaptable/)

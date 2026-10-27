@@ -5,13 +5,14 @@ sidebar:
   order: 1
 ---
 
-En esta sección reunimos widgets que complementan los básicos y los contenedores. Primero veremos cómo presentar información con elementos Material; después, cómo responder a gestos y solicitar una actualización del contenido.
+En esta sección reunimos widgets que complementan los básicos y los contenedores. Primero veremos cómo presentar información con elementos Material; después, cómo responder a gestos, solicitar una actualización del contenido y adaptar la composición al espacio disponible.
 
 ## 🎯 Qué aprenderás
 
 - Presentar información con tarjetas, filas, separadores y avatares.
 - Responder a gestos y pulsaciones mediante GestureDetector e InkWell.
 - Solicitar una actualización del contenido al arrastrar una lista.
+- Adaptar la interfaz al ancho de la ventana y al espacio que recibe cada componente.
 
 | Necesidad | Widgets |
 | --- | --- |
@@ -22,6 +23,8 @@ En esta sección reunimos widgets que complementan los básicos y los contenedor
 | Reconocer gestos sobre un hijo | `GestureDetector` |
 | Responder a un toque con una onda Material | `InkWell` |
 | Solicitar una actualización al arrastrar una lista | `RefreshIndicator` |
+| Cambiar la composición según las restricciones del padre | `LayoutBuilder` |
+| Consultar el tamaño de la ventana | `MediaQuery.sizeOf` |
 
 ## 🧩 Su lugar en el catálogo
 
@@ -70,4 +73,5 @@ Los componentes reutilizables se mantienen en `lib/ui/core/ui/`; aquí importare
 ## Apartados
 
 - [Card, ListTile, Divider y CircleAvatar](./tarjetas-y-elementos-material/)
-- [Gestos: GestureDetector, InkWell y RefreshIndicator](./gestos-y-actualizacion/)
+- [Gestos: GestureDetector y RefreshIndicator](./gestos-y-actualizacion/)
+- [Diseño adaptable: LayoutBuilder y MediaQuery](./diseno-adaptable/)
