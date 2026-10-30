@@ -169,6 +169,30 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Proyecto Integrador",
+          translations: { ca: "Projecte Integrador" },
+          collapsed: false,
+          items: [
+            {
+              label: "Introducción",
+              translations: { ca: "Introducció" },
+              slug: "proyecto-integrador",
+            },
+            {
+              label: "Entrega 1",
+              translations: { ca: "Lliurament 1" },
+              collapsed: false,
+              items: [
+                { label: "Enunciado y organización", translations: { ca: "Enunciat i organització" }, slug: "proyecto-integrador/entrega-1" },
+                { slug: "proyecto-integrador/entrega-1/dominio" },
+                { slug: "proyecto-integrador/entrega-1/datos" },
+                { slug: "proyecto-integrador/entrega-1/datos-ficticios" },
+                { slug: "proyecto-integrador/entrega-1/presentacion" },
+              ],
+            },
+          ],
+        },
       ],
     }),
   ],
