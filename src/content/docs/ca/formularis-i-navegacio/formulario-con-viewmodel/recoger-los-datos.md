@@ -1,121 +1,108 @@
 ---
-title: "2. Arreplegar el nom i el correu"
+title: "2. Crear el ViewModel"
 sidebar:
   order: 3
 ---
 
-La pantalla ja permet escriure un nom. Ara afegirem Correo i connectarem els dos camps amb un objecte que conserve els valors. Necessitem eixes dades per a poder comprovar-les i elaborar el resum més avant.
+El ViewModel connecta les dades del formulari amb el contracte de domini. Rep `InscripcionesRepository` per constructor, obté els tallers una vegada i conserva nom, correu, taller seleccionat, casella i error. No rep un servici ni DTO.
 
-Crearem `InscripcionViewModel` amb dos valors i dos mètodes per a actualitzar-los. Després connectarem `onChanged` de cada camp i prepararem `InscripcionEjemploPantalla`, que obrirà el formulari amb el seu ViewModel des del catàleg.
+Crea este fitxer complet. En el pas de validació explicarem les regles i, en connectar Login, seguirem el resultat de `login()` fins a la pantalla de detall. Tindre la classe completa des d’ara evita mantindre dos implementacions diferents durant el recorregut.
 
-:::tip[Què aconseguirem]
-En acabar tindràs dos camps connectats a les seues dades. Encara no mostrarem errors ni un resum: això arribarà en els passos següents.
-:::
 
-Crea `lib/ui/inscripcion/view_models/inscripcion_viewmodel.dart` amb esta classe inicial:
+`lib/ui/inscripcion/view_models/inscripcion_viewmodel.dart`
 
 ```dart
 import 'package:flutter/foundation.dart';
+import '../../../domain/models/datos_acceso.dart';
+import '../../../domain/models/taller.dart';
+import '../../../domain/repositories/inscripciones_repository.dart';
 
 class InscripcionViewModel extends ChangeNotifier {
+  InscripcionViewModel(this._repository)
+    : talleres = List.unmodifiable(_repository.obtenerTalleres());
+
+  final InscripcionesRepository _repository;
+  final List<Taller> talleres;
   String _nombre = '';
   String _correo = '';
+  String? _tallerId;
+  bool _recordatorio = false;
+  String? _error;
 
   String get nombre => _nombre;
   String get correo => _correo;
+  String? get tallerId => _tallerId;
+  bool get recordatorio => _recordatorio;
+  String? get error => _error;
+
+  void _avisarCambio() {
+    _error = null;
+    notifyListeners();
+  }
 
   void cambiarNombre(String valor) {
     _nombre = valor;
-    notifyListeners();
+    _avisarCambio();
   }
 
   void cambiarCorreo(String valor) {
     _correo = valor;
-    notifyListeners();
+    _avisarCambio();
   }
 
-}
-```
-
-A diferència de `guardarDatos(borrador)` de l’exemple anterior, `cambiarNombre` i `cambiarCorreo` actualitzen una dada en cada edició i notifiquen el canvi. Esta connexió permetrà descartar el resum tan prompte com es modifique un camp.
-
-En `InscripcionPantalla`, importa esta classe i substituïx el constructor per:
-
-```dart
-// Import junto al de material.dart:
-import '../view_models/inscripcion_viewmodel.dart';
-
-// Dentro de InscripcionPantalla:
-const InscripcionPantalla({super.key, required this.viewModel});
-final InscripcionViewModel viewModel;
-```
-
-Substituïx el camp Nombre de `children` per estos dos camps. `onChanged` rep el text cada vegada que s’edita i crida el mètode corresponent:
-
-```dart
-TextFormField(
-  initialValue: widget.viewModel.nombre,
-  decoration: const InputDecoration(labelText: 'Nombre'),
-  textInputAction: TextInputAction.next,
-  onChanged: widget.viewModel.cambiarNombre,
-),
-const SizedBox(height: 16),
-TextFormField(
-  initialValue: widget.viewModel.correo,
-  decoration: const InputDecoration(labelText: 'Correo'),
-  keyboardType: TextInputType.emailAddress,
-  textInputAction: TextInputAction.done,
-  onChanged: widget.viewModel.cambiarCorreo,
-),
-```
-
-El correu usa `TextInputType.emailAddress`; la regla de validació s’afegirà en el pas 3. Conserva, si ja l’has aplicada, la decoració completa de Nombre.
-
-## 🧩 Preparar l’exemple que obri el catàleg
-
-Ara el formulari exigix un ViewModel. Crea `lib/ui/inscripcion/ui/inscripcion_ejemplo_pantalla.dart` amb este widget, que el crea una vegada i l’entrega al formulari:
-
-```dart
-import 'package:flutter/material.dart';
-
-import '../view_models/inscripcion_viewmodel.dart';
-import 'inscripcion_pantalla.dart';
-
-class InscripcionEjemploPantalla extends StatefulWidget {
-  const InscripcionEjemploPantalla({super.key});
-
-  @override
-  State<InscripcionEjemploPantalla> createState() =>
-      _InscripcionEjemploPantallaState();
-}
-
-class _InscripcionEjemploPantallaState
-    extends State<InscripcionEjemploPantalla> {
-  final _viewModel = InscripcionViewModel();
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
+  void cambiarTaller(String? valor) {
+    _tallerId = valor;
+    _avisarCambio();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return InscripcionPantalla(viewModel: _viewModel);
+  void cambiarRecordatorio(bool valor) {
+    _recordatorio = valor;
+    _avisarCambio();
+  }
+
+  String? validarNombre(String? valor) => (valor ?? '').trim().length < 2
+      ? 'Introduce al menos dos caracteres'
+      : null;
+
+  String? validarCorreo(String? valor) =>
+      RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch((valor ?? '').trim())
+      ? null
+      : 'Introduce un correo con formato nombre@dominio.ext';
+
+  String? validarTaller(String? valor) => talleres.any((t) => t.id == valor)
+      ? null
+      : 'Selecciona un taller de la lista';
+
+  DatosAcceso? login() {
+    if (validarNombre(_nombre) != null ||
+        validarCorreo(_correo) != null ||
+        validarTaller(_tallerId) != null) {
+      _error = 'Revisa el nombre, el correo y el taller';
+      notifyListeners();
+      return null;
+    }
+    final usuario = _repository.buscarUsuario(_nombre, _correo);
+    if (usuario == null) {
+      _error = 'No hay un usuario de ejemplo con ese nombre y correo';
+      notifyListeners();
+      return null;
+    }
+    _error = null;
+    return DatosAcceso(
+      usuario: usuario,
+      taller: talleres.firstWhere((t) => t.id == _tallerId),
+      recordatorio: _recordatorio,
+    );
   }
 }
 ```
 
-En `catalogo_pantalla.dart`, substituïx l’import d’`inscripcion_pantalla.dart` per:
+## Estat i notificacions
 
-```dart
-import '../../inscripcion/ui/inscripcion_ejemplo_pantalla.dart';
-```
+Els getters permeten llegir l’estat sense substituir-lo des de fora. Els mètodes `cambiar...` guarden una edició i retiren l’error anterior amb `_avisarCambio()`. `notifyListeners()` avisa la vista; esta l’escoltarà amb `ListenableBuilder`. No obri cap pantalla.
 
-En l’entrada «Formulario de inscripción», canvia únicament la destinació:
+`talleres` conté models de domini del repositori, en una llista no modificable. `_tallerId` comença en `null`: encara no hi ha selecció. La casella comença en `false`, que és una resposta vàlida perquè és opcional.
 
-```dart
-builder: (_) => const InscripcionEjemploPantalla(),
-```
+`login()` retorna `DatosAcceso?`: un resultat complet si les comprovacions i la consulta tenen èxit, o `null` amb un error. No inventa cognoms, telèfon ni localitat a partir del text escrit.
 
-Conserva la resta de l’entrada i `main.dart`. En obrir l’exemple es crea el seu ViewModel; en eixir definitivament de la ruta s’allibera amb `dispose()`. Si tornes a obrir-lo, comença una inscripció nova. Prova els dos camps des del catàleg.
+Continua amb [la vista i el seu muntatge](../preparar-la-pantalla/).

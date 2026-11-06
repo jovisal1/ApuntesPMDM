@@ -40,6 +40,6 @@ El resumen corresponde siempre a los últimos datos guardados. Escribir o cargar
 
 ## 🧩 Muestra los resultados en el catálogo
 
-Mantén disponibles «Formulario de inscripción», «Reserva» y «Editar ficha». En cada pantalla incluye una breve explicación de lo que permite probar. Ejecuta `dart format lib` y `flutter analyze`.
+Mantén disponibles «Login de demostración», «Reserva» y «Editar ficha». En cada pantalla incluye una breve explicación de lo que permite probar. Ejecuta `dart format lib` y `flutter analyze`.
 
 Prueba datos vacíos, valores incorrectos y valores válidos. Revisa también la carga desde código, el reinicio y la edición posterior al guardado: cada acción debe dejar coherentes los campos, los datos del ViewModel y el resultado visible.

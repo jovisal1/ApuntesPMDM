@@ -172,3 +172,5 @@ Convenciones de nombres y formato de Dart: Effective Dart, Style.
 Organización de referencia de Flutter: Architecture case study. La convención del curso usa ui para la subcarpeta visual de cada funcionalidad.
 
 [Caso práctico de arquitectura de Flutter](https://docs.flutter.dev/app-architecture/case-study)
+
+Consulta el [capturas del diseño de referencia](./presentacion/#diseño-de-referencia-en-figma) para ver las pantallas orientativas. Los requisitos de esta entrega prevalecen sobre los ejemplos visuales.

@@ -1,147 +1,106 @@
 ---
-title: "4. Afegir el botó i el resultat"
+title: "8. Login i detall de l’usuari"
 sidebar:
-  order: 5
+  order: 9
 ---
 
-Prepararem l’acció «Previsualizar»: quan les dades siguen vàlides, generarà un resum amb el nom i el correu. Si l’usuari modifica un camp després, el resum anterior ha de desaparéixer perquè no mostre informació desactualitzada.
+Login serà l’únic botó del formulari. Primer crearem la destinació: una vista que rep un model de domini i mostra la fitxa completa retornada pel repositori. Després connectarem l’acció.
 
-Primer afegirem al ViewModel el resultat i el mètode que el genera. Després veurem com el botó sol·licita la validació i com la pantalla escolta els canvis. En acabar este pas, el botó i el resum ja funcionaran des del catàleg.
+## Crear el detall de l’usuari
 
-:::tip[Què aconseguirem]
-En acabar, «Previsualizar» mostrarà errors si hi ha dades incorrectes o el resum si tot és vàlid. En editar un camp, desapareixerà el resum anterior.
-:::
+Crea este fitxer complet. La salutació, els cognoms, el telèfon i la localitat procedixen d’`acceso.usuario`; no són dades reconstruïdes a partir dels camps. També mostrem el taller i el recordatori d’esta visita. `StatelessWidget` basta perquè la vista només representa el resultat rebut.
 
-## 📝 1. Preparar el resultat
 
-Afig al ViewModel el resultat i el getter:
+`lib/ui/inscripcion/ui/detalle_usuario_pantalla.dart`
 
 ```dart
-String? _resumen;
-String? get resumen => _resumen;
-```
+import 'package:flutter/material.dart';
+import '../../../domain/models/datos_acceso.dart';
 
-En els dos mètodes `cambiar...`, afig `_resumen = null;` abans de `notifyListeners()`. Així una edició descarta el resultat anterior. Després afig esta acció a la classe:
+class DetalleUsuarioPantalla extends StatelessWidget {
+  const DetalleUsuarioPantalla({super.key, required this.acceso});
+  final DatosAcceso acceso;
 
-```dart
-  bool previsualizar() {
-    // La acción también protege sus reglas si se llama sin la vista.
-    if (validarNombre(_nombre) != null || validarCorreo(_correo) != null) {
-      return false;
-    }
-    _resumen = '${_nombre.trim()} · ${_correo.trim()}';
-    notifyListeners();
-    return true;
-  }
-```
-
-El botó primer demanarà a `Form` que valide els camps. Si tots són vàlids, cridarà `previsualizar()`. L’acció torna a comprovar les regles per a protegir-se també quan s’invoca directament.
-
-## 2. Preparar l’acció del botó
-
-En `lib/ui/inscripcion/ui/inscripcion_pantalla.dart`, afig este mètode **dins d’`_InscripcionPantallaState`, abans de `build`**. Conserva `_formKey` i la resta de la classe:
-
-```dart
-void _previsualizar() {
-  FocusScope.of(context).unfocus();
-  if (_formKey.currentState!.validate()) {
-    widget.viewModel.previsualizar();
-  }
-}
-```
-
-Mantenim la validació prèvia de l’exemple anterior. Ací no cridem `save()`: el ViewModel ja rep el text amb `onChanged`, així que l’acció següent és `previsualizar()`. La primera línia retira el focus del camp abans de validar.
-
-## 3. Escoltar els canvis i mostrar el resultat
-
-Fins ara `SafeArea` contenia directament el `Form`. Col·locarem **`ListenableBuilder` entre els dos**. El formulari passa a ser el resultat de la seua funció `builder`:
-
-```text
-Scaffold
-└── SafeArea
-    └── ListenableBuilder  ← escolta el ViewModel
-        └── Form
-            └── ListView
-                ├── Camp Nombre
-                ├── Camp Correo
-                ├── Botó Previsualizar
-                └── Resum, només si existix
-```
-
-Substituïx **només el mètode `build`** per este codi. Ja inclou els camps anteriors, el botó i el resum; no els afiges una altra vegada fora d’este bloc:
-
-```dart
-@override
-Widget build(BuildContext context) {
-  final viewModel = widget.viewModel;
-  return Scaffold(
-    appBar: AppBar(title: const Text('Inscripción')),
-    body: SafeArea(
-      child: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, _) => Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              TextFormField(
-                initialValue: viewModel.nombre,
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                  hintText: 'Por ejemplo, Ana',
-                  helperText: 'Escribe al menos dos caracteres',
-                  prefixIcon: Icon(Icons.person_outline),
-                  border: OutlineInputBorder(),
-                ),
-                textInputAction: TextInputAction.next,
-                onChanged: viewModel.cambiarNombre,
-                validator: viewModel.validarNombre,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                initialValue: viewModel.correo,
-                decoration: const InputDecoration(labelText: 'Correo'),
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.done,
-                onChanged: viewModel.cambiarCorreo,
-                validator: viewModel.validarCorreo,
-                onFieldSubmitted: (_) => _previsualizar(),
-              ),
-              const SizedBox(height: 24),
-              FilledButton(
-                onPressed: _previsualizar,
-                child: const Text('Previsualizar'),
-              ),
-              if (viewModel.resumen != null) ...[
-                const SizedBox(height: 16),
-                Text(viewModel.resumen!),
-              ],
-            ],
-          ),
+  @override
+  Widget build(BuildContext context) {
+    final usuario = acceso.usuario;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detalle del usuario')),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Text(
+              '¡Hola, ${usuario.nombreCompleto}!',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 16),
+            Text('Identificador: ${usuario.id}'),
+            Text('Nombre: ${usuario.nombre}'),
+            Text('Apellidos: ${usuario.apellidos}'),
+            Text('Correo: ${usuario.correo}'),
+            Text('Teléfono: ${usuario.telefono}'),
+            Text('Localidad: ${usuario.localidad}'),
+            const SizedBox(height: 16),
+            Text('Taller: ${acceso.taller.titulo}'),
+            Text(
+              acceso.recordatorio
+                  ? 'Recordatorio solicitado (simulado)'
+                  : 'Sin recordatorio',
+            ),
+            const Text(
+              'Consulta de datos ficticios. No se guarda la inscripción.',
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Volver al formulario'),
+            ),
+          ],
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 ```
 
-A més activem `AutovalidateMode.onUserInteraction`: després d’interactuar amb els camps, els errors poden actualitzar-se mentre es corregixen, sense esperar una altra pulsació del botó.
+## Validar i consultar abans de navegar
 
-### Què fa cada part
+En `inscripcion_pantalla.dart`, afegix `import 'detalle_usuario_pantalla.dart';` i este mètode dins del `State`, abans de `build`:
 
-- **`final viewModel = widget.viewModel`** dona un nom més curt a la dependència rebuda per la pantalla; no crea un altre ViewModel.
-- **`listenable: viewModel`** indica qui ha d’escoltar. Pot escoltar-lo perquè `InscripcionViewModel` hereta de `ChangeNotifier`.
-- **`builder: (context, _) => Form(...)`** descriu què reconstruir quan arriba un avís. El segon paràmetre permet rebre un fill reutilitzable; ací no l’usem i l’anomenem `_`.
-- **`if (viewModel.resumen != null)`** incorpora el resultat a la llista únicament quan existix. Al principi és `null`, així que no es mostra.
-- **`...[...]`** afig els dos widgets de la llista interior —l’espai i el text— a `children`. `resumen!` permet usar el text després de comprovar que no és nul.
 
-:::tip[Què provoca que aparega el resum]
-`previsualizar()` assigna el resum i crida `notifyListeners()`. Eixe avís fa que `ListenableBuilder` torne a executar el seu `builder`. La condició ara es complix i apareix el text. En editar un camp, el seu mètode `cambiar...` posa el resum a `null` i torna a notificar: el text desapareix. No cal afegir `setState()` a este recorregut.
-:::
+```dart
+void _login() {
+    FocusScope.of(context).unfocus();
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    final resultado = widget.viewModel.login();
+    if (resultado == null) return;
+    Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => DetalleUsuarioPantalla(acceso: resultado),
+      ),
+    );
+  }
+```
 
-## 4. Provar-ho ara en el catàleg
+`validate()` demana la validació de tots els camps. Si falla, el mètode acaba i els camps mostren els errors. Si passa, `login()` consulta la fitxa a través del repositori. Un resultat `null` també deté el recorregut: el ViewModel ja haurà notificat l’error de consulta.
 
-Obri «Formulario de inscripción». Prem «Previsualizar» amb els camps buits i observa els errors. Escriu `Ana` i `ana@centro.es`, torna a prémer i comprova el resum. Canvia una lletra del nom: el resum ha de desaparéixer fins que tornes a previsualitzar.
+Només amb un resultat correcte, `Navigator.push` afegix una ruta. `MaterialPageRoute` descriu eixa pantalla i el seu `builder` crea el detall passant `resultado` per constructor. La fletxa de tornar recupera el formulari, que conserva les dades. No guardem una sessió ni modifiquem la font. Com que és una consulta síncrona, no hi ha `await` ni ús de `context` després d’una espera.
 
-Esta versió encara usa `onChanged`. En el pas següent canviarem eixa connexió per controladors i listeners; el botó i `ListenableBuilder` continuaran al seu lloc.
+## Mostrar l’error i un únic botó
+
+Afegix este bloc al final de `children`, després de la casella:
+
+
+```dart
+if (vm.error != null)
+  Text(vm.error!, semanticsLabel: 'Error: ${vm.error}'),
+const SizedBox(height: 16),
+FilledButton(
+  onPressed: _login,
+  child: const Text('Login'),
+),
+```
+
+La condició només afegix el missatge quan existix. `ListenableBuilder` torna a construir este bloc en rebre `notifyListeners()`. En corregir un camp desapareix l’error de consulta anterior; Login torna a verificar les dades actuals.
+
+Referències: [Navegar a una altra pantalla i tornar](https://docs.flutter.dev/cookbook/navigation/navigation-basics) i [FormState.validate](https://api.flutter.dev/flutter/widgets/FormState/validate.html).

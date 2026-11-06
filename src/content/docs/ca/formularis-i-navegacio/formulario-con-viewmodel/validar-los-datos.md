@@ -1,37 +1,32 @@
 ---
-title: "3. Comprovar les dades"
+title: "4. Connectar la validació"
 sidebar:
-  order: 4
+  order: 5
 ---
 
-Ja arrepleguem el nom i el correu, però l’usuari pot deixar-los buits o escriure dades incorrectes. En este pas definirem què acceptem: un nom d’almenys dos caràcters sense comptar els espais exteriors i un correu amb un format bàsic.
+Diferenciarem dos errors: el format dels camps i l’absència d’una fitxa que coincidisca. Els primers apareixen al costat de cada camp amb `validator`; l’error de consulta apareixerà damunt de Login. Cap d’ells obri el detall.
 
-Afegirem dos mètodes de validació a `InscripcionViewModel` i els connectarem a la propietat `validator` de cada camp. La regla de Nombre és la mateixa que ja coneixem; afegim ara la comprovació del correu.
+## Connectar els camps amb les regles
 
-:::tip[Què aconseguirem]
-En acabar estaran preparades les regles i els missatges. S’executaran en sol·licitar la validació des del botó que incorporarem després.
-:::
+El ViewModel ja conté `validarNombre` i `validarCorreo`. Retornen un text si hi ha un problema i `null` si s’accepta la dada. Nombre exigix dos caràcters sense comptar espais exteriors. L’expressió regular del correu comprova un format bàsic; no garantix que existisca en la font.
 
-Dins d’`InscripcionViewModel`, afig estos dos mètodes, abans de la clau final de la classe:
+Afegix estes propietats als dos `TextFormField` existents, sense duplicar-los:
+
 
 ```dart
-  String? validarNombre(String? valor) {
-    if ((valor ?? '').trim().length < 2) {
-      return 'Introduce al menos dos caracteres';
-    }
-    return null;
-  }
+// Nombre
+validator: vm.validarNombre,
 
-  String? validarCorreo(String? valor) {
-    final correo = (valor ?? '').trim();
-    if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(correo)) {
-      return 'Introduce un correo con formato nombre@dominio.ext';
-    }
-    return null;
-  }
-
+// Correo
+validator: vm.validarCorreo,
 ```
 
-La novetat és `RegExp` en `validarCorreo`: exigix text abans i després d’`@`, seguit d’un punt i una extensió, sense espais interiors. És una comprovació bàsica de format; no confirma que l’adreça existisca.
+En el `Form`, afegix `autovalidateMode: AutovalidateMode.onUserInteraction`. Així els errors s’actualitzen en interactuar i corregir els camps. En polsar Login cridarem també `validate()` per a comprovar-los tots, encara que algun no s’haja tocat.
 
-Afig `validator: widget.viewModel.validarNombre` al camp Nombre i `validator: widget.viewModel.validarCorreo` al camp Correo. Així cada camp sap quina comprovació executar.
+## Comprovar la selecció i la fitxa
+
+`validarTaller` exigix que l’identificador existisca en `vm.talleres`: no basta rebre un text qualsevol. La casella és opcional, per tant `false` no produïx error.
+
+`login()` torna a comprovar estes regles per a protegir l’acció quan s’utilitza sense la vista. Només després crida `buscarUsuario(nombre, correo)`. Per exemple, `Ana` i `pau@centro.es` tenen format correcte però no pertanyen a la mateixa fitxa. El repositori retorna `null`, el ViewModel assigna `error` i crida `notifyListeners()`. Una edició esborra eixe missatge antic; un nou Login torna a consultar.
+
+No afegim una segona còpia de les regles al widget ni una llista d’usuaris al ViewModel. Continua amb [les opcions del formulari](../selecciones-y-saludo/).

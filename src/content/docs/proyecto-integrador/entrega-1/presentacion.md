@@ -13,6 +13,12 @@ Debes implementar **al menos siete pantallas**: login, registro, principal, deta
 
 **Los mockups y las propuestas de distribución son orientativos.** Puedes diseñar las pantallas como consideres, elegir otra identidad y cambiar su composición. Mantén los datos mínimos, las acciones y la navegación exigidos. No se evaluará que tu aplicación copie los dibujos, sino que resuelva el recorrido y sea legible y coherente.
 
+## Diseño de referencia en Figma
+
+Las capturas siguientes muestran los diseños de Encuentro guardados como imágenes locales de los apuntes. Sustituyen a los mockups anteriores y se pueden consultar aquí sin abrir Figma. Incluyen Acceso, Registro y las vistas complementarias del recorrido.
+
+Puedes adaptar su composición e identidad. Los requisitos mínimos siguen siendo los de esta página: los datos, precios y textos de las capturas son ejemplos. Las imágenes conservan los textos originales del diseño; las explicaciones y los textos alternativos están traducidos.
+
 ## Un estilo coherente en toda la aplicación
 
 Antes de implementar las pantallas, acuerda unos criterios visuales sencillos y anótalos en el `README`. Deben aplicarse también a las pantallas que añadas. Como punto de partida:
@@ -49,9 +55,8 @@ Usa Navigator y MaterialPageRoute o una solución equivalente que puedas explica
 
 Acceso simulado a la aplicación.
 
-![Mockup orientativo de Login](../../../../assets/proyecto-integrador/entrega-1/pantalla_01.png)
+![Acceso con correo, contraseña y opciones sociales de demostración](../../../../assets/proyecto-integrador/entrega-1/figma/01-acceso.png)
 
-Ejemplo orientativo con datos simulados
 
 ### Requisitos mínimos
 
@@ -68,9 +73,8 @@ Comprobación: Pulsa Entrar y comprueba que se abre el catálogo. Vuelve al logi
 
 Presentación de un alta de usuario ficticia.
 
-![Mockup orientativo de Registro](../../../../assets/proyecto-integrador/entrega-1/pantalla_02.png)
+![Registro con nombre completo, correo, contraseña, confirmación y creación de cuenta de demostración](../../../../assets/proyecto-integrador/entrega-1/figma/11-registro.png)
 
-Ejemplo orientativo con datos simulados
 
 ### Requisitos mínimos
 
@@ -85,9 +89,28 @@ Comprobación: Abre Registro desde Login, activa la confirmación y regresa al a
 
 Catálogo de espacios disponibles en la demostración.
 
-![Mockup orientativo de Pantalla principal](../../../../assets/proyecto-integrador/entrega-1/pantalla_03.png)
+<div role="group" aria-label="Inicio, catálogo y filtros" tabindex="0" style="display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 1rem; overflow-x: auto; margin-block: 1rem;">
 
-Ejemplo orientativo con datos simulados
+<figure style="margin: 0;">
+
+![Inicio con búsqueda, tipos de evento, lugares cercanos y navegación inferior](../../../../assets/proyecto-integrador/entrega-1/figma/02-inicio.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Catálogo de espacios con búsqueda y filtros](../../../../assets/proyecto-integrador/entrega-1/figma/03-espacios.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Filtro detallado por tipo de evento, servicios, fecha y hora](../../../../assets/proyecto-integrador/entrega-1/figma/10-filtros.png)
+
+</figure>
+
+</div>
+
 
 ### Requisitos mínimos
 
@@ -102,9 +125,8 @@ Comprobación: Abre dos espacios diferentes y comprueba que sus detalles cambian
 
 Información completa del espacio seleccionado.
 
-![Mockup orientativo de Detalle de un espacio](../../../../assets/proyecto-integrador/entrega-1/detalle_ampliado.svg)
+![Detalle de La Fábrica con servicios, salas, precios y acceso a disponibilidad](../../../../assets/proyecto-integrador/entrega-1/figma/04-detalle.png)
 
-Ejemplo orientativo con datos simulados
 
 ### Requisitos mínimos
 
@@ -122,9 +144,28 @@ Comprobación: Abre dos espacios. Cambian la galería, los comentarios, la media
 
 Presentación de una solicitud de reserva de prueba.
 
-![Mockup orientativo de Nueva reserva](../../../../assets/proyecto-integrador/entrega-1/reserva_ampliada.svg)
+<div role="group" aria-label="Sala, disponibilidad y resumen" tabindex="0" style="display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 1rem; overflow-x: auto; margin-block: 1rem;">
 
-Ejemplo orientativo con datos simulados
+<figure style="margin: 0;">
+
+![Nueva reserva con selector de recinto y selección de sala](../../../../assets/proyecto-integrador/entrega-1/figma/07-nueva-reserva.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Disponibilidad con selección de día y franja horaria](../../../../assets/proyecto-integrador/entrega-1/figma/05-disponibilidad.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Resumen de reserva con sala, fecha, horario, importe total y aviso de demostración](../../../../assets/proyecto-integrador/entrega-1/figma/06-resumen.png)
+
+</figure>
+
+</div>
+
 
 ### Requisitos mínimos
 
@@ -143,9 +184,8 @@ Comprobación: En Sala Ágora, dos horas cuestan 60,00 €. Seleccionar limpieza
 
 Consulta de reservas ficticias precargadas.
 
-![Mockup orientativo de Mis reservas](../../../../assets/proyecto-integrador/entrega-1/reservas_ampliadas.svg)
+![Mis reservas con próximas reservas, estado, horarios y precios](../../../../assets/proyecto-integrador/entrega-1/figma/08-mis-reservas.png)
 
-Ejemplo orientativo con datos simulados
 
 ### Requisitos mínimos
 
@@ -161,9 +201,8 @@ Comprobación: Comprueba que ambas reservas se leen completas y que sus estados 
 
 Información del usuario y de la aplicación.
 
-![Mockup orientativo de Perfil y ajustes](../../../../assets/proyecto-integrador/entrega-1/pantalla_07.png)
+![Perfil de Álex García con estadísticas, preferencias y regreso al acceso](../../../../assets/proyecto-integrador/entrega-1/figma/09-perfil.png)
 
-Ejemplo orientativo con datos simulados
 
 ### Requisitos mínimos
 
@@ -174,68 +213,3 @@ Ejemplo orientativo con datos simulados
 - Incluye acceso a Espacios y Mis reservas con el mismo patrón de navegación que el resto de secciones principales.
 
 Comprobación: Cierra sesión y pulsa Atrás. Comprueba que las pantallas de la sesión cerrada no quedan accesibles.
-
-
-## Cómo resolver las nuevas interacciones
-
-Estas interacciones usan **estado local de una pantalla**, como los ejemplos con `StatefulWidget` y `setState` del catálogo. No se exige todavía una solución de estado compartido. Revisa [Gestos y actualización](../../../widgets/otros/gestos-y-actualizacion/) si necesitas recordar cómo reconstruir la interfaz al cambiar un valor.
-
-### Carrusel con PageView
-
-`PageView` permite desplazarse por páginas de forma horizontal. Dentro de una pantalla con desplazamiento vertical necesita una altura limitada. Este **fragmento para el cuerpo del detalle** presupone un `Espacio espacio` y las imágenes declaradas en `pubspec.yaml`:
-
-```dart
-SizedBox(
-  height: 220,
-  child: PageView.builder(
-    itemCount: espacio.imagenesAssets.length,
-    itemBuilder: (context, indice) => Image.asset(
-      espacio.imagenesAssets[indice],
-      fit: BoxFit.cover,
-    ),
-  ),
-)
-```
-
-El índice selecciona una ruta de `imagenesAssets`. Añade `onPageChanged` para guardar la página actual con `setState` y mostrar una etiqueta como «1 / 3». La lista de imágenes debe estar completa y no vacía; mientras incorporas recursos puedes sustituir cada imagen por un `Placeholder`.
-
-### Seleccionar servicios y recalcular el resumen
-
-En el `State` de Nueva reserva puedes conservar un conjunto de identificadores. `CheckboxListTile` combina una casilla y un texto; su propiedad `value` indica si está marcada y `onChanged` recibe el nuevo valor. Este **fragmento va dentro del State**:
-
-```dart
-final _serviciosSeleccionados = <String>{};
-
-void _cambiarServicio(ServicioExtra servicio, bool seleccionado) {
-  setState(() {
-    if (seleccionado) {
-      _serviciosSeleccionados.add(servicio.id);
-    } else {
-      _serviciosSeleccionados.remove(servicio.id);
-    }
-  });
-}
-```
-
-El `Set` evita identificadores duplicados. Para dibujar cada opción, este **fragmento de widget** presupone un `ServicioExtra servicio` de la lista del espacio:
-
-```dart
-CheckboxListTile(
-  title: Text(servicio.nombre),
-  subtitle: Text('${(servicio.precioCentimos / 100).toStringAsFixed(2)} EUR'),
-  value: _serviciosSeleccionados.contains(servicio.id),
-  onChanged: (valor) => _cambiarServicio(servicio, valor ?? false),
-)
-```
-
-Dentro de `build`, obtén los servicios cuyo identificador está seleccionado y suma sus precios con `fold`, como en el dominio. El subtotal de alquiler se obtiene del intervalo de prueba. Pasa una copia de los servicios elegidos y los importes al resumen de confirmación. El Estado de esta pantalla se descarta al salir; el repositorio no se modifica.
-
-### Añadir una opinión de prueba
-
-Muestra los comentarios precargados y conserva los nuevos en una lista local del detalle. Un campo de texto, una selección sencilla de 1 a 5 y un botón son suficientes. Explica esos controles en tu interfaz y comprueba al pulsar que `texto.trim()` no esté vacío y que la puntuación esté dentro del intervalo. Muestra un mensaje si falta alguno; no se exige utilizar `Form` ni validadores.
-
-Al aceptar, utiliza el usuario de demostración como autor y `DateTime.now()` como fecha, incorpora la opinión a la lista visible y recalcula su media y contador con `setState`. La colección del servicio permanece intacta. Libera el controlador de texto en `dispose` si utilizas uno. Al cerrar el detalle y abrirlo de nuevo solo deben quedar las opiniones precargadas.
-
-### Mostrar la semana simulada
-
-Consulta `DisponibilidadRepository.obtenerSieteDias(espacio.id, fechaReferencia)`. Recibe `fechaReferencia` por constructor desde el arranque, con el valor de `fechaReferenciaDemo`; no importes el archivo de datos ficticios en la pantalla. Puedes utilizar una lista horizontal o bloques con fecha y franjas; limita su altura si la anidas en otro desplazamiento. Se deben poder consultar los siete días, aunque no quepan simultáneamente en pantalla. «Libre» y «Ocupada» deben seguir siendo comprensibles sin depender del color.

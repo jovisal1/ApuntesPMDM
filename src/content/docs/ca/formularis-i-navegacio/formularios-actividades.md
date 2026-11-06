@@ -40,6 +40,6 @@ El resum correspon sempre a les últimes dades guardades. Escriure o carregar da
 
 ## 🧩 Mostra els resultats en el catàleg
 
-Mantín disponibles «Formulari d’inscripció», «Reserva» i «Editar fitxa». En cada pantalla inclou una explicació breu del que permet provar. Executa `dart format lib` i `flutter analyze`.
+Mantín disponibles «Login de demostración», «Reserva» i «Editar fitxa». En cada pantalla inclou una explicació breu del que permet provar. Executa `dart format lib` i `flutter analyze`.
 
 Prova dades buides, valors incorrectes i valors vàlids. Revisa també la càrrega des de codi, el reinici i l’edició posterior al guardat: cada acció ha de deixar coherents els camps, les dades del ViewModel i el resultat visible.

@@ -27,7 +27,7 @@ El esquema muestra un posible recorrido de una aplicación. Primero trabajaremos
 ## Cómo vamos a trabajar
 
 1. **[Elementos de un formulario](./controles-de-entrada/).** Conocerás el contenedor, el estado y los campos que componen un formulario, y cómo se relacionan.
-2. **[Crear un formulario](./formulario-con-viewmodel/).** Construirás una inscripción paso a paso: preparar la pantalla, recoger nombre y correo, validar los campos y mostrar un resultado.
+2. **[Crear un formulario](./formulario-con-viewmodel/).** Construirás un único acceso simulado desde su arquitectura data/domain/ui: campos de nombre y correo, desplegable con datos locales, casilla y botón Login. Si los datos son correctos, se abrirá el detalle completo del usuario; en caso contrario, se mostrarán los errores.
 3. **[Navegación](./navegacion/).** Conectarás pantallas, pasarás datos entre ellas y utilizarás barras, pestañas y diálogos. Al final integrarás lo aprendido en el catálogo.
 
 :::note[El punto de partida]

@@ -13,6 +13,12 @@ Has d’implementar **almenys set pantalles**: login, registre, principal, detal
 
 **Els mockups i les propostes de distribució són orientatius.** Pots dissenyar les pantalles com consideres, triar una altra identitat i canviar-ne la composició. Mantín les dades mínimes, les accions i la navegació exigits. No s’avaluarà que l’aplicació copie els dibuixos, sinó que resolga el recorregut i siga llegible i coherent.
 
+## Disseny de referència en Figma
+
+Les captures següents mostren els dissenys d’Encuentro guardats com a imatges locals dels apunts. Substituïxen els mockups anteriors i es poden consultar ací sense obrir Figma. Inclouen Accés, Registre i les vistes complementàries del recorregut.
+
+Pots adaptar-ne la composició i la identitat. Els requisits mínims continuen sent els d’esta pàgina: les dades, els preus i els textos de les captures són exemples. Les imatges conserven els textos originals del disseny; les explicacions i els textos alternatius estan traduïts.
+
 ## Un estil coherent en tota l’aplicació
 
 Abans d’implementar les pantalles, acorda uns criteris visuals senzills i anota’ls en el `README`. S’han d’aplicar també a les pantalles que afiges. Com a punt de partida:
@@ -48,9 +54,8 @@ Usa Navigator i MaterialPageRoute o una solució equivalent que pugues explicar.
 
 Accés simulat a l’aplicació.
 
-![Mockup orientatiu de Login](../../../../../assets/proyecto-integrador/entrega-1/pantalla_01-ca.png)
+![Accés amb correu, contrasenya i opcions socials de demostració](../../../../../assets/proyecto-integrador/entrega-1/figma/01-acceso.png)
 
-Exemple orientatiu amb dades simulades
 
 ### Requisits mínims
 
@@ -67,9 +72,8 @@ Comprovació: Polsa Entrar i comprova que s’obri el catàleg. Torna al login d
 
 Presentació d’una alta d’usuari fictícia.
 
-![Mockup orientatiu de Registre](../../../../../assets/proyecto-integrador/entrega-1/pantalla_02-ca.png)
+![Registre amb nom complet, correu, contrasenya, confirmació i creació de compte de demostració](../../../../../assets/proyecto-integrador/entrega-1/figma/11-registro.png)
 
-Exemple orientatiu amb dades simulades
 
 ### Requisits mínims
 
@@ -84,9 +88,28 @@ Comprovació: Obri Registre des de Login, activa la confirmació i torna a l’a
 
 Catàleg d’espais disponibles en la demostració.
 
-![Mockup orientatiu de Pantalla principal](../../../../../assets/proyecto-integrador/entrega-1/pantalla_03-ca.png)
+<div role="group" aria-label="Inici, catàleg i filtres" tabindex="0" style="display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 1rem; overflow-x: auto; margin-block: 1rem;">
 
-Exemple orientatiu amb dades simulades
+<figure style="margin: 0;">
+
+![Inici amb cerca, tipus d’esdeveniment, llocs pròxims i navegació inferior](../../../../../assets/proyecto-integrador/entrega-1/figma/02-inicio.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Catàleg d’espais amb cerca i filtres](../../../../../assets/proyecto-integrador/entrega-1/figma/03-espacios.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Filtre detallat per tipus d’esdeveniment, servicis, data i hora](../../../../../assets/proyecto-integrador/entrega-1/figma/10-filtros.png)
+
+</figure>
+
+</div>
+
 
 ### Requisits mínims
 
@@ -101,9 +124,8 @@ Comprovació: Obri dos espais diferents i comprova que els detalls canvien. Revi
 
 Informació completa de l’espai seleccionat.
 
-![Mockup orientatiu de Detall d’un espai](../../../../../assets/proyecto-integrador/entrega-1/detalle_ampliado-ca.svg)
+![Detall de La Fábrica amb servicis, sales, preus i accés a disponibilitat](../../../../../assets/proyecto-integrador/entrega-1/figma/04-detalle.png)
 
-Exemple orientatiu amb dades simulades
 
 ### Requisits mínims
 
@@ -121,9 +143,28 @@ Comprovació: Obri dos espais. Canvien la galeria, els comentaris, la mitjana, l
 
 Presentació d’una sol·licitud de reserva de prova.
 
-![Mockup orientatiu de Nova reserva](../../../../../assets/proyecto-integrador/entrega-1/reserva_ampliada-ca.svg)
+<div role="group" aria-label="Sala, disponibilitat i resum" tabindex="0" style="display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 1rem; overflow-x: auto; margin-block: 1rem;">
 
-Exemple orientatiu amb dades simulades
+<figure style="margin: 0;">
+
+![Nova reserva amb selector de recinte i selecció de sala](../../../../../assets/proyecto-integrador/entrega-1/figma/07-nueva-reserva.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Disponibilitat amb selecció de dia i franja horària](../../../../../assets/proyecto-integrador/entrega-1/figma/05-disponibilidad.png)
+
+</figure>
+
+<figure style="margin: 0;">
+
+![Resum de reserva amb sala, data, horari, import total i avís de demostració](../../../../../assets/proyecto-integrador/entrega-1/figma/06-resumen.png)
+
+</figure>
+
+</div>
+
 
 ### Requisits mínims
 
@@ -142,9 +183,8 @@ Comprovació: En Sala Ágora, dos hores costen 60,00 €. Seleccionar neteja sum
 
 Consulta de reserves fictícies precarregades.
 
-![Mockup orientatiu de Les meues reserves](../../../../../assets/proyecto-integrador/entrega-1/reservas_ampliadas-ca.svg)
+![Les meues reserves amb pròximes reserves, estat, horaris i preus](../../../../../assets/proyecto-integrador/entrega-1/figma/08-mis-reservas.png)
 
-Exemple orientatiu amb dades simulades
 
 ### Requisits mínims
 
@@ -160,9 +200,8 @@ Comprovació: Comprova que les dos reserves es lligen completes i que els estats
 
 Informació de l’usuari i de l’aplicació.
 
-![Mockup orientatiu de Perfil i ajustos](../../../../../assets/proyecto-integrador/entrega-1/pantalla_07-ca.png)
+![Perfil d’Álex García amb estadístiques, preferències i retorn a l’accés](../../../../../assets/proyecto-integrador/entrega-1/figma/09-perfil.png)
 
-Exemple orientatiu amb dades simulades
 
 ### Requisits mínims
 
@@ -173,67 +212,3 @@ Exemple orientatiu amb dades simulades
 - Inclou accés a Espais i Les meues reserves amb el mateix patró de navegació que la resta de seccions principals.
 
 Comprovació: Tanca sessió i polsa Arrere. Comprova que les pantalles de la sessió tancada no queden accessibles.
-
-## Com resoldre les interaccions noves
-
-Estes interaccions usen **estat local d’una pantalla**, com els exemples amb `StatefulWidget` i `setState` del catàleg. No s’exigix encara una solució d’estat compartit. Revisa [Gestos i actualització](../../../widgets/otros/gestos-y-actualizacion/) si necessites recordar com reconstruir la interfície en canviar un valor.
-
-### Carrusel amb PageView
-
-`PageView` permet desplaçar-se per pàgines de manera horitzontal. Dins d’una pantalla amb desplaçament vertical necessita una alçària limitada. Este **fragment per al cos del detall** pressuposa un `Espacio espacio` i les imatges declarades en `pubspec.yaml`:
-
-```dart
-SizedBox(
-  height: 220,
-  child: PageView.builder(
-    itemCount: espacio.imagenesAssets.length,
-    itemBuilder: (context, indice) => Image.asset(
-      espacio.imagenesAssets[indice],
-      fit: BoxFit.cover,
-    ),
-  ),
-)
-```
-
-L’índex selecciona una ruta d’`imagenesAssets`. Afig `onPageChanged` per a guardar la pàgina actual amb `setState` i mostrar una etiqueta com «1 / 3». La llista d’imatges ha d’estar completa i no buida; mentre incorpores recursos pots substituir cada imatge per un `Placeholder`.
-
-### Seleccionar servicis i recalcular el resum
-
-En el `State` de Nova reserva pots conservar un conjunt d’identificadors. `CheckboxListTile` combina una casella i un text; la propietat `value` indica si està marcada i `onChanged` rep el valor nou. Este **fragment va dins del State**:
-
-```dart
-final _serviciosSeleccionados = <String>{};
-
-void _cambiarServicio(ServicioExtra servicio, bool seleccionado) {
-  setState(() {
-    if (seleccionado) {
-      _serviciosSeleccionados.add(servicio.id);
-    } else {
-      _serviciosSeleccionados.remove(servicio.id);
-    }
-  });
-}
-```
-
-El `Set` evita identificadors duplicats. Per a dibuixar cada opció, este **fragment de widget** pressuposa un `ServicioExtra servicio` de la llista de l’espai:
-
-```dart
-CheckboxListTile(
-  title: Text(servicio.nombre),
-  subtitle: Text('${(servicio.precioCentimos / 100).toStringAsFixed(2)} EUR'),
-  value: _serviciosSeleccionados.contains(servicio.id),
-  onChanged: (valor) => _cambiarServicio(servicio, valor ?? false),
-)
-```
-
-Dins de `build`, obtín els servicis amb identificador seleccionat i suma’n els preus amb `fold`, com en el domini. El subtotal de lloguer s’obté de l’interval de prova. Passa una còpia dels servicis triats i els imports al resum de confirmació. L’estat d’esta pantalla es descarta en eixir; el repositori no es modifica.
-
-### Afegir una opinió de prova
-
-Mostra els comentaris precarregats i conserva els nous en una llista local del detall. Un camp de text, una selecció senzilla d’1 a 5 i un botó són suficients. Explica eixos controls en la interfície i comprova en polsar que `texto.trim()` no estiga buit i que la puntuació estiga dins de l’interval. Mostra un missatge si en falta algun; no s’exigix utilitzar `Form` ni validadors.
-
-En acceptar, utilitza l’usuari de demostració com a autor i `DateTime.now()` com a data, incorpora l’opinió a la llista visible i recalcula’n la mitjana i el comptador amb `setState`. La col·lecció del servici queda intacta. Allibera el controlador de text en `dispose` si n’utilitzes un. En tancar el detall i obrir-lo de nou només han de quedar les opinions precarregades.
-
-### Mostrar la setmana simulada
-
-Consulta `DisponibilidadRepository.obtenerSieteDias(espacio.id, fechaReferencia)`. Rep `fechaReferencia` per constructor des de l’arrancada, amb el valor de `fechaReferenciaDemo`; no importes el fitxer de dades fictícies en la pantalla. Pots utilitzar una llista horitzontal o blocs amb data i franges; limita’n l’alçària si la nies en un altre desplaçament. S’han de poder consultar els set dies, encara que no càpien simultàniament en pantalla. «Lliure» i «Ocupada» han de continuar sent comprensibles sense dependre del color.

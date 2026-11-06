@@ -1,22 +1,29 @@
 ---
-title: "8. Probar el formulario"
+title: "10. Probar el recorrido"
 sidebar:
-  order: 9
+  order: 11
 ---
 
-El formulario ya está montado. Vamos a comprobar que responde correctamente tanto cuando los datos son válidos como cuando están incompletos, y que una edición no deja visible un resumen antiguo.
+Desde la raíz de `catalogo_widgets`, ejecuta `dart format lib` para formatear el código, `flutter analyze` para detectar problemas y `flutter run` para abrir el catálogo. Entra en Login de demostración y comprueba el mismo recorrido que hemos construido desde el primer paso.
 
-Ejecuta `catalogo_widgets` y abre «Formulario de inscripción». Sigue los casos en orden y compara lo que ves con el resultado indicado. En este paso comprobaremos el comportamiento antes de dar el ejemplo por terminado.
+| Prueba | Resultado esperado |
+| --- | --- |
+| Login con campos vacíos | Errores en nombre, correo y taller. Permanece en el formulario. |
+| Nombre de un carácter o correo sin `@` | Error junto al campo correspondiente. |
+| Ana y ana@centro.es sin taller | Error de selección, sin abrir detalle. |
+| Ana y pau@centro.es con taller | Error de consulta: no corresponden a la misma ficha. |
+| Nombre y correo desconocidos con formato correcto | Usuario no encontrado, sin navegar. |
+| Ana, ana@centro.es y Cerámica | Detalle con «¡Hola, Ana García Pérez!», teléfono 600 000 001, localidad Xàtiva y todos los demás campos de su ficha. |
+| Pau, pau@centro.es y un taller | Detalle con Pau Soler Vidal, teléfono 600 000 002 y localidad Alzira. |
+| Recordatorio marcado o desmarcado | Ambas opciones permiten Login; el detalle refleja la preferencia. |
+| Corregir un error de consulta y pulsar Login | Se utilizan los valores actuales, sin conservar el mensaje antiguo. |
+| Volver desde el detalle | Conserva nombre, correo, taller y casilla. |
+| Salir al catálogo y volver a abrir Login | Empieza sin texto, sin taller y con la casilla desmarcada. |
 
-:::tip[Qué conseguiremos]
-Al terminar habrás revisado la validación, el resumen, la lectura del correo, los cambios desde código y el recorrido del teclado dentro del mismo ejemplo del catálogo.
-:::
+Prueba nombre y correo con espacios exteriores y mayúsculas: la búsqueda debe seguir encontrando la ficha. Revisa también una ventana estrecha, el teclado abierto y texto al 150 %: todo el contenido debe poder desplazarse sin overflow.
 
-1. Pulsa «Previsualizar» sin escribir: deben aparecer los errores.
-2. Introduce un nombre de un carácter y un correo sin `@`: siguen siendo incorrectos.
-3. Escribe un nombre y un correo válidos: aparece el resumen sin espacios exteriores.
-4. Cambia el nombre: el resumen anterior desaparece hasta volver a pulsar el botón.
+## Comprueba la arquitectura
 
-5. Pulsa «Leer correo» antes de validar: el mensaje muestra el texto actual.
-6. Pulsa «Usar correo de ejemplo»: cambian el campo y el dato que se previsualiza; desaparece el resumen anterior.
-7. Reinicia y comprueba el foco inicial en Nombre, el salto con «Siguiente» y el botón «Editar correo».
+Añade un taller y una tercera persona en el servicio. Al volver a abrir el ejemplo, el desplegable debe incluir la nueva opción y el detalle debe mostrar la ficha completa de la tercera persona sin editar los widgets. No copies esos datos en el ViewModel.
+
+Explica por qué la clave del `Form`, los controladores, el foco y `Navigator` están en la vista, mientras que la consulta se hace a través del contrato de dominio. Indica dónde cambiarías la conversión si la fuente dejase de utilizar el campo `email`.

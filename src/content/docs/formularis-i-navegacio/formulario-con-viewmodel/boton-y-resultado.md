@@ -1,147 +1,106 @@
 ---
-title: "4. Añadir el botón y el resultado"
+title: "8. Login y detalle del usuario"
 sidebar:
-  order: 5
+  order: 9
 ---
 
-Vamos a preparar la acción «Previsualizar»: cuando los datos sean válidos, generará un resumen con el nombre y el correo. Si el usuario modifica un campo después, el resumen anterior debe desaparecer para que no muestre información desactualizada.
+Login será el único botón del formulario. Primero crearemos su destino: una vista que recibe un modelo de dominio y muestra la ficha completa devuelta por el repositorio. Después conectaremos la acción.
 
-Primero añadiremos al ViewModel el resultado y el método que lo genera. Después veremos cómo el botón solicita la validación y cómo la pantalla escucha los cambios. Al acabar este paso, el botón y el resumen ya funcionarán desde el catálogo.
+## Crear el detalle del usuario
 
-:::tip[Qué conseguiremos]
-Al terminar, «Previsualizar» mostrará errores si hay datos incorrectos o el resumen si todo es válido. Al editar un campo, desaparecerá el resumen anterior.
-:::
+Crea este archivo completo. El saludo, los apellidos, el teléfono y la localidad proceden de `acceso.usuario`; no son datos reconstruidos a partir de los campos. También mostramos el taller y el recordatorio de esta visita. `StatelessWidget` basta porque la vista solo representa el resultado recibido.
 
-## 📝 1. Preparar el resultado
 
-Añade al ViewModel el resultado y su getter:
+`lib/ui/inscripcion/ui/detalle_usuario_pantalla.dart`
 
 ```dart
-String? _resumen;
-String? get resumen => _resumen;
-```
+import 'package:flutter/material.dart';
+import '../../../domain/models/datos_acceso.dart';
 
-En ambos métodos `cambiar...`, añade `_resumen = null;` antes de `notifyListeners()`. Así una edición descarta el resultado anterior. Después añade esta acción a la clase:
+class DetalleUsuarioPantalla extends StatelessWidget {
+  const DetalleUsuarioPantalla({super.key, required this.acceso});
+  final DatosAcceso acceso;
 
-```dart
-  bool previsualizar() {
-    // La acción también protege sus reglas si se llama sin la vista.
-    if (validarNombre(_nombre) != null || validarCorreo(_correo) != null) {
-      return false;
-    }
-    _resumen = '${_nombre.trim()} · ${_correo.trim()}';
-    notifyListeners();
-    return true;
-  }
-```
-
-El botón primero pedirá a `Form` que valide los campos. Si todos son válidos, llamará a `previsualizar()`. La acción vuelve a comprobar las reglas para protegerse también cuando se invoca directamente.
-
-## 2. Preparar la acción del botón
-
-En `lib/ui/inscripcion/ui/inscripcion_pantalla.dart`, añade este método **dentro de `_InscripcionPantallaState`, antes de `build`**. Conserva `_formKey` y el resto de la clase:
-
-```dart
-void _previsualizar() {
-  FocusScope.of(context).unfocus();
-  if (_formKey.currentState!.validate()) {
-    widget.viewModel.previsualizar();
-  }
-}
-```
-
-Mantenemos la validación previa del ejemplo anterior. Aquí no llamamos a `save()`: el ViewModel ya recibe el texto mediante `onChanged`, así que la acción siguiente es `previsualizar()`. La primera línea retira el foco del campo antes de validar.
-
-## 3. Escuchar los cambios y mostrar el resultado
-
-Hasta ahora `SafeArea` contenía directamente el `Form`. Vamos a colocar **`ListenableBuilder` entre ambos**. El formulario pasa a ser el resultado de su función `builder`:
-
-```text
-Scaffold
-└── SafeArea
-    └── ListenableBuilder  ← escucha el ViewModel
-        └── Form
-            └── ListView
-                ├── Campo Nombre
-                ├── Campo Correo
-                ├── Botón Previsualizar
-                └── Resumen, solo si existe
-```
-
-Sustituye **solo el método `build`** por este código. Ya incluye los campos anteriores, el botón y el resumen; no los añadas otra vez fuera de este bloque:
-
-```dart
-@override
-Widget build(BuildContext context) {
-  final viewModel = widget.viewModel;
-  return Scaffold(
-    appBar: AppBar(title: const Text('Inscripción')),
-    body: SafeArea(
-      child: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, _) => Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              TextFormField(
-                initialValue: viewModel.nombre,
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                  hintText: 'Por ejemplo, Ana',
-                  helperText: 'Escribe al menos dos caracteres',
-                  prefixIcon: Icon(Icons.person_outline),
-                  border: OutlineInputBorder(),
-                ),
-                textInputAction: TextInputAction.next,
-                onChanged: viewModel.cambiarNombre,
-                validator: viewModel.validarNombre,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                initialValue: viewModel.correo,
-                decoration: const InputDecoration(labelText: 'Correo'),
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.done,
-                onChanged: viewModel.cambiarCorreo,
-                validator: viewModel.validarCorreo,
-                onFieldSubmitted: (_) => _previsualizar(),
-              ),
-              const SizedBox(height: 24),
-              FilledButton(
-                onPressed: _previsualizar,
-                child: const Text('Previsualizar'),
-              ),
-              if (viewModel.resumen != null) ...[
-                const SizedBox(height: 16),
-                Text(viewModel.resumen!),
-              ],
-            ],
-          ),
+  @override
+  Widget build(BuildContext context) {
+    final usuario = acceso.usuario;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detalle del usuario')),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Text(
+              '¡Hola, ${usuario.nombreCompleto}!',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 16),
+            Text('Identificador: ${usuario.id}'),
+            Text('Nombre: ${usuario.nombre}'),
+            Text('Apellidos: ${usuario.apellidos}'),
+            Text('Correo: ${usuario.correo}'),
+            Text('Teléfono: ${usuario.telefono}'),
+            Text('Localidad: ${usuario.localidad}'),
+            const SizedBox(height: 16),
+            Text('Taller: ${acceso.taller.titulo}'),
+            Text(
+              acceso.recordatorio
+                  ? 'Recordatorio solicitado (simulado)'
+                  : 'Sin recordatorio',
+            ),
+            const Text(
+              'Consulta de datos ficticios. No se guarda la inscripción.',
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Volver al formulario'),
+            ),
+          ],
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 ```
 
-Además activamos `AutovalidateMode.onUserInteraction`: después de interactuar con los campos, sus errores pueden actualizarse mientras se corrigen, sin esperar a otra pulsación del botón.
+## Validar y consultar antes de navegar
 
-### Qué hace cada parte
+En `inscripcion_pantalla.dart`, añade `import 'detalle_usuario_pantalla.dart';` y este método dentro del `State`, antes de `build`:
 
-- **`final viewModel = widget.viewModel`** da un nombre más corto a la dependencia recibida por la pantalla; no crea otro ViewModel.
-- **`listenable: viewModel`** indica a quién escuchar. Puede escucharlo porque `InscripcionViewModel` hereda de `ChangeNotifier`.
-- **`builder: (context, _) => Form(...)`** describe qué reconstruir cuando llega un aviso. El segundo parámetro permite recibir un hijo reutilizable; aquí no lo utilizamos y lo nombramos `_`.
-- **`if (viewModel.resumen != null)`** incorpora el resultado a la lista únicamente cuando existe. Al principio es `null`, así que no se muestra.
-- **`...[...]`** añade los dos widgets de la lista interior —el espacio y el texto— a `children`. `resumen!` permite utilizar el texto tras comprobar que no es nulo.
 
-:::tip[Qué provoca que aparezca el resumen]
-`previsualizar()` asigna el resumen y llama a `notifyListeners()`. Ese aviso hace que `ListenableBuilder` vuelva a ejecutar su `builder`. La condición ahora se cumple y aparece el texto. Al editar un campo, su método `cambiar...` pone el resumen a `null` y vuelve a notificar: el texto desaparece. No hace falta añadir `setState()` a este recorrido.
-:::
+```dart
+void _login() {
+    FocusScope.of(context).unfocus();
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    final resultado = widget.viewModel.login();
+    if (resultado == null) return;
+    Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => DetalleUsuarioPantalla(acceso: resultado),
+      ),
+    );
+  }
+```
 
-## 4. Probarlo ahora en el catálogo
+`validate()` solicita la validación de todos los campos. Si falla, el método termina y los campos muestran sus errores. Si pasa, `login()` consulta la ficha a través del repositorio. Un resultado `null` también detiene el recorrido: el ViewModel ya habrá notificado el error de consulta.
 
-Abre «Formulario de inscripción». Pulsa «Previsualizar» con los campos vacíos y observa los errores. Escribe `Ana` y `ana@centro.es`, vuelve a pulsar y comprueba el resumen. Cambia una letra del nombre: el resumen debe desaparecer hasta que vuelvas a previsualizar.
+Solo con un resultado correcto, `Navigator.push` añade una ruta. `MaterialPageRoute` describe esa pantalla y su `builder` crea el detalle pasando `resultado` por constructor. La flecha de volver recupera el formulario, que conserva sus datos. No guardamos una sesión ni modificamos la fuente. Al ser una consulta síncrona, no hay `await` ni uso de `context` tras una espera.
 
-Esta versión todavía utiliza `onChanged`. En el siguiente paso cambiaremos esa conexión por controladores y listeners; el botón y `ListenableBuilder` seguirán en su sitio.
+## Mostrar el error y un único botón
+
+Añade este bloque al final de `children`, después de la casilla:
+
+
+```dart
+if (vm.error != null)
+  Text(vm.error!, semanticsLabel: 'Error: ${vm.error}'),
+const SizedBox(height: 16),
+FilledButton(
+  onPressed: _login,
+  child: const Text('Login'),
+),
+```
+
+La condición solo añade el mensaje cuando existe. `ListenableBuilder` vuelve a construir este bloque al recibir `notifyListeners()`. Al corregir un campo desaparece el error de consulta anterior; Login vuelve a verificar los datos actuales.
+
+Referencias: [Navegar a otra pantalla y volver](https://docs.flutter.dev/cookbook/navigation/navigation-basics) y [FormState.validate](https://api.flutter.dev/flutter/widgets/FormState/validate.html).

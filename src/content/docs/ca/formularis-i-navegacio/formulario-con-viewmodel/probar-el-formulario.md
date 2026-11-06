@@ -1,22 +1,29 @@
 ---
-title: "8. Provar el formulari"
+title: "10. Provar el recorregut"
 sidebar:
-  order: 9
+  order: 11
 ---
 
-El formulari ja està muntat. Comprovarem que respon correctament tant quan les dades són vàlides com quan estan incompletes, i que una edició no deixa visible un resum antic.
+Des de l’arrel de `catalogo_widgets`, executa `dart format lib` per a formatar el codi, `flutter analyze` per a detectar problemes i `flutter run` per a obrir el catàleg. Entra en Login de demostración i comprova el mateix recorregut que hem construït des del primer pas.
 
-Executa `catalogo_widgets` i obri «Formulario de inscripción». Seguix els casos en ordre i compara el que veus amb el resultat indicat. En este pas comprovarem el comportament abans de donar l’exemple per acabat.
+| Prova | Resultat esperat |
+| --- | --- |
+| Login amb camps buits | Errors en nom, correu i taller. Es queda en el formulari. |
+| Nom d’un caràcter o correu sense `@` | Error al costat del camp corresponent. |
+| Ana i ana@centro.es sense taller | Error de selecció, sense obrir el detall. |
+| Ana i pau@centro.es amb taller | Error de consulta: no corresponen a la mateixa fitxa. |
+| Nom i correu desconeguts amb format correcte | Usuari no trobat, sense navegar. |
+| Ana, ana@centro.es i Cerámica | Detall amb «¡Hola, Ana García Pérez!», telèfon 600 000 001, localitat Xàtiva i tots els altres camps de la fitxa. |
+| Pau, pau@centro.es i un taller | Detall amb Pau Soler Vidal, telèfon 600 000 002 i localitat Alzira. |
+| Recordatori marcat o desmarcat | Les dos opcions permeten Login; el detall reflectix la preferència. |
+| Corregir un error de consulta i polsar Login | S’utilitzen els valors actuals, sense conservar el missatge antic. |
+| Tornar des del detall | Conserva nom, correu, taller i casella. |
+| Eixir al catàleg i tornar a obrir Login | Comença sense text, sense taller i amb la casella desmarcada. |
 
-:::tip[Què aconseguirem]
-En acabar hauràs revisat la validació, el resum, la lectura del correu, els canvis des del codi i el recorregut del teclat dins del mateix exemple del catàleg.
-:::
+Prova nom i correu amb espais exteriors i majúscules: la cerca ha de continuar trobant la fitxa. Revisa també una finestra estreta, el teclat obert i text al 150 %: tot el contingut s’ha de poder desplaçar sense overflow.
 
-1. Prem «Previsualizar» sense escriure: han d’aparéixer els errors.
-2. Introduïx un nom d’un caràcter i un correu sense `@`: continuen sent incorrectes.
-3. Escriu un nom i un correu vàlids: apareix el resum sense espais exteriors.
-4. Canvia el nom: el resum anterior desapareix fins que tornes a prémer el botó.
+## Comprova l’arquitectura
 
-5. Prem «Leer correo» abans de validar: el missatge mostra el text actual.
-6. Prem «Usar correo de ejemplo»: canvien el camp i la dada que es previsualitza; desapareix el resum anterior.
-7. Reinicia i comprova el focus inicial en Nombre, el salt amb «Siguiente» i el botó «Editar correo».
+Afegix un taller i una tercera persona en el servici. En tornar a obrir l’exemple, el desplegable ha d’incloure la nova opció i el detall ha de mostrar la fitxa completa de la tercera persona sense editar els widgets. No copies eixes dades en el ViewModel.
+
+Explica per què la clau del `Form`, els controladors, el focus i `Navigator` estan en la vista, mentre que la consulta es fa a través del contracte de domini. Indica on canviaries la conversió si la font deixara d’utilitzar el camp `email`.

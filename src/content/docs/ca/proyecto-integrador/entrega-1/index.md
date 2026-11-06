@@ -171,3 +171,5 @@ Convencions de noms i format de Dart: Effective Dart, Style.
 Organització de referència de Flutter: Architecture case study. La convenció del curs usa ui per a la subcarpeta visual de cada funcionalitat.
 
 [Cas pràctic d’arquitectura de Flutter](https://docs.flutter.dev/app-architecture/case-study)
+
+Consulta el [captures del disseny de referència](./presentacion/#disseny-de-referència-en-figma) per a veure les pantalles orientatives. Els requisits d’esta entrega prevalen sobre els exemples visuals.

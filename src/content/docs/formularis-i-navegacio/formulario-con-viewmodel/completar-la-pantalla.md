@@ -1,27 +1,23 @@
 ---
-title: "7. Completar la pantalla"
+title: "9. Completar la pantalla"
 sidebar:
-  order: 8
+  order: 10
 ---
 
-En los pasos anteriores hemos preparado los datos, las reglas, la previsualización, los controladores y el foco. Ahora vamos a reunirlos en una única versión de `InscripcionPantalla` para comprobar cómo trabajan juntos.
+Esta es la misma pantalla que hemos construido paso a paso, reunida en un archivo completo. Sustituye `inscripcion_pantalla.dart` por esta versión para contrastar tu montaje. Conserva los archivos de `data`, `domain`, el ViewModel, el detalle y la raíz de composición de los pasos anteriores; no hace falta otra versión del formulario.
 
-Sustituiremos solo `inscripcion_pantalla.dart`. Conservaremos el ViewModel que has completado, `InscripcionEjemploPantalla` y la entrada del catálogo. Revisa cómo cada campo se conecta a su controlador y validador, y qué método ejecuta cada botón.
+Comprueba el recorrido: controladores → ViewModel → contrato → repositorio → ficha de dominio → detalle. La vista conserva únicamente los recursos visuales y la navegación. Solo existe un `FilledButton`, Login.
 
-:::tip[Qué conseguiremos]
-Al terminar podrás abrir el formulario desde el catálogo, rellenarlo, corregir errores, previsualizar los datos y utilizar los botones de lectura y edición.
-:::
 
-Sustituye `inscripcion_pantalla.dart` por esta versión, que reúne las piezas anteriores:
+`lib/ui/inscripcion/ui/inscripcion_pantalla.dart`
 
 ```dart
 import 'package:flutter/material.dart';
-
 import '../view_models/inscripcion_viewmodel.dart';
+import 'detalle_usuario_pantalla.dart';
 
 class InscripcionPantalla extends StatefulWidget {
   const InscripcionPantalla({super.key, required this.viewModel});
-
   final InscripcionViewModel viewModel;
 
   @override
@@ -30,9 +26,7 @@ class InscripcionPantalla extends StatefulWidget {
 
 class _InscripcionPantallaState extends State<InscripcionPantalla> {
   final _formKey = GlobalKey<FormState>();
-
   final _correoFocus = FocusNode();
-
   late final TextEditingController _nombreController;
   late final TextEditingController _correoController;
 
@@ -46,16 +40,14 @@ class _InscripcionPantallaState extends State<InscripcionPantalla> {
   }
 
   void _actualizarNombre() {
-    final texto = _nombreController.text;
-    if (texto != widget.viewModel.nombre) {
-      widget.viewModel.cambiarNombre(texto);
+    if (_nombreController.text != widget.viewModel.nombre) {
+      widget.viewModel.cambiarNombre(_nombreController.text);
     }
   }
 
   void _actualizarCorreo() {
-    final texto = _correoController.text;
-    if (texto != widget.viewModel.correo) {
-      widget.viewModel.cambiarCorreo(texto);
+    if (_correoController.text != widget.viewModel.correo) {
+      widget.viewModel.cambiarCorreo(_correoController.text);
     }
   }
 
@@ -67,83 +59,80 @@ class _InscripcionPantallaState extends State<InscripcionPantalla> {
     super.dispose();
   }
 
-  void _leerCorreo() {
-    final correo = _correoController.text;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(correo.isEmpty ? 'Correo vacío' : correo)),
-    );
-  }
-
-  void _previsualizar() {
+  void _login() {
     FocusScope.of(context).unfocus();
-    if (_formKey.currentState!.validate()) {
-      widget.viewModel.previsualizar();
-    }
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    final resultado = widget.viewModel.login();
+    if (resultado == null) return;
+    Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => DetalleUsuarioPantalla(acceso: resultado),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = widget.viewModel;
+    final vm = widget.viewModel;
     return Scaffold(
-      appBar: AppBar(title: const Text('Inscripción')),
+      appBar: AppBar(title: const Text('Login de demostración')),
       body: SafeArea(
         child: ListenableBuilder(
-          listenable: viewModel,
+          listenable: vm,
           builder: (context, _) => Form(
             key: _formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
+                const Text('Prueba Ana / ana@centro.es o Pau / pau@centro.es'),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _nombreController,
-                  autofocus: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre',
-                    hintText: 'Por ejemplo, Ana',
-                    helperText: 'Escribe al menos dos caracteres',
-                    prefixIcon: Icon(Icons.person_outline),
-                    border: OutlineInputBorder(),
-                  ),
+                  decoration: const InputDecoration(labelText: 'Nombre'),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_) => _correoFocus.requestFocus(),
-                  validator: viewModel.validarNombre,
+                  validator: vm.validarNombre,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _correoController,
                   focusNode: _correoFocus,
-                  decoration: const InputDecoration(
-                    labelText: 'Correo',
-                    hintText: 'nombre@centro.es',
-                    border: OutlineInputBorder(),
-                  ),
+                  decoration: const InputDecoration(labelText: 'Correo'),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
-                  validator: viewModel.validarCorreo,
-                  onFieldSubmitted: (_) => _previsualizar(),
+                  validator: vm.validarCorreo,
+                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                 ),
-                const SizedBox(height: 24),
-                FilledButton(
-                  onPressed: _previsualizar,
-                  child: const Text('Previsualizar'),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  initialValue: vm.tallerId,
+                  isExpanded: true,
+                  decoration: const InputDecoration(labelText: 'Taller'),
+                  items: vm.talleres
+                      .map(
+                        (taller) => DropdownMenuItem<String>(
+                          value: taller.id,
+                          child: Text(taller.titulo),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: vm.cambiarTaller,
+                  validator: vm.validarTaller,
                 ),
-                TextButton(
-                  onPressed: _leerCorreo,
-                  child: const Text('Leer correo'),
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Quiero recibir un recordatorio'),
+                  subtitle: const Text(
+                    'Opcional. No se enviará ningún mensaje.',
+                  ),
+                  value: vm.recordatorio,
+                  onChanged: (valor) => vm.cambiarRecordatorio(valor ?? false),
                 ),
-                TextButton(
-                  onPressed: () => _correoController.text = 'ana@centro.es',
-                  child: const Text('Usar correo de ejemplo'),
-                ),
-                TextButton(
-                  onPressed: () => _correoFocus.requestFocus(),
-                  child: const Text('Editar correo'),
-                ),
-                if (viewModel.resumen != null) ...[
-                  const SizedBox(height: 16),
-                  Text(viewModel.resumen!),
-                ],
+                if (vm.error != null)
+                  Text(vm.error!, semanticsLabel: 'Error: ${vm.error}'),
+                const SizedBox(height: 16),
+                FilledButton(onPressed: _login, child: const Text('Login')),
               ],
             ),
           ),
@@ -153,3 +142,5 @@ class _InscripcionPantallaState extends State<InscripcionPantalla> {
   }
 }
 ```
+
+Las credenciales de muestra del texto de ayuda solo indican cómo probar. Las fichas personales y las opciones del desplegable no se definen aquí: proceden del repositorio. Continúa con [las comprobaciones](../probar-el-formulario/).
