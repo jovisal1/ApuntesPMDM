@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-Construirem un únic formulari d’accés de demostració en **`catalogo_widgets`**. La persona escriu nom i correu, tria un taller i marca, si vol, un recordatori. L’únic botó del formulari és **Login**: valida els camps, consulta la font fictícia i, si troba l’usuari, obri el seu detall amb una salutació i totes les seues dades. Si hi ha errors, es queda en el formulari i els mostra.
+Construirem un únic formulari d’accés de demostració en **`catalogo_widgets`**. La persona escriu nom i correu, tria un taller i marca, si vol, un recordatori. L’acció principal és **Login**: valida els camps, consulta la font fictícia i, si troba l’usuari, obri el seu detall amb una salutació i totes les seues dades. Si hi ha errors, es queda en el formulari i els mostra. **Limpiar** restablix els camps, les seleccions i els missatges.
 
 El nom i el correu es comparen amb dades locals: no implementem autenticació real, contrasenyes, sessions ni enviament de missatges. El taller i el recordatori són les seleccions d’esta visita; no formen part de la identitat de l’usuari.
 
@@ -20,7 +20,7 @@ Seguim l’arquitectura de l’[exemple amb dades](../../widgets/ejemplo-con-dat
 | `domain/repositories` | Contracte de consulta, independent de Flutter i de l’origen. |
 | `data/repositories` | Implementació del contracte, conversió de DTO i cerca de la fitxa. |
 | `ui/inscripcion/view_models` | Text, seleccions, validació i consulta al contracte. |
-| `ui/inscripcion/ui` | Camps, errors, controladors, focus, botó Login i navegació al detall. |
+| `ui/inscripcion/ui` | Camps, errors, controladors, botons Login i Limpiar i navegació al detall. |
 
 La funcionalitat conserva el nom tècnic `inscripcion`, compartit amb altres exemples del catàleg. La pantalla representa un accés simulat als tallers.
 
@@ -65,7 +65,7 @@ Mantín `main.dart` i les entrades anteriors del catàleg. Els fitxers de codi e
 4. [Connectar la validació](./validar-los-datos/).
 5. [Afegir el desplegable i la casella](./selecciones-y-saludo/).
 6. [Connectar els controladors](./controladores-y-cambios/).
-7. [Gestionar el focus](./gestionar-el-foco/).
-8. [Login i detall de l’usuari](./boton-y-resultado/).
+7. [Login i detall de l’usuari](./boton-y-resultado/).
+8. [Netejar el formulari](./limpiar-el-formulario/).
 9. [Completar la pantalla](./completar-la-pantalla/).
 10. [Provar el recorregut](./probar-el-formulario/).

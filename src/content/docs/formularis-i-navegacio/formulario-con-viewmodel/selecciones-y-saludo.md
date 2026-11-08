@@ -4,7 +4,7 @@ sidebar:
   order: 6
 ---
 
-Añade un desplegable de talleres y una casilla después del campo Correo, dentro de `children`. Siguen formando parte del mismo formulario y se envían con su único botón Login.
+Añade un desplegable de talleres y una casilla después del campo Correo, dentro de `children`. Siguen formando parte del mismo formulario y se comprueban al pulsar Login; Limpiar permite restablecerlos.
 
 ## Talleres procedentes de data
 

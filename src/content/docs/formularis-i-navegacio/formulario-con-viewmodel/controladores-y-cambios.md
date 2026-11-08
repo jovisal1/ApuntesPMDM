@@ -6,11 +6,12 @@ sidebar:
 
 Los controladores pertenecen a la vista: conservan el texto editable y permiten leerlo sin hacer que el dominio conozca Flutter. Utilizaremos listeners para comunicar los cambios al ViewModel; no añadiremos botones para leer o rellenar los campos.
 
-Dentro de `_InscripcionPantallaState`, añade estos miembros y métodos. Sustituye cualquier `initState` o `dispose` anterior; no declares dos versiones. En el paso siguiente incorporaremos el foco a su ciclo de vida.
+Dentro de `_InscripcionPantallaState`, añade estos miembros y métodos. Sustituye cualquier `initState` o `dispose` anterior; no declares dos versiones. El paso de limpieza reutilizará estos controladores.
 
 
 ```dart
-late final TextEditingController _nombreController;
+bool _limpiando = false;
+  late final TextEditingController _nombreController;
   late final TextEditingController _correoController;
 
   @override
@@ -23,13 +24,13 @@ late final TextEditingController _nombreController;
   }
 
   void _actualizarNombre() {
-    if (_nombreController.text != widget.viewModel.nombre) {
+    if (!_limpiando && _nombreController.text != widget.viewModel.nombre) {
       widget.viewModel.cambiarNombre(_nombreController.text);
     }
   }
 
   void _actualizarCorreo() {
-    if (_correoController.text != widget.viewModel.correo) {
+    if (!_limpiando && _correoController.text != widget.viewModel.correo) {
       widget.viewModel.cambiarCorreo(_correoController.text);
     }
   }
@@ -47,3 +48,5 @@ late final TextEditingController _nombreController;
 En los campos, sustituye `initialValue` por `controller: _nombreController` y `controller: _correoController`, respectivamente. Elimina sus dos `onChanged`: los listeners ya realizan esa comunicación. Conserva los validadores, el desplegable y la casilla.
 
 `dispose` libera los controladores cuando la pantalla deja de utilizarse. Los controles y sus listeners siguen en `ui`; al repositorio solo llegan cadenas a través del ViewModel al pulsar Login.
+
+`_limpiando` evita comunicar cambios intermedios mientras el botón Limpiar vacía los dos controladores. Al terminar, el ViewModel notificará un único estado limpio. La acción se explica en el paso 8.

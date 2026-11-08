@@ -1,10 +1,10 @@
 ---
-title: "8. Login i detall de l’usuari"
+title: "7. Login i detall de l’usuari"
 sidebar:
-  order: 9
+  order: 8
 ---
 
-Login serà l’únic botó del formulari. Primer crearem la destinació: una vista que rep un model de domini i mostra la fitxa completa retornada pel repositori. Després connectarem l’acció.
+Login serà l’acció principal del formulari. Primer crearem la destinació: una vista que rep un model de domini i mostra la fitxa completa retornada pel repositori. Després connectarem l’acció.
 
 ## Crear el detall de l’usuari
 
@@ -70,7 +70,7 @@ En `inscripcion_pantalla.dart`, afegix `import 'detalle_usuario_pantalla.dart';`
 
 ```dart
 void _login() {
-    FocusScope.of(context).unfocus();
+    setState(() => _intentoLogin = true);
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final resultado = widget.viewModel.login();
     if (resultado == null) return;
@@ -82,11 +82,11 @@ void _login() {
   }
 ```
 
-`validate()` demana la validació de tots els camps. Si falla, el mètode acaba i els camps mostren els errors. Si passa, `login()` consulta la fitxa a través del repositori. Un resultat `null` també deté el recorregut: el ViewModel ja haurà notificat l’error de consulta.
+`setState` activa l’actualització automàtica dels errors després d’este primer intent. `validate()` demana la validació de tots els camps. Si falla, el mètode acaba i els camps mostren els errors. Si passa, `login()` consulta la fitxa a través del repositori. Un resultat `null` també deté el recorregut: el ViewModel ja haurà notificat l’error de consulta.
 
 Només amb un resultat correcte, `Navigator.push` afegix una ruta. `MaterialPageRoute` descriu eixa pantalla i el seu `builder` crea el detall passant `resultado` per constructor. La fletxa de tornar recupera el formulari, que conserva les dades. No guardem una sessió ni modifiquem la font. Com que és una consulta síncrona, no hi ha `await` ni ús de `context` després d’una espera.
 
-## Mostrar l’error i un únic botó
+## Mostrar l’error i el botó Login
 
 Afegix este bloc al final de `children`, després de la casella:
 
@@ -104,3 +104,5 @@ FilledButton(
 La condició només afegix el missatge quan existix. `ListenableBuilder` torna a construir este bloc en rebre `notifyListeners()`. En corregir un camp desapareix l’error de consulta anterior; Login torna a verificar les dades actuals.
 
 Referències: [Navegar a una altra pantalla i tornar](https://docs.flutter.dev/cookbook/navigation/navigation-basics) i [FormState.validate](https://api.flutter.dev/flutter/widgets/FormState/validate.html).
+
+Continua amb [Netejar el formulari](../limpiar-el-formulario/) per a afegir l’acció secundària.

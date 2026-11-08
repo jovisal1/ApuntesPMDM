@@ -6,11 +6,12 @@ sidebar:
 
 Els controladors pertanyen a la vista: conserven el text editable i permeten llegir-lo sense fer que el domini conega Flutter. Utilitzarem listeners per a comunicar els canvis al ViewModel; no afegirem botons per a llegir o omplir els camps.
 
-Dins de `_InscripcionPantallaState`, afegix estos membres i mètodes. Substituïx qualsevol `initState` o `dispose` anterior; no declares dos versions. En el pas següent incorporarem el focus al seu cicle de vida.
+Dins de `_InscripcionPantallaState`, afegix estos membres i mètodes. Substituïx qualsevol `initState` o `dispose` anterior; no declares dos versions. El pas de neteja reutilitzarà estos controladors.
 
 
 ```dart
-late final TextEditingController _nombreController;
+bool _limpiando = false;
+  late final TextEditingController _nombreController;
   late final TextEditingController _correoController;
 
   @override
@@ -23,13 +24,13 @@ late final TextEditingController _nombreController;
   }
 
   void _actualizarNombre() {
-    if (_nombreController.text != widget.viewModel.nombre) {
+    if (!_limpiando && _nombreController.text != widget.viewModel.nombre) {
       widget.viewModel.cambiarNombre(_nombreController.text);
     }
   }
 
   void _actualizarCorreo() {
-    if (_correoController.text != widget.viewModel.correo) {
+    if (!_limpiando && _correoController.text != widget.viewModel.correo) {
       widget.viewModel.cambiarCorreo(_correoController.text);
     }
   }
@@ -47,3 +48,5 @@ late final TextEditingController _nombreController;
 En els camps, substituïx `initialValue` per `controller: _nombreController` i `controller: _correoController`, respectivament. Elimina els dos `onChanged`: els listeners ja fan eixa comunicació. Conserva els validadors, el desplegable i la casella.
 
 `dispose` allibera els controladors quan la pantalla deixa d’utilitzar-se. Els controls i els listeners continuen en `ui`; al repositori només arriben cadenes a través del ViewModel en polsar Login.
+
+`_limpiando` evita comunicar canvis intermedis mentre el botó Limpiar buida els dos controladors. En acabar, el ViewModel notificarà un únic estat net. L’acció s’explica en el pas 8.

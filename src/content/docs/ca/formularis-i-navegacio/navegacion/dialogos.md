@@ -4,7 +4,11 @@ sidebar:
   order: 4
 ---
 
-Un diàleg permet demanar una decisió breu sense substituir la pantalla actual. Començarem amb dos botons, després oferirem una llista d’opcions reutilitzarem la validació del formulari i afegirem un panell que apareix des de baix.
+Un diàleg permet demanar una decisió breu sense substituir la pantalla actual. Començarem amb dos botons, després oferirem una llista d’opcions, reutilitzarem la validació del formulari i afegirem un panell que apareix des de baix.
+
+![Il·lustració d’AlertDialog amb Cancel·lar i Continuar, SimpleDialog amb Text, Image i Icon, i un diàleg amb un camp Nom. Els tres mostren el fons enfosquit i retornen un resultat en tancar-se.](../../../../../assets/navegacion/dialogos-tipos-ca.svg)
+
+La il·lustració compara els tres exemples que construirem. La finestra se superposa a la pantalla actual i retorna una decisió, una opció o un text; el codi següent mostra com arreplegar eixa resposta.
 
 ## Demanar confirmació
 

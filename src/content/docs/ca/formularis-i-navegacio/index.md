@@ -27,8 +27,10 @@ L’esquema mostra un possible recorregut d’una aplicació. Primer treballarem
 ## Com treballarem
 
 1. **[Elements d’un formulari](./controles-de-entrada/).** Coneixeràs el contenidor, l’estat i els camps que componen un formulari, i com es relacionen.
-2. **[Crear un formulari](./formulario-con-viewmodel/).** Construiràs un únic accés simulat des de la seua arquitectura data/domain/ui: camps de nom i correu, desplegable amb dades locals, casella i botó Login. Si les dades són correctes, s’obrirà el detall complet de l’usuari; en cas contrari, es mostraran els errors.
+2. **[Crear un formulari](./formulario-con-viewmodel/).** Construiràs un únic accés simulat des de la seua arquitectura data/domain/ui: camps de nom i correu, desplegable amb dades locals, casella i botons Login i Limpiar. Si les dades són correctes, s’obrirà el detall complet de l’usuari; en cas contrari, es mostraran els errors.
 3. **[Navegació](./navegacion/).** Connectaràs pantalles, passaràs dades entre elles i usaràs barres, pestanyes i diàlegs. Al final integraràs el que has aprés en el catàleg.
+
+4. **[Navegació avançada amb go_router](./navegacion-avanzada/).** Declararàs rutes per URL, passaràs paràmetres, conservaràs seccions i controlaràs l’accés a Compte reutilitzant el login i l’arquitectura per capes.
 
 :::note[El punt de partida]
 Partirem dels widgets que ja coneixes i incorporarem cada concepte quan faça falta en l’exemple.

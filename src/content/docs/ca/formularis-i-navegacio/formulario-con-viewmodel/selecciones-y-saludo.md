@@ -4,7 +4,7 @@ sidebar:
   order: 6
 ---
 
-Afegix un desplegable de tallers i una casella després del camp Correo, dins de `children`. Continuen formant part del mateix formulari i s’envien amb el seu únic botó Login.
+Afegix un desplegable de tallers i una casella després del camp Correo, dins de `children`. Continuen formant part del mateix formulari i es comproven en polsar Login; Limpiar permet restablir-los.
 
 ## Tallers procedents de data
 

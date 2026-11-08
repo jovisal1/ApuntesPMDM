@@ -23,7 +23,7 @@ class InscripcionPantalla extends StatefulWidget {
 }
 
 class _InscripcionPantallaState extends State<InscripcionPantalla> {
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +40,25 @@ class _InscripcionPantallaState extends State<InscripcionPantalla> {
               children: [
                 TextFormField(
                   initialValue: vm.nombre,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
+                  decoration: const InputDecoration(
+                    labelText: 'Nombre',
+                    prefixIcon: Icon(Icons.person_outline),
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    errorMaxLines: 3,
+                  ),
                   onChanged: vm.cambiarNombre,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   initialValue: vm.correo,
-                  decoration: const InputDecoration(labelText: 'Correo'),
+                  decoration: const InputDecoration(
+                    labelText: 'Correo',
+                    prefixIcon: Icon(Icons.email_outlined),
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    errorMaxLines: 3,
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   onChanged: vm.cambiarCorreo,
                 ),
@@ -131,4 +143,6 @@ ListTile(
 ),
 ```
 
-Des de l’arrel de `catalogo_widgets`, executa `flutter run`, obri Login de demostración i prova l’escriptura. La navegació del catàleg ja utilitza `Navigator.push`: afegix una pantalla sobre l’anterior i permet tornar. En el pas 8 aplicarem el mateix mecanisme al detall.
+Des de l’arrel de `catalogo_widgets`, executa `flutter run`, obri Login de demostración i prova l’escriptura. La navegació del catàleg ja utilitza `Navigator.push`: afegix una pantalla sobre l’anterior i permet tornar. En el pas 7 aplicarem el mateix mecanisme al detall.
+
+Els camps ja tenen etiqueta, icona, fons i vora. En el muntatge final afegirem una targeta d’amplària limitada i una capçalera, mantenint estes responsabilitats en la vista.

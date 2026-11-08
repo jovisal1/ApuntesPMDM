@@ -60,6 +60,15 @@ class InscripcionViewModel extends ChangeNotifier {
     _avisarCambio();
   }
 
+  void limpiar() {
+    _nombre = '';
+    _correo = '';
+    _tallerId = null;
+    _recordatorio = false;
+    _error = null;
+    notifyListeners();
+  }
+
   String? validarNombre(String? valor) => (valor ?? '').trim().length < 2
       ? 'Introduce al menos dos caracteres'
       : null;
@@ -106,3 +115,5 @@ Los getters permiten leer el estado sin sustituirlo desde fuera. Los métodos `c
 `login()` devuelve `DatosAcceso?`: un resultado completo si las comprobaciones y la consulta tienen éxito, o `null` con un error. No inventa apellidos, teléfono ni localidad a partir del texto escrito.
 
 Continúa con [la vista y su montaje](../preparar-la-pantalla/).
+
+`limpiar()` restablece los textos, las selecciones y el error en una sola acción y notifica el cambio. Conserva los talleres del repositorio: limpiar un formulario no borra el catálogo ni modifica la fuente. Lo conectaremos al botón Limpiar en el paso 8.

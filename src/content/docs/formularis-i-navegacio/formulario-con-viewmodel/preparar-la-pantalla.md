@@ -23,7 +23,7 @@ class InscripcionPantalla extends StatefulWidget {
 }
 
 class _InscripcionPantallaState extends State<InscripcionPantalla> {
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +40,25 @@ class _InscripcionPantallaState extends State<InscripcionPantalla> {
               children: [
                 TextFormField(
                   initialValue: vm.nombre,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
+                  decoration: const InputDecoration(
+                    labelText: 'Nombre',
+                    prefixIcon: Icon(Icons.person_outline),
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    errorMaxLines: 3,
+                  ),
                   onChanged: vm.cambiarNombre,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   initialValue: vm.correo,
-                  decoration: const InputDecoration(labelText: 'Correo'),
+                  decoration: const InputDecoration(
+                    labelText: 'Correo',
+                    prefixIcon: Icon(Icons.email_outlined),
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    errorMaxLines: 3,
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   onChanged: vm.cambiarCorreo,
                 ),
@@ -131,4 +143,6 @@ ListTile(
 ),
 ```
 
-Desde la raíz de `catalogo_widgets`, ejecuta `flutter run`, abre Login de demostración y prueba la escritura. La navegación del catálogo ya usa `Navigator.push`: añade una pantalla sobre la anterior y permite volver. En el paso 8 aplicaremos el mismo mecanismo al detalle.
+Desde la raíz de `catalogo_widgets`, ejecuta `flutter run`, abre Login de demostración y prueba la escritura. La navegación del catálogo ya usa `Navigator.push`: añade una pantalla sobre la anterior y permite volver. En el paso 7 aplicaremos el mismo mecanismo al detalle.
+
+Los campos ya tienen etiqueta, icono, fondo y borde. En el montaje final añadiremos una tarjeta de anchura limitada y una cabecera, manteniendo estas responsabilidades en la vista.

@@ -15,3 +15,5 @@ Conviene distinguir tres situaciones: **abrir una pantalla con `push`** añade u
 - Pedir confirmaciones y recoger respuestas con diálogos.
 
 Los ejemplos se añaden como nuevas entradas del catálogo, conservando las demostraciones anteriores y su `main.dart`. Las pantallas de navegación se guardan en `lib/ui/navegacion/ui/`; los diálogos amplían el formulario de inscripción ya existente.
+
+Continúa con [Navegación avanzada con go_router](../navegacion-avanzada/) para organizar URLs, secciones con historial y rutas protegidas.

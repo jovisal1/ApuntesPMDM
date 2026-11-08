@@ -4,7 +4,11 @@ sidebar:
   order: 4
 ---
 
-Un diálogo permite pedir una decisión breve sin sustituir la pantalla actual. Vamos a empezar con dos botones, después ofreceremos una lista de opciones reutilizaremos la validación del formulario y añadiremos un panel que aparece desde abajo.
+Un diálogo permite pedir una decisión breve sin sustituir la pantalla actual. Vamos a empezar con dos botones, después ofreceremos una lista de opciones, reutilizaremos la validación del formulario y añadiremos un panel que aparece desde abajo.
+
+![Ilustración de AlertDialog con Cancelar y Continuar, SimpleDialog con Text, Image e Icon, y un diálogo con un campo Nombre. Los tres muestran el fondo oscurecido y devuelven un resultado al cerrarse.](../../../../assets/navegacion/dialogos-tipos-es.svg)
+
+La ilustración compara los tres ejemplos que construiremos. La ventana se superpone a la pantalla actual y devuelve una decisión, una opción o un texto; el código siguiente muestra cómo recoger esa respuesta.
 
 ## Pedir confirmación
 

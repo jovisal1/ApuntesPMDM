@@ -1,10 +1,10 @@
 ---
-title: "8. Login y detalle del usuario"
+title: "7. Login y detalle del usuario"
 sidebar:
-  order: 9
+  order: 8
 ---
 
-Login será el único botón del formulario. Primero crearemos su destino: una vista que recibe un modelo de dominio y muestra la ficha completa devuelta por el repositorio. Después conectaremos la acción.
+Login será la acción principal del formulario. Primero crearemos su destino: una vista que recibe un modelo de dominio y muestra la ficha completa devuelta por el repositorio. Después conectaremos la acción.
 
 ## Crear el detalle del usuario
 
@@ -70,7 +70,7 @@ En `inscripcion_pantalla.dart`, añade `import 'detalle_usuario_pantalla.dart';`
 
 ```dart
 void _login() {
-    FocusScope.of(context).unfocus();
+    setState(() => _intentoLogin = true);
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final resultado = widget.viewModel.login();
     if (resultado == null) return;
@@ -82,11 +82,11 @@ void _login() {
   }
 ```
 
-`validate()` solicita la validación de todos los campos. Si falla, el método termina y los campos muestran sus errores. Si pasa, `login()` consulta la ficha a través del repositorio. Un resultado `null` también detiene el recorrido: el ViewModel ya habrá notificado el error de consulta.
+`setState` activa la actualización automática de los errores después de este primer intento. `validate()` solicita la validación de todos los campos. Si falla, el método termina y los campos muestran sus errores. Si pasa, `login()` consulta la ficha a través del repositorio. Un resultado `null` también detiene el recorrido: el ViewModel ya habrá notificado el error de consulta.
 
 Solo con un resultado correcto, `Navigator.push` añade una ruta. `MaterialPageRoute` describe esa pantalla y su `builder` crea el detalle pasando `resultado` por constructor. La flecha de volver recupera el formulario, que conserva sus datos. No guardamos una sesión ni modificamos la fuente. Al ser una consulta síncrona, no hay `await` ni uso de `context` tras una espera.
 
-## Mostrar el error y un único botón
+## Mostrar el error y el botón Login
 
 Añade este bloque al final de `children`, después de la casilla:
 
@@ -104,3 +104,5 @@ FilledButton(
 La condición solo añade el mensaje cuando existe. `ListenableBuilder` vuelve a construir este bloque al recibir `notifyListeners()`. Al corregir un campo desaparece el error de consulta anterior; Login vuelve a verificar los datos actuales.
 
 Referencias: [Navegar a otra pantalla y volver](https://docs.flutter.dev/cookbook/navigation/navigation-basics) y [FormState.validate](https://api.flutter.dev/flutter/widgets/FormState/validate.html).
+
+Continúa con [Limpiar el formulario](../limpiar-el-formulario/) para añadir la acción secundaria.

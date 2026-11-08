@@ -15,3 +15,5 @@ Convé distingir tres situacions: **obrir una pantalla amb `push`** afig una rut
 - Demanar confirmacions i arreplegar respostes amb diàlegs.
 
 Els exemples s’afigen com a entrades noves del catàleg, conservant les demostracions anteriors i el seu `main.dart`. Les pantalles de navegació es guarden en `lib/ui/navegacion/ui/`; els diàlegs amplien el formulari d’inscripció ja existent.
+
+Continua amb [Navegació avançada amb go_router](../navegacion-avanzada/) per a organitzar URL, seccions amb historial i rutes protegides.

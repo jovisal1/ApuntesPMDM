@@ -8,6 +8,10 @@ Desde la raíz de `catalogo_widgets`, ejecuta `dart format lib` para formatear e
 
 | Prueba | Resultado esperado |
 | --- | --- |
+| Abrir el formulario y escribir un nombre incompleto sin pulsar Login | No aparecen errores todavía. |
+| Login incorrecto y posterior corrección | Aparecen errores; se actualizan al corregir los campos. |
+| Limpiar después de elegir taller, marcar la casilla y escribir | Dos textos vacíos, sin taller y casilla desmarcada. |
+| Limpiar después de errores de formato o de consulta | Desaparecen todos los errores; al editar no reaparecen hasta otro Login. |
 | Login con campos vacíos | Errores en nombre, correo y taller. Permanece en el formulario. |
 | Nombre de un carácter o correo sin `@` | Error junto al campo correspondiente. |
 | Ana y ana@centro.es sin taller | Error de selección, sin abrir detalle. |
@@ -26,4 +30,4 @@ Prueba nombre y correo con espacios exteriores y mayúsculas: la búsqueda debe 
 
 Añade un taller y una tercera persona en el servicio. Al volver a abrir el ejemplo, el desplegable debe incluir la nueva opción y el detalle debe mostrar la ficha completa de la tercera persona sin editar los widgets. No copies esos datos en el ViewModel.
 
-Explica por qué la clave del `Form`, los controladores, el foco y `Navigator` están en la vista, mientras que la consulta se hace a través del contrato de dominio. Indica dónde cambiarías la conversión si la fuente dejase de utilizar el campo `email`.
+Explica por qué la clave del `Form`, los controladores y `Navigator` están en la vista, mientras que la consulta se hace a través del contrato de dominio. Indica dónde cambiarías la conversión si la fuente dejase de utilizar el campo `email`.

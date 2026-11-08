@@ -4,29 +4,79 @@ sidebar:
   order: 5
 ---
 
-Diferenciarem dos errors: el format dels camps i l’absència d’una fitxa que coincidisca. Els primers apareixen al costat de cada camp amb `validator`; l’error de consulta apareixerà damunt de Login. Cap d’ells obri el detall.
+El formulari ha d’explicar què necessita corregir la persona. Separarem els errors de format de cada camp de l’error de consulta de l’usuari. Els primers es mostren davall de Nombre, Correo o Taller; el segon es mostra prop de Login.
 
-## Connectar els camps amb les regles
+## Per què apareix el missatge davall del camp
 
-El ViewModel ja conté `validarNombre` i `validarCorreo`. Retornen un text si hi ha un problema i `null` si s’accepta la dada. Nombre exigix dos caràcters sense comptar espais exteriors. L’expressió regular del correu comprova un format bàsic; no garantix que existisca en la font.
-
-Afegix estes propietats als dos `TextFormField` existents, sense duplicar-los:
+`validarNombre` és una funció del ViewModel: rep un text i retorna un missatge o `null`. **No dibuixa res ni mostra l’error per si mateixa.** Connectem eixa funció al camp amb `validator`:
 
 
 ```dart
-// Nombre
-validator: vm.validarNombre,
-
-// Correo
-validator: vm.validarCorreo,
+TextFormField(
+  initialValue: vm.nombre,
+  decoration: const InputDecoration(labelText: 'Nombre'),
+  onChanged: vm.cambiarNombre,
+  validator: vm.validarNombre,
+),
 ```
 
-En el `Form`, afegix `autovalidateMode: AutovalidateMode.onUserInteraction`. Així els errors s’actualitzen en interactuar i corregir els camps. En polsar Login cridarem també `validate()` per a comprovar-los tots, encara que algun no s’haja tocat.
+`validator: vm.validarNombre` entrega una referència a la funció; no l’executa en escriure eixa línia. Quan es valida el camp, Flutter la crida amb el valor actual. El recorregut és:
 
-## Comprovar la selecció i la fitxa
+1. Login crida `_formKey.currentState?.validate()`.
+2. `FormState` demana la validació de tots els camps.
+3. El camp Nombre crida `vm.validarNombre(valorActual)`.
+4. Si rep una cadena, la guarda en `FormFieldState.errorText`; `TextFormField` utilitza eixe text en la decoració i el representa davall del camp, amb l’estil d’error del tema.
+5. Si rep `null`, el camp és vàlid i retira el missatge anterior. El `Form` retorna `true` únicament si no hi ha camps amb error.
 
-`validarTaller` exigix que l’identificador existisca en `vm.talleres`: no basta rebre un text qualsevol. La casella és opcional, per tant `false` no produïx error.
+Per exemple, `A` retorna «Introduce al menos dos caracteres»; `Ana` retorna `null`. Cridar `vm.validarNombre('A')` des d’un test només retorna la cadena: no canvia l’estat visual del camp. Tampoc cal `notifyListeners()` dins del validador, perquè Flutter gestiona i reconstruïx l’estat de validació del camp.
 
-`login()` torna a comprovar estes regles per a protegir l’acció quan s’utilitza sense la vista. Només després crida `buscarUsuario(nombre, correo)`. Per exemple, `Ana` i `pau@centro.es` tenen format correcte però no pertanyen a la mateixa fitxa. El repositori retorna `null`, el ViewModel assigna `error` i crida `notifyListeners()`. Una edició esborra eixe missatge antic; un nou Login torna a consultar.
+Afegix `validator: vm.validarNombre` a Nombre i `validator: vm.validarCorreo` a Correo. El desplegable utilitzarà `vm.validarTaller`. La validació de correu comprova format bàsic, no que existisca en la font.
 
-No afegim una segona còpia de les regles al widget ni una llista d’usuaris al ViewModel. Continua amb [les opcions del formulari](../selecciones-y-saludo/).
+## Configurar quan es valida
+
+`autovalidateMode` controla les validacions **automàtiques**. `validate()` continua funcionant en polsar Login amb qualsevol d’estos modes.
+
+| Mode | Quan apareix o s’actualitza l’error |
+| --- | --- |
+| `AutovalidateMode.disabled` | No valida automàticament. L’error s’obté en cridar `validate()`. |
+| `AutovalidateMode.onUserInteraction` | Valida després d’interactuar. En el `Form` és una política comuna: una edició pot fer que es comproven també altres camps. |
+| `AutovalidateMode.always` | Valida en construir i reconstruir, fins i tot sense edició. Pot mostrar errors en obrir un formulari buit. |
+
+En el nostre exemple començarem amb validació automàtica desactivada. Després del primer Login, activarem l’actualització mentre es corregixen les dades. Afegix al `State`:
+
+
+```dart
+bool _intentoLogin = false;
+```
+
+En el `Form`, afegix esta propietat:
+```dart
+autovalidateMode: _intentoLogin
+    ? AutovalidateMode.onUserInteraction
+    : AutovalidateMode.disabled,
+```
+
+En el pas de Login posarem la variable a `true` amb `setState` abans de cridar `validate()`. Limpiar la tornarà a `false`. Si preferixes mostrar els missatges **només en polsar Login**, utilitza sempre `AutovalidateMode.disabled`; els errors no s’actualitzaran en editar fins a la validació següent.
+
+També existix `autovalidateMode` en cada camp. Si necessites polítiques diferents per camp, deixa el `Form` en `disabled` i configura cadascun: així evites que una validació automàtica del formulari comprove tot el grup.
+
+## Configurar el text i el seu aspecte
+
+El contingut del missatge es canvia en el `return` del validador. L’aspecte pertany a la vista: `InputDecoration.errorStyle` permet configurar l’estil i `errorMaxLines` permet repartir missatges llargs en línies. Este fragment de decoració utilitza el color d’error del tema i permet fins a tres línies:
+
+
+```dart
+decoration: InputDecoration(
+  labelText: 'Nombre',
+  errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+  errorMaxLines: 3,
+),
+```
+
+No fixem una altura al camp: ha de poder créixer en aparéixer el missatge o en ampliar el text. No utilitzes `errorText: ''` per a ocultar errors: una cadena buida continua sent un error. Per a acceptar el valor, el validador ha de retornar `null`.
+
+## Error de consulta de l’usuari
+
+Si els camps tenen format correcte, `login()` consulta el repositori. `Ana` amb `pau@centro.es` no correspon a una mateixa fitxa: el ViewModel assigna `error`, notifica i la vista mostra el missatge de consulta prop del botó. Eixe missatge no és `FormFieldState.errorText`; és estat de presentació del ViewModel. Les regles continuen en el ViewModel i la cerca i transformació de dades en el repositori.
+
+Referències: [validator](https://api.flutter.dev/flutter/widgets/FormField/validator.html), [FormState.validate](https://api.flutter.dev/flutter/widgets/FormState/validate.html) i [AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html).

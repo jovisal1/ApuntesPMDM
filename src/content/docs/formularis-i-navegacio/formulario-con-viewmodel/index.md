@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-Construiremos un único formulario de acceso de demostración en **`catalogo_widgets`**. La persona escribe nombre y correo, elige un taller y marca, si quiere, un recordatorio. El único botón del formulario es **Login**: valida los campos, consulta la fuente ficticia y, si encuentra al usuario, abre su detalle con un saludo y todos sus datos. Si hay errores, permanece en el formulario y los muestra.
+Construiremos un único formulario de acceso de demostración en **`catalogo_widgets`**. La persona escribe nombre y correo, elige un taller y marca, si quiere, un recordatorio. La acción principal es **Login**: valida los campos, consulta la fuente ficticia y, si encuentra al usuario, abre su detalle con un saludo y todos sus datos. Si hay errores, permanece en el formulario y los muestra. **Limpiar** restablece los campos, las selecciones y los mensajes.
 
 El nombre y el correo se comparan con datos locales: no implementamos autenticación real, contraseñas, sesiones ni envío de mensajes. El taller y el recordatorio son las selecciones de esta visita; no forman parte de la identidad del usuario.
 
@@ -20,7 +20,7 @@ Seguimos la arquitectura del [ejemplo con datos](../../widgets/ejemplo-con-datos
 | `domain/repositories` | Contrato de consulta, independiente de Flutter y del origen. |
 | `data/repositories` | Implementación del contrato, conversión de DTO y búsqueda de la ficha. |
 | `ui/inscripcion/view_models` | Texto, selecciones, validación y consulta al contrato. |
-| `ui/inscripcion/ui` | Campos, errores, controladores, foco, botón Login y navegación al detalle. |
+| `ui/inscripcion/ui` | Campos, errores, controladores, botones Login y Limpiar y navegación al detalle. |
 
 La funcionalidad conserva el nombre técnico `inscripcion`, compartido con otros ejemplos del catálogo. La pantalla representa un acceso simulado a los talleres.
 
@@ -65,7 +65,7 @@ Mantén `main.dart` y las entradas anteriores del catálogo. Los archivos de có
 4. [Conectar la validación](./validar-los-datos/).
 5. [Añadir el desplegable y la casilla](./selecciones-y-saludo/).
 6. [Conectar los controladores](./controladores-y-cambios/).
-7. [Gestionar el foco](./gestionar-el-foco/).
-8. [Login y detalle del usuario](./boton-y-resultado/).
+7. [Login y detalle del usuario](./boton-y-resultado/).
+8. [Limpiar el formulario](./limpiar-el-formulario/).
 9. [Completar la pantalla](./completar-la-pantalla/).
 10. [Probar el recorrido](./probar-el-formulario/).

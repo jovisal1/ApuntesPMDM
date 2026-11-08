@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<title id="title">Tres formas de usar un diálogo</title>
+<desc id="desc">Comparación de confirmación, selección de una sección y entrada de un nombre. En los tres ejemplos el fondo permanece oscurecido y al cerrar se devuelve un resultado.</desc>
+<rect width="960" height="540" rx="20" fill="#f1f5fb"/>
+<g font-family="Arial, sans-serif" fill="#172c47">
+<text x="24" y="37" font-size="25" fill="#172c47" font-weight="700">Un diálogo, una decisión breve</text>
+<text x="24" y="76" font-size="20" fill="#172c47" font-weight="700">AlertDialog</text>
+<text x="24" y="101" font-size="15" fill="#172c47">Confirmar una acción</text>
+<rect x="24" y="117" width="288" height="333" rx="15" fill="#ffffff" stroke="#b4c5db"/>
+<text x="42" y="148" font-size="17" fill="#172c47" font-weight="700">Formulario</text>
+<rect x="42" y="175" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="42" y="226" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="42" y="277" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="24" y="117" width="288" height="333" rx="15" fill="#172c47" opacity="0.28"/>
+<rect x="40" y="191" width="256" height="179" rx="17" fill="#172c47"/>
+<rect x="38" y="187" width="256" height="179" rx="17" fill="#ffffff"/>
+<text x="56" y="222" font-size="20" fill="#172c47" font-weight="700">¿Continuar?</text>
+<text x="56" y="253" font-size="15" fill="#172c47">Se abrirá el formulario</text>
+<text x="56" y="275" font-size="15" fill="#172c47">de inscripción.</text>
+<text x="56" y="334" font-size="14" fill="#285eaa">Cancelar</text>
+<rect x="170" y="307" width="106" height="42" rx="21" fill="#285eaa"/>
+<text x="188" y="334" font-size="14" fill="#ffffff" font-weight="700">Continuar</text>
+<text x="27" y="480" font-size="14" fill="#172c47" font-weight="700">Devuelve: true / false / null</text>
+<text x="336" y="76" font-size="20" fill="#172c47" font-weight="700">SimpleDialog</text>
+<text x="336" y="101" font-size="15" fill="#172c47">Elegir una opción</text>
+<rect x="336" y="117" width="288" height="333" rx="15" fill="#ffffff" stroke="#b4c5db"/>
+<text x="354" y="148" font-size="17" fill="#172c47" font-weight="700">Formulario</text>
+<rect x="354" y="175" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="354" y="226" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="354" y="277" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="336" y="117" width="288" height="333" rx="15" fill="#172c47" opacity="0.28"/>
+<rect x="352" y="159" width="256" height="251" rx="17" fill="#172c47"/>
+<rect x="350" y="155" width="256" height="251" rx="17" fill="#ffffff"/>
+<text x="368" y="190" font-size="19" fill="#172c47" font-weight="700">Elige una sección</text>
+<rect x="362" y="208" width="232" height="48" rx="8" fill="#edf3ff"/>
+<text x="380" y="239" font-size="17" fill="#172c47">Text</text>
+<path d="M569 225l6 6-6 6" fill="none" stroke="#285eaa" stroke-width="2"/>
+<rect x="362" y="265" width="232" height="48" rx="8" fill="#edf3ff"/>
+<text x="380" y="296" font-size="17" fill="#172c47">Image</text>
+<path d="M569 282l6 6-6 6" fill="none" stroke="#285eaa" stroke-width="2"/>
+<rect x="362" y="322" width="232" height="48" rx="8" fill="#edf3ff"/>
+<text x="380" y="353" font-size="17" fill="#172c47">Icon</text>
+<path d="M569 339l6 6-6 6" fill="none" stroke="#285eaa" stroke-width="2"/>
+<text x="339" y="480" font-size="14" fill="#172c47" font-weight="700">Devuelve: opción / null</text>
+<text x="648" y="76" font-size="20" fill="#172c47" font-weight="700">Dialog + Form</text>
+<text x="648" y="101" font-size="15" fill="#172c47">Introducir un dato</text>
+<rect x="648" y="117" width="288" height="333" rx="15" fill="#ffffff" stroke="#b4c5db"/>
+<text x="666" y="148" font-size="17" fill="#172c47" font-weight="700">Formulario</text>
+<rect x="666" y="175" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="666" y="226" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="666" y="277" width="252" height="35" rx="8" fill="#edf3ff"/>
+<rect x="648" y="117" width="288" height="333" rx="15" fill="#172c47" opacity="0.28"/>
+<rect x="664" y="170" width="256" height="223" rx="17" fill="#172c47"/>
+<rect x="662" y="166" width="256" height="223" rx="17" fill="#ffffff"/>
+<text x="680" y="202" font-size="19" fill="#172c47" font-weight="700">Nombre para</text>
+<text x="680" y="226" font-size="19" fill="#172c47" font-weight="700">la inscripción</text>
+<rect x="680" y="246" width="220" height="59" rx="7" fill="#ffffff" stroke="#285eaa"/>
+<rect x="689" y="238" width="65" height="18" rx="0" fill="#ffffff"/>
+<text x="694" y="251" font-size="12" fill="#285eaa">Nombre</text>
+<text x="693" y="283" font-size="17" fill="#172c47">Ana</text>
+<text x="680" y="357" font-size="14" fill="#285eaa">Cancelar</text>
+<rect x="797" y="330" width="103" height="42" rx="21" fill="#285eaa"/>
+<text x="818" y="357" font-size="14" fill="#ffffff" font-weight="700">Aceptar</text>
+<text x="651" y="480" font-size="14" fill="#172c47" font-weight="700">Devuelve: &quot;Ana&quot; / null</text>
+<text x="24" y="518" font-size="16" fill="#172c47">La pantalla de origen sigue debajo. El resultado vuelve al cerrar el diálogo.</text>
+</g>
+</svg>

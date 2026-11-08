@@ -8,6 +8,10 @@ Des de l’arrel de `catalogo_widgets`, executa `dart format lib` per a formatar
 
 | Prova | Resultat esperat |
 | --- | --- |
+| Obrir el formulari i escriure un nom incomplet sense polsar Login | Encara no apareixen errors. |
+| Login incorrecte i correcció posterior | Apareixen errors; s’actualitzen en corregir els camps. |
+| Limpiar després de triar taller, marcar la casella i escriure | Dos textos buits, sense taller i casella desmarcada. |
+| Limpiar després d’errors de format o de consulta | Desapareixen tots els errors; en editar no reapareixen fins a un altre Login. |
 | Login amb camps buits | Errors en nom, correu i taller. Es queda en el formulari. |
 | Nom d’un caràcter o correu sense `@` | Error al costat del camp corresponent. |
 | Ana i ana@centro.es sense taller | Error de selecció, sense obrir el detall. |
@@ -26,4 +30,4 @@ Prova nom i correu amb espais exteriors i majúscules: la cerca ha de continuar 
 
 Afegix un taller i una tercera persona en el servici. En tornar a obrir l’exemple, el desplegable ha d’incloure la nova opció i el detall ha de mostrar la fitxa completa de la tercera persona sense editar els widgets. No copies eixes dades en el ViewModel.
 
-Explica per què la clau del `Form`, els controladors, el focus i `Navigator` estan en la vista, mentre que la consulta es fa a través del contracte de domini. Indica on canviaries la conversió si la font deixara d’utilitzar el camp `email`.
+Explica per què la clau del `Form`, els controladors i `Navigator` estan en la vista, mentre que la consulta es fa a través del contracte de domini. Indica on canviaries la conversió si la font deixara d’utilitzar el camp `email`.

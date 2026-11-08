@@ -60,6 +60,15 @@ class InscripcionViewModel extends ChangeNotifier {
     _avisarCambio();
   }
 
+  void limpiar() {
+    _nombre = '';
+    _correo = '';
+    _tallerId = null;
+    _recordatorio = false;
+    _error = null;
+    notifyListeners();
+  }
+
   String? validarNombre(String? valor) => (valor ?? '').trim().length < 2
       ? 'Introduce al menos dos caracteres'
       : null;
@@ -106,3 +115,5 @@ Els getters permeten llegir l’estat sense substituir-lo des de fora. Els mèto
 `login()` retorna `DatosAcceso?`: un resultat complet si les comprovacions i la consulta tenen èxit, o `null` amb un error. No inventa cognoms, telèfon ni localitat a partir del text escrit.
 
 Continua amb [la vista i el seu muntatge](../preparar-la-pantalla/).
+
+`limpiar()` restablix els textos, les seleccions i l’error en una sola acció i notifica el canvi. Conserva els tallers del repositori: netejar un formulari no esborra el catàleg ni modifica la font. El connectarem al botó Limpiar en el pas 8.

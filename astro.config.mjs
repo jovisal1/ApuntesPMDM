@@ -124,7 +124,6 @@ export default defineConfig({
                       collapsed: true,
                       items: [{ autogenerate: { directory: "formularis-i-navegacio/formulario-con-viewmodel" } }],
                     },
-                    { slug: "formularis-i-navegacio/formularios-actividades" },
                   ],
                 },
                 {
@@ -164,6 +163,12 @@ export default defineConfig({
                     },
                     { slug: "formularis-i-navegacio/navegacion/actividades" },
                   ],
+                },
+                {
+                  label: "Navegación avanzada con go_router",
+                  translations: { ca: "Navegació avançada amb go_router" },
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "formularis-i-navegacio/navegacion-avanzada" } }],
                 },
               ],
             },
