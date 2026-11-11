@@ -13,12 +13,6 @@ Has d’implementar **almenys set pantalles**: login, registre, principal, detal
 
 **Els mockups i les propostes de distribució són orientatius.** Pots dissenyar les pantalles com consideres, triar una altra identitat i canviar-ne la composició. Mantín les dades mínimes, les accions i la navegació exigits. No s’avaluarà que l’aplicació copie els dibuixos, sinó que resolga el recorregut i siga llegible i coherent.
 
-## Disseny de referència en Figma
-
-Les captures següents mostren els dissenys d’Encuentro guardats com a imatges locals dels apunts. Substituïxen els mockups anteriors i es poden consultar ací sense obrir Figma. Inclouen Accés, Registre i les vistes complementàries del recorregut.
-
-Pots adaptar-ne la composició i la identitat. Els requisits mínims continuen sent els d’esta pàgina: les dades, els preus i els textos de les captures són exemples. Les imatges conserven els textos originals del disseny; les explicacions i els textos alternatius estan traduïts.
-
 ## Un estil coherent en tota l’aplicació
 
 Abans d’implementar les pantalles, acorda uns criteris visuals senzills i anota’ls en el `README`. S’han d’aplicar també a les pantalles que afiges. Com a punt de partida:
@@ -79,7 +73,7 @@ Presentació d’una alta d’usuari fictícia.
 
 - Mostra nom i cognoms, correu, contrasenya i repetició de contrasenya amb etiquetes visibles. Els camps de contrasenya han d’ocultar el text.
 - Pots precarregar els camps; no s’exigix validació, guardar les dades ni crear un compte real. Identifica el registre com una simulació.
-- Crear compte de prova mostra una confirmació simulada i permet tornar al login. Entrar en l’aplicació continua fent-se des del login.
+- Permet tornar al login. Entrar en l’aplicació continua fent-se des del login.
 - Inclou Tornar a l’inici de sessió i permet tornar mitjançant Arrere. No guardes contrasenyes en Usuario ni en el seu DTO.
 
 Comprovació: Obri Registre des de Login, activa la confirmació i torna a l’accés. Comprova també el botó Arrere.
@@ -174,10 +168,7 @@ Presentació d’una sol·licitud de reserva de prova.
 - Mostra els servicis que oferix eixe espai mitjançant opcions seleccionables amb nom i preu final per reserva. Permet triar-ne cap, un o diversos; no confongues els extres amb l’equipament inclòs.
 - Mostra duració, tarifa per hora, subtotal de lloguer, subtotal d’extres, total i moneda, a més del contacte del local. Actualitza els imports amb cada selecció: total = tarifa × hores + extres.
 - La confirmació ha de conservar el mateix espai, els servicis seleccionats i el desglossament de preu; no afig una reserva a la font simulada.
-- Confirmar mostra un diàleg o pantalla amb el resum, inclòs el preu total, i el missatge Reserva de prova. Des d’eixa confirmació permet obrir Les meues reserves.
-- Explica que no es guarda la sol·licitud i que Les meues reserves conté exemples precarregats. Tornar ha de permetre retornar al detall del mateix espai.
 
-Comprovació: En Sala Ágora, dos hores costen 60,00 €. Seleccionar neteja suma 15,00 €, seleccionar també café suma 12,00 € més i desmarcar-los retorna el total a 60,00 €. La confirmació conserva les seleccions i Les meues reserves continua mostrant les dades precarregades.
 
 ## Les meues reserves
 

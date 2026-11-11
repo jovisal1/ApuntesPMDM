@@ -196,6 +196,17 @@ export default defineConfig({
                 { slug: "proyecto-integrador/entrega-1/presentacion" },
               ],
             },
+            {
+              label: "Entrega 2",
+              translations: { ca: "Lliurament 2" },
+              collapsed: false,
+              items: [
+                { label: "Enunciado y organización", translations: { ca: "Enunciat i organització" }, slug: "proyecto-integrador/entrega-2" },
+                { slug: "proyecto-integrador/entrega-2/rutas" },
+                { slug: "proyecto-integrador/entrega-2/formularios" },
+                { slug: "proyecto-integrador/entrega-2/ampliaciones" },
+              ],
+            },
           ],
         },
       ],

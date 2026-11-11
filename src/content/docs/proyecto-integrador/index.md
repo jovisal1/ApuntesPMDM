@@ -17,3 +17,5 @@ También practicarás cómo transformar una necesidad en modelos de datos, compo
 Tienes libertad para elegir el nombre, la identidad visual y el diseño de tu aplicación. Las propuestas y los mockups sirven de orientación; debes respetar los requisitos mínimos y aplicar un estilo coherente a todo el conjunto. Podrás añadir pantallas y detalles propios siempre que puedas explicar su finalidad y su implementación con los contenidos trabajados.
 
 La [primera entrega](./entrega-1/) concreta los requisitos de esta fase: al menos siete pantallas conectadas mediante navegación, modelos de dominio, DTO y una fuente de datos simulada. Consulta su enunciado y las subsecciones de cada capa antes de empezar a repartir el trabajo entre archivos.
+
+La [segunda entrega](./entrega-2/) desarrolla los contenidos de Formularios y navegación: acceso validado, solicitud y creación de reservas en memoria, ViewModels, rutas con `go_router` y secciones con estado conservado. Incluye orientaciones para evolucionar datos y dominio y casos de comprobación del recorrido completo.

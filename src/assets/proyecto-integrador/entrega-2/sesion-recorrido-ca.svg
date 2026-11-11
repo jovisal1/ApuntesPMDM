@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="742" viewBox="0 0 800 742" role="img" aria-labelledby="title desc">
+<title id="title">De reservar sense sessió a tornar al destí</title><desc id="desc">El router conserva el destí i el recupera després del login.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs>
+<rect width="800" height="742" rx="24" fill="#f8fafc"/>
+<g font-family="DejaVu Sans,sans-serif" fill="#172554">
+<text x="32" y="48" font-size="26" font-weight="700">De reservar sense sessió a tornar al destí</text>
+<rect x="40" y="80" width="720" height="112" rx="16" fill="#eef2ff" stroke="#94a3b8"/>
+<text x="62" y="111" font-size="22" font-weight="700">1. Demanar una reserva</text>
+<text x="62" y="142" font-size="18">/espacios/e1/reservar · activa = false</text>
+<text x="62" y="169" font-size="18">El router conserva el destí i mostra /acceso.</text>
+<path d="M400 197 V220" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="40" y="228" width="720" height="112" rx="16" fill="#e0f2fe" stroke="#94a3b8"/>
+<text x="62" y="259" font-size="22" font-weight="700">2. Comprovar nom i correu</text>
+<text x="62" y="290" font-size="18">Vista → ViewModel → repositori local</text>
+<text x="62" y="317" font-size="18">Si falla: error al formulari, la sessió no canvia.</text>
+<path d="M400 345 V368" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="40" y="376" width="720" height="112" rx="16" fill="#ecfdf5" stroke="#94a3b8"/>
+<text x="62" y="407" font-size="22" font-weight="700">3. Comunicar la fitxa vàlida</text>
+<text x="62" y="438" font-size="18">onLogin(usuario) → sesion.iniciarSesion(usuario)</text>
+<text x="62" y="465" font-size="18">notifyListeners() avisa el router.</text>
+<path d="M400 493 V516" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="40" y="524" width="720" height="112" rx="16" fill="#fff7ed" stroke="#94a3b8"/>
+<text x="62" y="555" font-size="22" font-weight="700">4. Recuperar el destí</text>
+<text x="62" y="586" font-size="18">redirect consulta activa = true</text>
+<text x="62" y="613" font-size="18">Obri /espacios/e1/reservar, amb el mateix espai.</text>
+<text x="32" y="718" font-size="17">La sessió guarda l’usuari; el router decidix la pantalla.</text>
+</g></svg>

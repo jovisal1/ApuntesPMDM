@@ -17,3 +17,5 @@ També practicaràs com transformar una necessitat en models de dades, component
 Tens llibertat per a triar el nom, la identitat visual i el disseny de l’aplicació. Les propostes i els mockups servixen d’orientació; has de respectar els requisits mínims i aplicar un estil coherent a tot el conjunt. Podràs afegir pantalles i detalls propis sempre que pugues explicar-ne la finalitat i la implementació amb els continguts treballats.
 
 La [primera entrega](./entrega-1/) concreta els requisits d’esta fase: almenys set pantalles connectades mitjançant navegació, models de domini, DTO i una font de dades simulada. Consulta l’enunciat i les subseccions de cada capa abans de començar a repartir el treball entre fitxers.
+
+La [segona entrega](./entrega-2/) desenvolupa els continguts de Formularis i navegació: accés validat, sol·licitud i creació de reserves en memòria, ViewModels, rutes amb `go_router` i seccions amb estat conservat. Inclou orientacions per a evolucionar dades i domini i casos de comprovació del recorregut complet.

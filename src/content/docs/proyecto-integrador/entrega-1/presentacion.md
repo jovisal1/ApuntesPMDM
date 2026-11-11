@@ -13,12 +13,6 @@ Debes implementar **al menos siete pantallas**: login, registro, principal, deta
 
 **Los mockups y las propuestas de distribución son orientativos.** Puedes diseñar las pantallas como consideres, elegir otra identidad y cambiar su composición. Mantén los datos mínimos, las acciones y la navegación exigidos. No se evaluará que tu aplicación copie los dibujos, sino que resuelva el recorrido y sea legible y coherente.
 
-## Diseño de referencia en Figma
-
-Las capturas siguientes muestran los diseños de Encuentro guardados como imágenes locales de los apuntes. Sustituyen a los mockups anteriores y se pueden consultar aquí sin abrir Figma. Incluyen Acceso, Registro y las vistas complementarias del recorrido.
-
-Puedes adaptar su composición e identidad. Los requisitos mínimos siguen siendo los de esta página: los datos, precios y textos de las capturas son ejemplos. Las imágenes conservan los textos originales del diseño; las explicaciones y los textos alternativos están traducidos.
-
 ## Un estilo coherente en toda la aplicación
 
 Antes de implementar las pantallas, acuerda unos criterios visuales sencillos y anótalos en el `README`. Deben aplicarse también a las pantallas que añadas. Como punto de partida:
@@ -80,7 +74,7 @@ Presentación de un alta de usuario ficticia.
 
 - Muestra nombre y apellidos, correo, contraseña y repetición de contraseña con etiquetas visibles. Los campos de contraseña deben ocultar el texto.
 - Puedes precargar los campos; no se exige validación, guardar los datos ni crear una cuenta real. Identifica el registro como una simulación.
-- Crear cuenta de prueba muestra una confirmación simulada y permite regresar al login. Entrar en la aplicación sigue realizándose desde el login.
+- Permite regresar al login. Entrar en la aplicación sigue realizándose desde el login.
 - Incluye Volver al inicio de sesión y permite regresar mediante Atrás. No almacenes contraseñas en `Usuario` ni en su DTO.
 
 Comprobación: Abre Registro desde Login, activa la confirmación y regresa al acceso. Comprueba también el botón Atrás.
@@ -175,10 +169,7 @@ Presentación de una solicitud de reserva de prueba.
 - Muestra los servicios que ofrece ese espacio mediante opciones seleccionables con su nombre y precio final por reserva. Permite elegir ninguno, uno o varios; no confundas los extras con el equipamiento incluido.
 - Muestra duración, tarifa por hora, subtotal de alquiler, subtotal de extras, total y moneda, además del contacto del local. Actualiza los importes con cada selección: total = tarifa × horas + extras.
 - La confirmación debe conservar el mismo espacio, los servicios seleccionados y el desglose de precio; no añade una reserva a la fuente simulada.
-- Confirmar muestra un diálogo o pantalla con el resumen incluido el precio total, y el mensaje `Reserva` de prueba. Desde esa confirmación permite abrir Mis reservas.
-- Explica que no se guarda la solicitud y que Mis reservas contiene ejemplos precargados. Volver debe permitir regresar al detalle del mismo espacio.
 
-Comprobación: En Sala Ágora, dos horas cuestan 60,00 €. Seleccionar limpieza suma 15,00 €, seleccionar también café suma otros 12,00 € y desmarcarlos devuelve el total a 60,00 €. La confirmación conserva las selecciones y Mis reservas sigue mostrando los datos precargados.
 
 ## Mis reservas
 
