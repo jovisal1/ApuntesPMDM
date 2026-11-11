@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-Este conjunto de referencia completa la fuente simulada de la [capa de datos](../datos/). Contiene **seis espacios, tres personas de contacto, tres usuarios, cuatro reservas, doce servicios adicionales, seis comentarios y disponibilidad para siete días**. Las relaciones, actividades, aforos, horarios y precios son coherentes. Puedes ampliarlo manteniendo sus contratos.
+Utiliza este conjunto como fuente de referencia para la [capa de datos](../datos/). Incluye **seis espacios, tres personas de contacto, tres usuarios, cuatro reservas, doce servicios adicionales, seis comentarios y disponibilidad para siete días**. Los identificadores, las relaciones y los importes permiten comprobar las pantallas con datos coherentes. Puedes añadir ejemplos respetando los campos y las relaciones definidos.
 
 ## Antes de copiar los datos
 

@@ -6,11 +6,11 @@ sidebar:
   label: "Enunciado y organización"
 ---
 
-Antes de comenzar la entrega, repasa [Ejemplo con datos de los apuntes](../../widgets/ejemplo-con-datos/). Revisa cómo relaciona los modelos y cómo el servicio y el repositorio transforman los DTO antes de que lleguen a la interfaz. Es la referencia de partida para las subsecciones de dominio y datos.
+Antes de empezar, repasa el [Ejemplo con datos](../../widgets/ejemplo-con-datos/). Te servirá de referencia para definir los modelos y seguir el recorrido de la información: el servicio proporciona DTO, el repositorio los convierte en modelos de dominio y las pantallas muestran esos modelos.
 
 ## Introducción
 
-Vas a desarrollar una aplicación móvil que permita consultar y reservar espacios para reuniones, celebraciones, talleres y otras actividades. El proyecto crecerá mediante distintas entregas y servirá para aplicar y relacionar los conocimientos de la asignatura.
+En esta entrega construirás la base de la aplicación de reserva de espacios. Aplicarás Dart y los widgets de Flutter para representar la información, componer las pantallas y conectarlas mediante navegación.
 
 En esta primera entrega construirás **al menos siete pantallas completas**, conectadas mediante navegación, con información ficticia coherente. El resultado debe poder ejecutarse y permitir recorrer el proceso desde el acceso hasta la confirmación de una reserva de prueba.
 
@@ -31,7 +31,7 @@ Debes incluir las siete pantallas mínimas descritas en la capa de presentación
 
 ## Arquitectura propuesta
 
-Organiza el proyecto en tres ámbitos de responsabilidad: ui para presentación, domain para los modelos y data para el acceso y la gestión de los datos. Esta organización sigue el árbol previsto en los apuntes del catálogo. La interfaz se agrupa por funcionalidad y los datos por responsabilidad.
+Organiza el proyecto en tres carpetas principales: `ui` para las pantallas y los componentes visuales, `domain` para los modelos y `data` para obtener y transformar los datos. Sigue la estructura del catálogo: agrupa la interfaz por funcionalidad y los archivos de datos según su responsabilidad.
 
 ```text
 lib/
@@ -86,11 +86,11 @@ README.md
 pubspec.yaml
 ```
 
-Toda pantalla y componente visual se guarda en una subcarpeta ui: dentro de su funcionalidad o en `ui/core/ui` si se comparte. `main.dart` inicia la aplicación, configura `MaterialApp` y conecta las dependencias.
+Guarda cada pantalla o componente visual en la subcarpeta `ui` de su funcionalidad. Si lo reutilizas en varias funcionalidades, colócalo en `ui/core/ui`. `main.dart` inicia la aplicación, configura `MaterialApp` y conecta las dependencias.
 
 Para esta entrega basta un servicio local que devuelva DTO con datos de ejemplo y repositorios sencillos que los transformen en modelos de dominio, sin operaciones asíncronas. Puedes inyectar los datos mediante constructores. Evita repetir el catálogo en distintas pantallas o escribir toda la aplicación en `main.dart`.
 
-Más adelante añadiremos ui/&lt;funcionalidad&gt;/view_models/ para el estado de presentación y otros servicios cuando cambie la fuente de datos. No se exige crear estas carpetas vacías ni implementar casos de uso en esta entrega.
+En las siguientes entregas incorporaremos `ui/<funcionalidad>/view_models/` para gestionar el estado de las pantallas y añadiremos servicios cuando cambie el origen de los datos. No se exige crear estas carpetas vacías ni implementar casos de uso en esta entrega.
 
 ## Cómo trabajar las tres capas
 
@@ -118,11 +118,11 @@ Puedes empezar por los modelos, continuar con los datos simulados y terminar com
 | Privados de biblioteca | Guion bajo inicial cuando proceda: _crearResumen() |
 | Recursos de imágenes | Nombres descriptivos: sala_agora.jpg; declararlos en `pubspec.yaml` |
 
-Usa identificadores sin espacios ni tildes y mantén un idioma coherente. En este proyecto se adopta el sufijo Screen para las pantallas; es una convención del proyecto. Las reglas de mayúsculas y minúsculas proceden de Effective Dart. Aplica dart format y conserva los lints de Flutter.
+Usa identificadores sin espacios ni tildes y mantén un idioma coherente. En este proyecto se adopta el sufijo Screen para las pantallas; es una convención del proyecto. Las reglas de mayúsculas y minúsculas siguen Effective Dart. Aplica `dart format` y conserva las reglas de análisis de Flutter.
 
 ## Entrega y comprobación
 
-Entrega el proyecto Flutter completo con el código fuente, `pubspec.yaml`, los recursos locales y un `README` que permita ejecutarlo. Excluye las carpetas generadas build/ y .dart_tool/. Incluye capturas de las siete pantallas mínimas y de las adicionales que hayas creado y documenta qué acciones son simuladas.
+Entrega el proyecto Flutter completo con el código fuente, `pubspec.yaml`, los recursos locales y un `README` que permita ejecutarlo. Excluye las carpetas generadas `build/` y `.dart_tool/`. Incluye capturas de las siete pantallas mínimas y de las adicionales que hayas creado y documenta qué acciones son simuladas.
 
 ### Lista de comprobación
 

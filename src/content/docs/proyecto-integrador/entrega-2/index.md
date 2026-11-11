@@ -9,7 +9,7 @@ En esta segunda entrega ampliarás la aplicación de reserva de espacios de la [
 
 ## Configuración de rutas
 
-Implementa una navegación centralizada con `go_router` que cumpla estos requisitos técnicos:
+Configura con `go_router` las rutas de toda la aplicación. La navegación debe cumplir los siguientes requisitos:
 
 - Un único `MaterialApp.router` y un mapa de rutas para acceso, registro, espacios, detalle, reserva, revisión, reservas del usuario y perfil.
 - Parámetros de identificador para consultar espacios y reservas mediante repositorios; tratamiento de rutas desconocidas y elementos inexistentes.
@@ -21,7 +21,7 @@ Consulta [Configuración de rutas](./rutas/) para los requisitos detallados, el 
 
 ## Formularios
 
-Implementa el acceso y el recorrido de reserva con estos requisitos técnicos:
+Desarrolla los formularios de acceso, registro y reserva. Deben cumplir los siguientes requisitos:
 
 - `Form`, campos etiquetados, controles adecuados y mensajes de validación que permitan corregir errores antes de continuar.
 - Los ViewModels gestionan los valores, las validaciones y las operaciones del formulario. Las pantallas se encargan de mostrar los resultados y de la navegación, y los repositorios proporcionan los modelos de dominio. La vista gestiona los controladores y los libera con `dispose`.
@@ -32,6 +32,6 @@ Implementa el acceso y el recorrido de reserva con estos requisitos técnicos:
 - Alta única al confirmar, almacenamiento local compartido y actualización inmediata de Mis reservas para el usuario actual.
 - Diálogos para limpiar o descartar formularios modificados, sin perder cambios al cancelar.
 
-Consulta [Formularios](./formularios/) para los requisitos de cada pantalla, el comportamiento esperado.
+Consulta [Formularios](./formularios/) para conocer los campos, las validaciones y las acciones de cada pantalla.
 
 Las mejoras opcionales se describen en [Posibles ampliaciones](./ampliaciones/).

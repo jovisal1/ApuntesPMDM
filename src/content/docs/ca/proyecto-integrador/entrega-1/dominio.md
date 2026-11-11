@@ -9,13 +9,13 @@ Abans de començar, repassa [Exemple amb dades](../../../widgets/ejemplo-con-dat
 
 ## Què representa el domini
 
-El domini reunix els conceptes amb què parlem de l’aplicació: espais, reserves, usuaris i persones de contacte. Una pantalla pot canviar la distribució sense que canvie què significa una reserva. Per això estes classes viuen en `lib/domain/models/`, no importen Flutter i no contenen colors, widgets ni codi de navegació.
+La capa de domini representa els conceptes de l’aplicació: espais, reserves, usuaris i persones de contacte. Les classes descriuen quina informació conté cada element i com es relaciona amb els altres. Guarda-les en `lib/domain/models/` i mantín-les independents de la interfície: no importen Flutter ni contenen widgets, colors o instruccions per a obrir pantalles.
 
 ![Reserva relaciona Usuario i Espacio; Espacio conté ContactoLocal. La reserva conserva la tarifa i el preu total](../../../../../assets/proyecto-integrador/entrega-1/modelos-ca.svg)
 
 Els identificadors permeten reconéixer la mateixa entitat en diferents pantalles. La reserva conté un `Espacio` i un `Usuario`, no els seus noms copiats en cadenes independents. Per a accedir a la persona responsable del local, la vista utilitza `reserva.espacio.contacto`. Eixe contacte **no és qui reserva**: representa l’interlocutor del local.
 
-Els camps següents són mínims. Usa camps `final` i paràmetres amb nom `required`; afig un constructor `const` quan siga possible. `final` impedix reassignar un camp, però no impedix modificar els elements d’una llista: pots protegir les col·leccions amb `List.unmodifiable`. Els identificadors del codi es compartixen entre les dos versions lingüístiques per a mantindre compatibles fitxers i imports; els textos de la interfície els pots adaptar a l’idioma de la teua aplicació.
+Les taules següents indiquen els camps mínims de cada model. Usa camps `final` i paràmetres amb nom `required`; afig un constructor `const` quan siga possible. `final` impedix reassignar un camp, però no impedix modificar els elements d’una llista: pots protegir les col·leccions amb `List.unmodifiable`. Els identificadors del codi es compartixen entre les dos versions lingüístiques per a mantindre compatibles fitxers i imports; els textos de la interfície els pots adaptar a l’idioma de la teua aplicació.
 
 ## ContactoLocal i Usuario tenen funcions diferents
 

@@ -5,9 +5,9 @@ sidebar:
   order: 2
 ---
 
-En esta parte configurarás la navegación de la aplicación con `go_router`, definiendo qué pantalla corresponde a cada ruta y cómo se puede llegar a ella. El recorrido debe funcionar tanto al pulsar los botones de la interfaz como al abrir directamente una dirección de la aplicación. Por ejemplo, `/espacios/:id` permitirá consultar un espacio concreto a partir de su identificador, sin depender de haber pasado antes por el catálogo.
+Configura con `go_router` qué pantalla debe abrirse en cada ruta y qué información necesita para mostrar su contenido. El recorrido debe funcionar al pulsar los botones de la interfaz y al abrir directamente una dirección de la aplicación. Por ejemplo, en `/espacios/:id`, el parámetro `:id` identifica el espacio que se debe consultar, aunque no se haya abierto antes el catálogo.
 
-También organizarás la navegación entre Espacios, Mis reservas y Perfil, conservando el estado de cada sección al alternar entre ellas. Distinguirás las pantallas públicas de las que requieren iniciar sesión y comprobarás que cada usuario solo pueda consultar sus propias reservas. Cuando no se cumplan las condiciones de acceso, la aplicación deberá responder según el caso: solicitar el acceso, mostrar que la reserva no está disponible o presentar una pantalla de «Página no encontrada» si la ruta no existe.
+La navegación también debe conservar el estado al cambiar entre Espacios, Mis reservas y Perfil. Distingue las pantallas públicas de las que requieren sesión y comprueba, además, a quién pertenece cada reserva. Una ruta desconocida, la ausencia de sesión y la falta de permiso son situaciones diferentes; las tablas siguientes indican cómo responder en cada caso.
 
 Los apartados siguientes concretan las rutas que debes crear y el comportamiento esperado en cada pantalla. Para implementar la sesión y las redirecciones, utiliza el ejemplo de [Acceso a rutas protegidas de los apuntes](../../../formularis-i-navegacio/navegacion-avanzada/rutas-protegidas/), adaptándolo a los destinos y permisos de esta aplicación.
 
@@ -39,7 +39,7 @@ Como sugerencia, puedes utilizar `StatefulShellRoute.indexedStack`, estudiada en
 
 ## Comportamiento del acceso y de los permisos
 
-Una ruta **protegida** requiere una sesión activa. Además, consultar una reserva requiere que pertenezca al usuario de sesión: haber accedido no da permiso para ver todas las reservas. Aplica las comprobaciones tanto desde los botones como al abrir directamente una ruta.
+Una ruta protegida solo se puede abrir con una sesión activa. En el detalle de una reserva debes comprobar también que su propietario sea el usuario que ha iniciado sesión. Aplica ambas comprobaciones al navegar desde la interfaz y al abrir directamente una ruta.
 
 ### Acceso — `/acceso`
 
@@ -48,7 +48,7 @@ Una ruta **protegida** requiere una sesión activa. Además, consultar una reser
 | Sin sesión | Muestra el formulario de acceso. |
 | Campos vacíos o mal formados | Muestra los errores junto a los campos y permite corregirlos. |
 | Nombre o correo incorrectos | Permanece en esta pantalla y muestra «Los datos de acceso no son correctos». No inicia sesión ni pierde el destino pendiente. |
-| Datos correctos | Inicia sesión y recupera el destino interno pendiente; si no existe, abre `/espacios`. El destino comprueba también sus permisos sobre los datos. |
+| Datos correctos | Inicia sesión y recupera el destino interno pendiente; si no existe, abre `/espacios`. Antes de mostrar el contenido del destino, comprueba que el usuario tenga permiso para consultarlo. |
 | Con sesión activa | Continúa al destino interno pendiente o, si no existe, a `/espacios`, sin pedir de nuevo los datos de acceso. |
 
 ### Registro — `/registro`
@@ -81,7 +81,7 @@ Una ruta **protegida** requiere una sesión activa. Además, consultar una reser
 | Sin sesión | Redirige a `/acceso` y conserva el destino. No muestra el formulario protegido. |
 | Con sesión y espacio existente | Permite completar el formulario. El borrador corresponde al espacio y al usuario actuales. |
 | Con sesión y espacio inexistente | Muestra «Espacio no encontrado» y no permite crear una reserva. |
-| Con sesión de un usuario distinto al del borrador conservado | Descarta el borrador anterior y abre un formulario nuevo para el usuario actual. |
+| La sesión pertenece a un usuario distinto del que inició el borrador | Descarta el borrador anterior y abre un formulario nuevo para el usuario actual. |
 
 ### Revisión — `/espacios/:id/reservar/revision`
 
@@ -91,7 +91,7 @@ Una ruta **protegida** requiere una sesión activa. Además, consultar una reser
 | Con sesión y borrador válido del mismo espacio y usuario | Muestra el resumen y permite volver a editar o confirmar. Al confirmar, asigna la reserva al usuario de sesión, nunca a un identificador de la URL o de un campo editable. |
 | Con sesión, sin borrador válido o con borrador de otro espacio o usuario | Vuelve al formulario del espacio solicitado sin crear ninguna reserva ni mostrar datos del borrador ajeno. |
 | Con sesión y espacio inexistente | Muestra «Espacio no encontrado». |
-| Confirmación completada correctamente | Abre `/reservas/:id` con el identificador de la reserva creada. Desde esa pantalla, el botón «Ver mis reservas» lleva a `/reservas`. Atrás no vuelve a la revisión para repetir el envío. |
+| La reserva se ha confirmado correctamente | Abre `/reservas/:id` con el identificador de la reserva creada. Desde esa pantalla, el botón «Ver mis reservas» lleva a `/reservas`. Atrás no vuelve a la revisión para repetir el envío. |
 
 ### Mis reservas — `/reservas`
 
@@ -130,6 +130,6 @@ Una ruta **protegida** requiere una sesión activa. Además, consultar una reser
 
 Utiliza el mismo mensaje para una reserva inexistente o ajena, sin revelar si pertenece a otra persona. Mis reservas consulta exclusivamente las reservas del usuario actual. Al confirmar una nueva, su autor es el usuario de sesión, nunca un identificador recibido desde la URL o desde un campo editable.
 
-Conserva únicamente destinos internos conocidos como retorno después del acceso. Evita redirecciones en bucle. Si el destino era una reserva ajena, un acceso correcto conduce a «Reserva no disponible»; no sustituyas la sesión por la del propietario.
+Conserva únicamente destinos internos conocidos como retorno después del acceso. Evita redirecciones en bucle. Si el destino pendiente corresponde a una reserva ajena, muestra «Reserva no disponible» después del acceso y mantén la sesión del usuario que acaba de entrar.
 
 ![Recorrido de reserva protegida, comprobación local, inicio de sesión y retorno al mismo espacio.](../../../../assets/proyecto-integrador/entrega-2/sesion-recorrido-es.svg)

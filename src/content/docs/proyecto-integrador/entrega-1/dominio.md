@@ -9,13 +9,13 @@ Antes de comenzar, repasa [Ejemplo con datos](../../../widgets/ejemplo-con-datos
 
 ## Qué representa el dominio
 
-El dominio reúne los conceptos con los que hablamos de la aplicación: espacios, reservas, usuarios y personas de contacto. Una pantalla puede cambiar su distribución sin que cambie qué significa una reserva. Por eso estas clases viven en `lib/domain/models/`, no importan Flutter y no contienen colores, widgets ni código de navegación.
+La capa de dominio representa los conceptos de la aplicación: espacios, reservas, usuarios y personas de contacto. Sus clases describen qué información contiene cada elemento y cómo se relaciona con los demás. Guárdalas en `lib/domain/models/` y mantenlas independientes de la interfaz: no importan Flutter ni contienen widgets, colores o instrucciones para abrir pantallas.
 
 ![Reserva relaciona Usuario y Espacio; Espacio contiene ContactoLocal. La reserva conserva la tarifa y el precio total](../../../../assets/proyecto-integrador/entrega-1/modelos.svg)
 
 Los identificadores permiten reconocer la misma entidad en distintas pantallas. La reserva contiene un `Espacio` y un `Usuario`, no sus nombres copiados en cadenas independientes. Para acceder a la persona responsable del local, la vista utiliza `reserva.espacio.contacto`. Ese contacto **no es quien reserva**: representa al interlocutor del local.
 
-Los campos que siguen son mínimos. Usa campos `final` y parámetros nombrados `required`; añade un constructor `const` cuando sea posible. `final` impide reasignar un campo, pero no impide modificar los elementos de una lista: puedes proteger las colecciones con `List.unmodifiable`. Los identificadores del código se comparten entre las dos versiones lingüísticas para mantener compatibles archivos e imports; los textos de la interfaz puedes adaptarlos al idioma de tu aplicación.
+Las tablas siguientes indican los campos mínimos de cada modelo. Usa campos `final` y parámetros nombrados `required`; añade un constructor `const` cuando sea posible. `final` impide reasignar un campo, pero no impide modificar los elementos de una lista: puedes proteger las colecciones con `List.unmodifiable`. Los identificadores del código se comparten entre las dos versiones lingüísticas para mantener compatibles archivos e imports; los textos de la interfaz puedes adaptarlos al idioma de tu aplicación.
 
 ## ContactoLocal y Usuario cumplen funciones distintas
 

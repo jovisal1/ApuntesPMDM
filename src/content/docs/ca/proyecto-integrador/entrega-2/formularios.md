@@ -5,19 +5,19 @@ sidebar:
   order: 3
 ---
 
-Construïx els formularis d’accés, registre i reserva amb validació, ViewModels i revisió abans de guardar. Cada apartat concreta els requisits tècnics i el comportament esperat.
+Desenvolupa els formularis d’accés, registre i reserva perquè l’usuari puga introduir informació, corregir errors i completar cada operació. En la reserva, afig un pas de revisió abans de guardar. Els apartats següents detallen els camps, les validacions i el resultat de cada acció.
 
 :::note[Recordatori per a tots els formularis]
 Aplica estes pautes a tots els formularis de l’entrega.
 
-Cada formulari té un ViewModel amb valors, seleccions, errors i operacions. La vista manté `Form`, la clau i els `TextEditingController`, que allibera amb `dispose`. Sincronitza controladors i ViewModel en editar, precarregar i netejar.
+Cada formulari ha de tindre un ViewModel que gestione els valors, les seleccions, els errors i les operacions. La pantalla conté el `Form`, la clau i els `TextEditingController`. Mantín sincronitzats els controladors i el ViewModel en editar, precarregar o netejar els camps, i allibera els controladors amb `dispose`.
 
-El ViewModel gestiona els valors, les validacions i les operacions del formulari i notifica els canvis com en els apunts. La pantalla mostra els resultats, obri els diàlegs i s’encarrega de la navegació. Els repositoris proporcionen al ViewModel els models de domini i este reutilitza les regles. Un formulari invàlid no permet continuar. En la reserva, tampoc mostra un preu que parega definitiu.
+El ViewModel gestiona els valors, les validacions i les operacions del formulari i notifica els canvis com en els apunts. La pantalla mostra els resultats, obri els diàlegs i s’encarrega de la navegació. El ViewModel obté els models de domini a través dels repositoris i utilitza les regles que corresponguen. Un formulari invàlid no permet continuar. En la reserva, tampoc mostra un preu que parega definitiu.
 :::
 
 ## Formulari d’accés
 
-Permet accedir amb un usuari existent, tant de les dades inicials com creat des de Registre.
+El formulari ha de permetre l’accés amb qualsevol dels usuaris disponibles: els inclosos en les dades inicials i els creats des de Registre.
 
 ### Camps i validacions
 
@@ -45,7 +45,7 @@ Per a connectar l’accés amb la sessió, utilitza [Accés a rutes protegides d
 
 ## Formulari de registre
 
-El registre és **obligatori en esta entrega**. Evoluciona la pantalla de la primera entrega perquè cree un usuari que puga accedir després a l’aplicació amb nom i correu, com establix el formulari d’accés.
+Completa la pantalla de Registre de la primera entrega per a crear usuaris que puguen accedir després amb el nom i el correu. L’alta ha de quedar disponible al mateix repositori que consulta el formulari d’accés.
 
 ### Camps i validacions
 
@@ -75,7 +75,7 @@ L’usuari creat ha d’estar disponible al mateix repositori que consulta el fo
 
 ## Formulari de reserva
 
-El formulari de reserva és **obligatori en esta entrega**. Evoluciona la pantalla Nova reserva de la primera entrega perquè l’usuari puga introduir i modificar les dades de la sol·licitud, validar-les i passar a la revisió abans de confirmar.
+Completa la pantalla Nova reserva de la primera entrega perquè l’usuari puga triar les dades de la sol·licitud. El formulari ha de validar eixes dades i calcular el preu abans de passar a la revisió. La reserva es guardarà únicament després de confirmar-la.
 
 ### Entrada i informació de l’espai
 
@@ -97,7 +97,7 @@ Pots limitar els selectors a valors vàlids; mostra errors si l’estat rebut in
 
 ### Preu i accions del formulari
 
-Mostra duració, tarifa, lloguer, extres, total i moneda. Recalcula en canviar horari o extres; els assistents no multipliquen els extres. Continuar valida tots els camps. Netejar recupera l’estat inicial i elimina errors després de confirmar el descart.
+Mostra la duració, la tarifa per hora, el subtotal del lloguer, el subtotal d’extres, el total i la moneda. Actualitza els imports en canviar l’horari o la selecció d’extres. El nombre d’assistents no modifica el preu dels extres. La taula següent concreta les accions del formulari.
 
 Les reserves noves han de començar en el futur, amb inici i final el mateix dia i hores en punt, sense segons ni fraccions. La duració serà d’una o més hores completes. Rebutja extres desconeguts o duplicats. Calcula els imports en cèntims: total = tarifa per hora × hores + extres. Cada extra es cobra una vegada per reserva.
 
@@ -109,15 +109,15 @@ Les reserves noves han de començar en el futur, amb inici i final el mateix dia
 
 ## Revisió i creació de la reserva
 
-La revisió mostra espai, activitat, data, horari, assistents, extres, contacte i desglossament. Permet tornar a editar amb els valors intactes. Compartix un únic esborrany durant el recorregut; un objecte passat com a `extra` no ha de ser l’única manera de resoldre una ruta directa.
+La pantalla de revisió ha de mostrar l’espai, l’activitat, la data, l’horari, els assistents, els extres, el contacte i el desglossament del preu. Permet tornar al formulari per a corregir dades sense perdre els valors introduïts. Conserva un mateix esborrany durant el recorregut. Si utilitzes `extra` per a passar informació entre pantalles, contempla també l’accés directe a la ruta de revisió, com s’indica en Configuració de rutes.
 
-Confirmar comprova de nou sessió, regles i imports i crida una vegada al repositori. Si falla, conserva l’esborrany i permet corregir.
+En confirmar, comprova de nou la sessió, la validesa de les dades i els imports. Guarda la reserva mitjançant el repositori i evita que diverses pulsacions creen reserves duplicades. Si l’operació falla, conserva l’esborrany i permet corregir les dades o tornar a intentar-ho.
 
 En polsar **Confirmar reserva**, si l’operació acaba correctament, navega a la **pantalla de confirmació o detall de la reserva creada**, en `/reservas/:id`, utilitzant-ne l’identificador. Mostra el missatge «Reserva confirmada» i les dades guardades. Inclou un botó **Veure les meues reserves** que porte a `/reservas`, on ja ha d’aparéixer la reserva nova al costat de les anteriors de l’usuari. Substituïx el recorregut d’edició perquè Arrere no torne a la revisió ni repetisca l’enviament.
 
 ## Diàlegs i canvis sense guardar
 
-Un formulari està modificat si els valors diferixen de l’estat inicial. Tornar de revisió a edició conserva l’esborrany i no és un descart. Eixir amb canvis, amb botons o Arrere del sistema, demana confirmació; pots usar `PopScope` segons l’enfocament dels apunts.
+Considera que un formulari té canvis quan els valors són diferents dels inicials. Si una acció eliminarà eixos canvis, demana confirmació abans de fer-la, tant des dels botons com des d’Arrere del sistema. Pots utilitzar `PopScope`, seguint els apunts. Tornar de la revisió al formulari manté l’esborrany i no requerix confirmar un descart.
 
 | Acció | Respostes | Resultat |
 | --- | --- | --- |

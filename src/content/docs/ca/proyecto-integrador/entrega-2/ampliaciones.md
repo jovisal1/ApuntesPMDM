@@ -5,28 +5,28 @@ sidebar:
   order: 4
 ---
 
-Fes estes tasques després del mínim. Documenta quines implementes i comprova tot el recorregut. Es conserva la numeració de la proposta inicial.
+Estes millores són opcionals. Pots incorporar-les després de completar els requisits de rutes i formularis. Indica quines has desenvolupat i comprova que s’integren amb la resta de l’aplicació.
 
-## 4. Disponibilitat i solapaments
+## Disponibilitat i solapaments
 
-Exigix que l’interval càpia en una única franja lliure de la disponibilitat simulada i no se solape amb reserves actives de l’espai. Usa l’horitzó de set dies anterior; no cal combinar franges contigües.
+Comprova que l’interval sol·licitat estiga contingut en una única franja lliure i que no se solape amb reserves actives del mateix espai. Utilitza la disponibilitat de set dies definida en la primera entrega. No cal combinar franges contigües.
 
-Dos intervals se solapen quan `inicioA.isBefore(finB) && inicioB.isBefore(finA)`. Acabar exactament quan comença una altra reserva està permés. Pendents i confirmades bloquegen; cancel·lades no.
+Dos intervals se solapen quan `inicioA.isBefore(finB) && inicioB.isBefore(finA)`. Acabar exactament quan comença una altra reserva està permés. Les reserves pendents i confirmades ocupen l’interval; les cancel·lades el deixen lliure.
 
-## 6. Modificació i cancel·lació
+## Modificació i cancel·lació
 
 Edita reserves futures no cancel·lades de l’usuari actual amb el mateix formulari precarregat. Guardar conserva l’identificador i actualitza la llista. Aplica preus actuals i presenta el desglossament nou per a acceptar-lo; fins a guardar, l’original no canvia.
 
-Cancel·lar requerix diàleg i canvia l’estat a `cancelada`, sense eliminar la targeta. Reserves passades i cancel·lades seran de consulta.
+Abans de cancel·lar, demana confirmació. Si s’accepta, canvia l’estat a `cancelada` i conserva la targeta en la llista. Les reserves passades o cancel·lades només es poden consultar.
 
-## 7. Edició del perfil
+## Edició del perfil
 
 Valida nom i correu, permet guardar o descartar i actualitza sessió i Perfil. Rebutja un correu utilitzat per un altre usuari.
 
-## 8. Opinions amb formulari
+## Opinions amb formulari
 
-Exigix sessió, text amb contingut i puntuació entera d’1 a 5. Guarda en memòria i actualitza llista, mitjana i nombre d’opinions, també en reobrir l’espai.
+Permet publicar una opinió a l’usuari que haja iniciat sessió. Valida que el comentari continga text i que la puntuació siga un enter d’1 a 5. Guarda l’opinió en memòria i actualitza la llista, la mitjana i el nombre de valoracions. Els canvis s’han de mantindre en eixir del detall i tornar a obrir-lo.
 
-## 9. Cerca i filtres
+## Cerca i filtres
 
 Busca per nom i filtra per activitat i capacitat mínima. Combina criteris, permet netejar-los i mostra absència de resultats. Pots afegir autocompleció d’ubicacions existents.

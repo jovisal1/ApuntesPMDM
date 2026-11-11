@@ -9,9 +9,9 @@ Antes de comenzar, repasa [Ejemplo con datos](../../../widgets/ejemplo-con-datos
 
 ## Del origen simulado a las pantallas
 
-La capa de datos vive en `lib/data/`. El servicio conoce el formato del origen y entrega DTO. Los repositorios convierten esos DTO, comprueban su coherencia y ofrecen modelos de dominio. La pantalla principal pide espacios; Mis reservas pide las reservas del usuario. Ninguna de ellas debería recorrer DTO ni interpretar códigos como `CONF`.
+La capa de datos se organiza en `lib/data/`. El servicio proporciona la información en el formato de la fuente, representado mediante DTO. Los repositorios comprueban esos datos y los convierten en modelos de dominio. Así, la pantalla principal recibe espacios y Mis reservas recibe reservas listas para mostrar, sin tener que interpretar fechas de texto o códigos como `CONF`.
 
-Las consultas serán síncronas: los datos están ya en memoria. No se necesitan `Future`, peticiones de red, JSON, paquetes ni persistencia. Los ejemplos siguientes muestran contratos y piezas de referencia; **debes completar los modelos y la integración, y puedes partir de los datos ficticios proporcionados**. No constituyen la solución completa del proyecto.
+Como los datos ya están en memoria, las consultas son síncronas. En esta entrega no necesitas `Future`, peticiones de red, JSON ni almacenamiento persistente. Los ejemplos te orientan sobre las clases y sus operaciones: debes completar los modelos y conectar las piezas con las pantallas. Puedes utilizar los datos ficticios proporcionados como punto de partida.
 
 ## Los DTO describen el contrato de la fuente
 
@@ -105,7 +105,7 @@ class DatosSimuladosService {
 }
 ```
 
-El constructor recibe dependencias mediante parámetros, sin paquetes. `List.unmodifiable` toma una colección que no se puede añadir, borrar o reordenar desde fuera; los DTO también deben proteger sus listas anidadas si las exponen. El prefijo `_` hace privados los campos de la biblioteca. Las llamadas sucesivas leen los mismos datos; no generan nuevas reservas.
+El constructor recibe dependencias mediante parámetros, sin paquetes. `List.unmodifiable` crea una lista cuyos elementos no se pueden añadir, eliminar o reordenar desde fuera; los DTO también deben proteger sus listas anidadas si las exponen. El prefijo `_` hace privados los campos de la biblioteca. Las llamadas sucesivas leen los mismos datos; no generan nuevas reservas.
 
 Dispones de un [conjunto de datos ficticios listo para copiar](../datos-ficticios/) en `lib/data/services/datos_demo.dart`, con seis espacios, tres contactos, tres usuarios, cuatro reservas, extras, opiniones y disponibilidad de siete días. En esa página encontrarás el archivo completo y la conexión con este servicio. Puedes ampliarlo manteniendo identificadores únicos y referencias válidas.
 
@@ -113,7 +113,7 @@ Dispones de un [conjunto de datos ficticios listo para copiar](../datos-ficticio
 
 Como base, proponemos tres clases dentro de `lib/data/repositories/`: `EspaciosRepository`, `UsuariosRepository` y `ReservasRepository`. Cada una convierte y conserva la colección que necesita, leyéndola una vez al construirse. `ReservasRepository` recibe además los repositorios de espacios y usuarios para resolver sus relaciones.
 
-Estos son **contratos que debes implementar**, no clases ya proporcionadas. Puedes ampliar la propuesta, manteniendo las responsabilidades separadas:
+La tabla siguiente describe las operaciones que deben ofrecer los repositorios; debes implementar sus clases y métodos. Puedes ampliar la propuesta, manteniendo las responsabilidades separadas:
 
 | Clase y método | Retorno | Uso en las pantallas |
 | --- | --- | --- |

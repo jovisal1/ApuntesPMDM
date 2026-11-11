@@ -5,7 +5,7 @@ sidebar:
   order: 5
 ---
 
-La capa de presentació viu en `lib/ui/`. Les pantalles mostren models de domini, comuniquen accions i permeten recórrer l’aplicació. Els components visuals s’agrupen per funcionalitat o es compartixen en `lib/ui/core/ui/`.
+La capa de presentació reunix les pantalles i els components amb què interactua l’usuari. S’organitza en `lib/ui/` i utilitza els models de domini per a mostrar la informació. Agrupa els components per funcionalitat i guarda en `lib/ui/core/ui/` els que es compartisquen entre diverses pantalles.
 
 ## Llibertat de disseny i pantalles mínimes
 
@@ -76,7 +76,7 @@ Presentació d’una alta d’usuari fictícia.
 - Permet tornar al login. Entrar en l’aplicació continua fent-se des del login.
 - Inclou Tornar a l’inici de sessió i permet tornar mitjançant Arrere. No guardes contrasenyes en Usuario ni en el seu DTO.
 
-Comprovació: Obri Registre des de Login, activa la confirmació i torna a l’accés. Comprova també el botó Arrere.
+Comprovació: Obri Registre des de Login i torna a Accés. Comprova tant l’enllaç de retorn com el botó Arrere.
 
 ## Pantalla principal
 

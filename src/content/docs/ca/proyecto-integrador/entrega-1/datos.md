@@ -9,9 +9,9 @@ Abans de començar, repassa [Exemple amb dades](../../../widgets/ejemplo-con-dat
 
 ## De l’origen simulat a les pantalles
 
-La capa de dades viu en `lib/data/`. El servici coneix el format de l’origen i entrega DTO. Els repositoris convertixen eixos DTO, comproven la coherència i oferixen models de domini. La pantalla principal demana espais; Les meues reserves demana les reserves de l’usuari. Cap d’elles hauria de recórrer DTO ni interpretar codis com `CONF`.
+La capa de dades s’organitza en `lib/data/`. El servici proporciona la informació en el format de la font, representat mitjançant DTO. Els repositoris comproven eixes dades i les convertixen en models de domini. Així, la pantalla principal rep espais i Les meues reserves rep reserves preparades per a mostrar, sense haver d’interpretar dates de text o codis com `CONF`.
 
-Les consultes seran síncrones: les dades ja estan en memòria. No calen `Future`, peticions de xarxa, JSON, paquets ni persistència. Els exemples següents mostren contractes i peces de referència; **has de completar els models i la integració, i pots partir de les dades fictícies proporcionades**. No constituïxen la solució completa del projecte.
+Com que les dades ja estan en memòria, les consultes són síncrones. En esta entrega no necessites `Future`, peticions de xarxa, JSON ni emmagatzematge persistent. Els exemples t’orienten sobre les classes i les operacions: has de completar els models i connectar les peces amb les pantalles. Pots utilitzar les dades fictícies proporcionades com a punt de partida.
 
 ## Els DTO descriuen el contracte de la font
 

@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-Este conjunt de referència completa la font simulada de la [capa de dades](../datos/). Conté **sis espais, tres persones de contacte, tres usuaris, quatre reserves, dotze servicis addicionals, sis comentaris i disponibilitat per a set dies**. Les relacions, activitats, aforaments, horaris i preus són coherents. Pots ampliar-lo mantenint-ne els contractes.
+Utilitza este conjunt com a font de referència per a la [capa de dades](../datos/). Inclou **sis espais, tres persones de contacte, tres usuaris, quatre reserves, dotze servicis addicionals, sis comentaris i disponibilitat per a set dies**. Els identificadors, les relacions i els imports permeten comprovar les pantalles amb dades coherents. Pots afegir exemples respectant els camps i les relacions definits.
 
 ## Abans de copiar les dades
 

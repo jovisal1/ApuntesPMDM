@@ -6,11 +6,11 @@ sidebar:
   label: "Enunciat i organització"
 ---
 
-Abans de començar l’entrega, repassa [Exemple amb dades dels apunts](../../widgets/ejemplo-con-datos/). Revisa com relaciona els models i com el servici i el repositori transformen els DTO abans que arriben a la interfície. És la referència de partida per a les subseccions de domini i dades.
+Abans de començar, repassa l’[Exemple amb dades](../../widgets/ejemplo-con-datos/). Et servirà de referència per a definir els models i seguir el recorregut de la informació: el servici proporciona DTO, el repositori els convertix en models de domini i les pantalles mostren eixos models.
 
 ## Introducció
 
-Desenvoluparàs una aplicació mòbil que permeta consultar i reservar espais per a reunions, celebracions, tallers i altres activitats. El projecte creixerà mitjançant diferents entregues i servirà per a aplicar i relacionar els coneixements de l’assignatura.
+En esta entrega construiràs la base de l’aplicació de reserva d’espais. Aplicaràs Dart i els widgets de Flutter per a representar la informació, compondre les pantalles i connectar-les mitjançant navegació.
 
 En esta primera entrega construiràs **almenys set pantalles completes**, connectades mitjançant navegació, amb informació fictícia coherent. El resultat s’ha de poder executar i ha de permetre recórrer el procés des de l’accés fins a la confirmació d’una reserva de prova.
 
@@ -31,7 +31,7 @@ Has d’incloure les set pantalles mínimes descrites en la capa de presentació
 
 ## Arquitectura proposada
 
-Organitza el projecte en tres àmbits de responsabilitat: ui per a presentació, domain per als models i data per a l’accés i la gestió de les dades. Esta organització seguix l’arbre previst en els apunts del catàleg. La interfície s’agrupa per funcionalitat i les dades per responsabilitat.
+Organitza el projecte en tres carpetes principals: `ui` per a les pantalles i els components visuals, `domain` per als models i `data` per a obtindre i transformar les dades. Seguix l’estructura del catàleg: agrupa la interfície per funcionalitat i els fitxers de dades segons la responsabilitat.
 
 ```text
 lib/

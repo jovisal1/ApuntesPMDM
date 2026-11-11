@@ -5,13 +5,13 @@ sidebar:
   order: 5
 ---
 
-La capa de presentación vive en `lib/ui/`. Las pantallas muestran modelos de dominio, comunican acciones y permiten recorrer la aplicación. Los componentes visuales se agrupan por funcionalidad o se comparten en `lib/ui/core/ui/`.
+La capa de presentación reúne las pantallas y los componentes con los que interactúa el usuario. Se organiza en `lib/ui/` y utiliza los modelos de dominio para mostrar la información. Agrupa los componentes por funcionalidad y guarda en `lib/ui/core/ui/` los que se compartan entre varias pantallas.
 
 ## Libertad de diseño y pantallas mínimas
 
 Debes implementar **al menos siete pantallas**: login, registro, principal, detalle de un espacio, nueva reserva, mis reservas y perfil con ajustes. Puedes añadir otras, como una confirmación independiente, siempre que las siete mínimas sigan siendo identificables y cumplan sus requisitos.
 
-**Los mockups y las propuestas de distribución son orientativos.** Puedes diseñar las pantallas como consideres, elegir otra identidad y cambiar su composición. Mantén los datos mínimos, las acciones y la navegación exigidos. No se evaluará que tu aplicación copie los dibujos, sino que resuelva el recorrido y sea legible y coherente.
+Las imágenes y propuestas de distribución son orientativas. Puedes adaptar la identidad visual y la composición de las pantallas, siempre que incluyas los datos, las acciones y los recorridos exigidos. La aplicación debe ser legible, coherente y fácil de recorrer.
 
 ## Un estilo coherente en toda la aplicación
 
@@ -77,7 +77,7 @@ Presentación de un alta de usuario ficticia.
 - Permite regresar al login. Entrar en la aplicación sigue realizándose desde el login.
 - Incluye Volver al inicio de sesión y permite regresar mediante Atrás. No almacenes contraseñas en `Usuario` ni en su DTO.
 
-Comprobación: Abre Registro desde Login, activa la confirmación y regresa al acceso. Comprueba también el botón Atrás.
+Comprobación: Abre Registro desde Login y vuelve a Acceso. Comprueba tanto el enlace de regreso como el botón Atrás.
 
 ## Pantalla principal
 

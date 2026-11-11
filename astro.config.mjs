@@ -17,6 +17,7 @@ export default defineConfig({
         ca: { label: "Valencià", lang: "ca" },
       },
       plugins: [starlightThemeRapide({})],
+      customCss: ["./src/styles/headings.css"],
       sidebar: [
         {
           label: "Flutter",

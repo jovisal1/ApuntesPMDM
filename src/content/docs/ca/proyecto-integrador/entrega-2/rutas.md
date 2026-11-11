@@ -5,9 +5,9 @@ sidebar:
   order: 2
 ---
 
-En esta part configuraràs la navegació de l’aplicació amb `go_router`, definint quina pantalla correspon a cada ruta i com s’hi pot arribar. El recorregut ha de funcionar tant en polsar els botons de la interfície com en obrir directament una adreça de l’aplicació. Per exemple, `/espacios/:id` permetrà consultar un espai concret a partir del seu identificador, sense dependre d’haver passat abans pel catàleg.
+Configura amb `go_router` quina pantalla s’ha d’obrir en cada ruta i quina informació necessita per a mostrar el contingut. El recorregut ha de funcionar en polsar els botons de la interfície i en obrir directament una adreça de l’aplicació. Per exemple, en `/espacios/:id`, el paràmetre `:id` identifica l’espai que s’ha de consultar, encara que no s’haja obert abans el catàleg.
 
-També organitzaràs la navegació entre Espais, Les meues reserves i Perfil, conservant l’estat de cada secció en alternar entre elles. Distingiràs les pantalles públiques de les que requerixen iniciar sessió i comprovaràs que cada usuari només puga consultar les seues reserves. Quan no es complisquen les condicions d’accés, l’aplicació haurà de respondre segons el cas: sol·licitar l’accés, mostrar que la reserva no està disponible o presentar una pantalla de «Pàgina no trobada» si la ruta no existix.
+La navegació també ha de conservar l’estat en canviar entre Espais, Les meues reserves i Perfil. Distingix les pantalles públiques de les que requerixen sessió i comprova, a més, a qui pertany cada reserva. Una ruta desconeguda, l’absència de sessió i la falta de permís són situacions diferents; les taules següents indiquen com respondre en cada cas.
 
 Els apartats següents concreten les rutes que has de crear i el comportament esperat en cada pantalla. Per a implementar la sessió i les redireccions, utilitza l’exemple d’[Accés a rutes protegides dels apunts](../../../formularis-i-navegacio/navegacion-avanzada/rutas-protegidas/), adaptant-lo a les destinacions i permisos d’esta aplicació.
 
@@ -39,7 +39,7 @@ Com a suggeriment, pots utilitzar `StatefulShellRoute.indexedStack`, estudiada a
 
 ## Comportament de l’accés i dels permisos
 
-Una ruta **protegida** requerix una sessió activa. A més, consultar una reserva requerix que pertanga a l’usuari de sessió: haver accedit no dona permís per a veure totes les reserves. Aplica les comprovacions tant des dels botons com en obrir directament una ruta.
+Una ruta protegida només es pot obrir amb una sessió activa. En el detall d’una reserva has de comprovar també que el propietari siga l’usuari que ha iniciat sessió. Aplica les dos comprovacions en navegar des de la interfície i en obrir directament una ruta.
 
 ### Accés — `/acceso`
 
@@ -48,7 +48,7 @@ Una ruta **protegida** requerix una sessió activa. A més, consultar una reserv
 | Sense sessió | Mostra el formulari d’accés. |
 | Camps buits o mal formats | Mostra els errors al costat dels camps i permet corregir-los. |
 | Nom o correu incorrectes | Es queda en esta pantalla i mostra «Les dades d’accés no són correctes». No inicia sessió ni perd la destinació pendent. |
-| Dades correctes | Inicia sessió i recupera la destinació interna pendent; si no n’hi ha, obri `/espacios`. La destinació comprova també els permisos sobre les dades. |
+| Dades correctes | Inicia sessió i recupera la destinació interna pendent; si no n’hi ha, obri `/espacios`. Abans de mostrar el contingut de la destinació, comprova que l’usuari tinga permís per a consultar-lo. |
 | Amb sessió activa | Continua a la destinació interna pendent o, si no n’hi ha, a `/espacios`, sense demanar de nou les dades d’accés. |
 
 ### Registre — `/registro`
@@ -81,7 +81,7 @@ Una ruta **protegida** requerix una sessió activa. A més, consultar una reserv
 | Sense sessió | Redirigix a `/acceso` i conserva la destinació. No mostra el formulari protegit. |
 | Amb sessió i espai existent | Permet completar el formulari. L’esborrany correspon a l’espai i l’usuari actuals. |
 | Amb sessió i espai inexistent | Mostra «Espai no trobat» i no permet crear una reserva. |
-| Amb sessió d’un usuari diferent del de l’esborrany conservat | Descarta l’esborrany anterior i obri un formulari nou per a l’usuari actual. |
+| La sessió pertany a un usuari diferent del que va iniciar l’esborrany | Descarta l’esborrany anterior i obri un formulari nou per a l’usuari actual. |
 
 ### Revisió — `/espacios/:id/reservar/revision`
 
@@ -91,7 +91,7 @@ Una ruta **protegida** requerix una sessió activa. A més, consultar una reserv
 | Amb sessió i esborrany vàlid del mateix espai i usuari | Mostra el resum i permet tornar a editar o confirmar. En confirmar, assigna la reserva a l’usuari de sessió, mai a un identificador de la URL o d’un camp editable. |
 | Amb sessió, sense esborrany vàlid o amb esborrany d’un altre espai o usuari | Torna al formulari de l’espai sol·licitat sense crear cap reserva ni mostrar dades de l’esborrany alié. |
 | Amb sessió i espai inexistent | Mostra «Espai no trobat». |
-| Confirmació completada correctament | Obri `/reservas/:id` amb l’identificador de la reserva creada. Des d’eixa pantalla, el botó «Veure les meues reserves» porta a `/reservas`. Arrere no torna a la revisió per a repetir l’enviament. |
+| La reserva s’ha confirmat correctament | Obri `/reservas/:id` amb l’identificador de la reserva creada. Des d’eixa pantalla, el botó «Veure les meues reserves» porta a `/reservas`. Arrere no torna a la revisió per a repetir l’enviament. |
 
 ### Les meues reserves — `/reservas`
 

@@ -1,0 +1,58 @@
+/* IES L'Estació: navy #001443, blue #2274b0 and orange #c16a03.
+ * Derived shades retain the logo palette with readable contrast in both themes.
+ */
+:root {
+  /* A small reduction that still follows the browser's preferred text size. */
+  font-size: 93.75%;
+  --sl-text-h1: 1.875rem;
+  --sl-text-h2: 1.5rem;
+  --sl-text-h3: 1.25rem;
+  --sl-text-h4: 1.125rem;
+  --sl-text-h5: 1.0625rem;
+  --sl-text-h6: 1rem;
+  --iestacio-heading-1: #dce7ff;
+  --iestacio-heading-2: #ffb55c;
+  --iestacio-heading-3: #7dc4f5;
+  --iestacio-heading-4: #a8bce5;
+  --iestacio-heading-5: #e4bf91;
+  --iestacio-heading-6: #9ec0cf;
+}
+
+:root[data-theme="light"] {
+  --iestacio-heading-1: #001443;
+  --iestacio-heading-2: #a65b02;
+  --iestacio-heading-3: #2274b0;
+  --iestacio-heading-4: #314c78;
+  --iestacio-heading-5: #82501c;
+  --iestacio-heading-6: #41677f;
+}
+
+/* Scope the palette to article headings, keeping navigation and notices intact. */
+main h1#_top,
+.sl-markdown-content h1 {
+  color: var(--iestacio-heading-1);
+}
+
+.sl-markdown-content h2 {
+  color: var(--iestacio-heading-2);
+}
+
+.sl-markdown-content h3 {
+  color: var(--iestacio-heading-3);
+}
+
+.sl-markdown-content h4 {
+  color: var(--iestacio-heading-4);
+}
+
+.sl-markdown-content h5 {
+  color: var(--iestacio-heading-5);
+}
+
+.sl-markdown-content h6 {
+  color: var(--iestacio-heading-6);
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) code {
+  color: inherit;
+}

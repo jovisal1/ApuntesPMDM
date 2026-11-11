@@ -5,19 +5,19 @@ sidebar:
   order: 3
 ---
 
-Construye los formularios de acceso, registro y reserva con validación, ViewModels y revisión antes de guardar. Cada apartado concreta los requisitos técnicos y el comportamiento esperado.
+Desarrolla los formularios de acceso, registro y reserva para que el usuario pueda introducir información, corregir errores y completar cada operación. En la reserva, añade un paso de revisión antes de guardar. Los apartados siguientes detallan los campos, las validaciones y el resultado de cada acción.
 
 :::note[Recordatorio para todos los formularios]
 Aplica estas pautas a todos los formularios de la entrega.
 
-Cada formulario tiene un ViewModel con valores, selecciones, errores y operaciones. La vista mantiene `Form`, su clave y los `TextEditingController`, que libera con `dispose`. Sincroniza controladores y ViewModel al editar, precargar y limpiar.
+Cada formulario debe tener un ViewModel que gestione sus valores, selecciones, errores y operaciones. La pantalla contiene el `Form`, su clave y los `TextEditingController`. Mantén sincronizados los controladores y el ViewModel al editar, precargar o limpiar los campos, y libera los controladores con `dispose`.
 
-El ViewModel gestiona los valores, las validaciones y las operaciones del formulario y notifica los cambios como en los apuntes. La pantalla muestra los resultados, abre los diálogos y se encarga de la navegación. Los repositorios proporcionan al ViewModel los modelos de dominio y este reutiliza sus reglas. Un formulario inválido no permite continuar. En la reserva, tampoco muestra un precio que parezca definitivo.
+El ViewModel gestiona los valores, las validaciones y las operaciones del formulario y notifica los cambios como en los apuntes. La pantalla muestra los resultados, abre los diálogos y se encarga de la navegación. El ViewModel obtiene los modelos de dominio a través de los repositorios y utiliza las reglas que correspondan. Un formulario inválido no permite continuar. En la reserva, tampoco muestra un precio que parezca definitivo.
 :::
 
 ## Formulario de acceso
 
-Permite acceder con un usuario existente, tanto de los datos iniciales como creado desde Registro.
+El formulario debe permitir el acceso con cualquiera de los usuarios disponibles: los incluidos en los datos iniciales y los creados desde Registro.
 
 ### Campos y validaciones
 
@@ -28,7 +28,7 @@ Permite acceder con un usuario existente, tanto de los datos iniciales como crea
 
 Elimina espacios en los extremos y compara los correos sin distinguir mayúsculas, aplicando el mismo criterio que en Registro. Muestra los errores de obligatoriedad y formato junto a cada campo. Cuando ambos sean válidos, comprueba en el repositorio que nombre y correo corresponden al mismo usuario.
 
-Si no coinciden, muestra «Los datos de acceso no son correctos», conserva los valores para poder corregirlos y no inicia sesión. No construyas un usuario nuevo a partir de los datos escritos.
+Si el nombre y el correo no corresponden al mismo usuario, muestra «Los datos de acceso no son correctos». Conserva los valores para que se puedan corregir, sin iniciar sesión. No construyas un usuario nuevo a partir de los datos escritos.
 
 ### Acciones del formulario
 
@@ -45,7 +45,7 @@ Para conectar el acceso con la sesión, utiliza [Acceso a rutas protegidas de lo
 
 ## Formulario de registro
 
-El registro es **obligatorio en esta entrega**. Evoluciona la pantalla de la primera entrega para que cree un usuario que pueda acceder después a la aplicación con nombre y correo, como establece el formulario de acceso.
+Completa la pantalla de Registro de la primera entrega para crear usuarios que puedan acceder después con su nombre y correo. El alta debe quedar disponible en el mismo repositorio que consulta el formulario de acceso.
 
 ### Campos y validaciones
 
@@ -75,7 +75,7 @@ El usuario creado debe estar disponible en el mismo repositorio que consulta el 
 
 ## Formulario de reserva
 
-El formulario de reserva es **obligatorio en esta entrega**. Evoluciona la pantalla Nueva reserva de la primera entrega para que el usuario pueda introducir y modificar los datos de la solicitud, validarlos y pasar a la revisión antes de confirmar.
+Completa la pantalla Nueva reserva de la primera entrega para que el usuario pueda elegir los datos de su solicitud. El formulario debe validar esos datos y calcular el precio antes de pasar a la revisión. La reserva se guardará únicamente después de confirmarla.
 
 ### Entrada e información del espacio
 
@@ -97,7 +97,7 @@ Puedes limitar los selectores a valores válidos; muestra también errores si el
 
 ### Precio y acciones del formulario
 
-Muestra duración, tarifa, alquiler, extras, total y moneda. Recalcula cuando cambie horario o extras; los asistentes no multiplican el precio de los extras. Continuar valida todos los campos. Limpiar recupera el estado inicial y elimina errores tras confirmar el descarte.
+Muestra la duración, la tarifa por hora, el subtotal del alquiler, el subtotal de extras, el total y la moneda. Actualiza los importes cuando cambie el horario o la selección de extras. El número de asistentes no modifica el precio de los extras. La tabla siguiente concreta las acciones del formulario.
 
 Las nuevas reservas deben comenzar en el futuro, con inicio y fin en el mismo día y horas en punto, sin segundos ni fracciones. La duración será de una o más horas completas. Rechaza extras desconocidos o duplicados. Calcula los importes en céntimos: total = tarifa por hora × horas + extras. Cada extra se cobra una sola vez por reserva.
 
@@ -109,15 +109,15 @@ Las nuevas reservas deben comenzar en el futuro, con inicio y fin en el mismo d�
 
 ## Revisión y creación de la reserva
 
-La revisión muestra espacio, actividad, fecha, horario, asistentes, extras, contacto y desglose. Permite volver a editar con todos los valores intactos. Comparte un único borrador durante el recorrido; un objeto pasado como `extra` no debe ser la única forma de resolver una ruta directa.
+La pantalla de revisión debe mostrar el espacio, la actividad, la fecha, el horario, los asistentes, los extras, el contacto y el desglose del precio. Permite volver al formulario para corregir datos sin perder los valores introducidos. Conserva un mismo borrador durante el recorrido. Si utilizas `extra` para pasar información entre pantallas, contempla también el acceso directo a la ruta de revisión, como se indica en Configuración de rutas.
 
-Confirmar comprueba de nuevo sesión, reglas e importes y llama una sola vez al repositorio. Si falla, conserva el borrador y permite corregir.
+Al confirmar, comprueba de nuevo la sesión, la validez de los datos y los importes. Guarda la reserva mediante el repositorio y evita que varias pulsaciones creen reservas duplicadas. Si la operación falla, conserva el borrador y permite corregir los datos o volver a intentarlo.
 
 Al pulsar **Confirmar reserva**, si la operación termina correctamente, navega a la **pantalla de confirmación o detalle de la reserva creada**, en `/reservas/:id`, utilizando su identificador. Muestra el mensaje «Reserva confirmada» y los datos guardados. Incluye un botón **Ver mis reservas** que lleve a `/reservas`, donde ya debe aparecer la nueva reserva junto a las anteriores del usuario. Sustituye el recorrido de edición para que Atrás no vuelva a la revisión ni repita el envío.
 
 ## Diálogos y cambios sin guardar
 
-Un formulario está modificado si sus valores difieren del estado inicial. Volver de revisión a edición conserva el borrador y no es un descarte. Salir con cambios, desde botones o Atrás del sistema, pide confirmación; puedes usar `PopScope` conforme al enfoque de los apuntes.
+Considera que un formulario tiene cambios cuando sus valores son distintos de los iniciales. Si una acción va a eliminar esos cambios, solicita confirmación antes de realizarla, tanto desde los botones como desde Atrás del sistema. Puedes utilizar `PopScope`, siguiendo los apuntes. Volver de la revisión al formulario mantiene el borrador y no requiere confirmar un descarte.
 
 | Acción | Respuestas | Resultado |
 | --- | --- | --- |

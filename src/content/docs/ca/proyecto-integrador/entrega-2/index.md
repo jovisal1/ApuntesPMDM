@@ -9,7 +9,7 @@ En esta segona entrega ampliaràs l’aplicació de reserva d’espais de la [pr
 
 ## Configuració de rutes
 
-Implementa una navegació centralitzada amb `go_router` que complisca estos requisits tècnics:
+Configura amb `go_router` les rutes de tota l’aplicació. La navegació ha de complir els requisits següents:
 
 - Un únic `MaterialApp.router` i un mapa de rutes per a accés, registre, espais, detall, reserva, revisió, reserves de l’usuari i perfil.
 - Paràmetres d’identificador per a consultar espais i reserves mitjançant repositoris; tractament de rutes desconegudes i elements inexistents.
@@ -21,7 +21,7 @@ Consulta [Configuració de rutes](./rutas/) per als requisits detallats, el mapa
 
 ## Formularis
 
-Implementa l’accés i el recorregut de reserva amb estos requisits tècnics:
+Desenvolupa els formularis d’accés, registre i reserva. Han de complir els requisits següents:
 
 - `Form`, camps etiquetats, controls adequats i missatges de validació que permeten corregir errors abans de continuar.
 - Els ViewModels gestionen els valors, les validacions i les operacions del formulari. Les pantalles s’encarreguen de mostrar els resultats i de la navegació, i els repositoris proporcionen els models de domini. La vista gestiona els controladors i els allibera amb `dispose`.
@@ -32,6 +32,6 @@ Implementa l’accés i el recorregut de reserva amb estos requisits tècnics:
 - Alta única en confirmar, emmagatzematge local compartit i actualització immediata de Les meues reserves per a l’usuari actual.
 - Diàlegs per a netejar o descartar formularis modificats, sense perdre canvis en cancel·lar.
 
-Consulta [Formularis](./formularios/) per als requisits de cada pantalla, el comportament esperat.
+Consulta [Formularis](./formularios/) per a conéixer els camps, les validacions i les accions de cada pantalla.
 
 Les millores opcionals es descriuen en [Possibles ampliacions](./ampliaciones/).

@@ -6,16 +6,23 @@ sidebar:
   order: 1
 ---
 
-El proyecto integrador de PMDM consiste en desarrollar una **aplicación de reserva de espacios** para reuniones, celebraciones, talleres y otras actividades. Su objetivo es que relaciones lo aprendido y lo apliques a un producto que puedas ejecutar, explicar y mejorar durante el curso.
+En el proyecto integrador de PMDM desarrollarás una aplicación de reserva de espacios para reuniones, celebraciones, talleres y otras actividades. A lo largo del curso ampliarás la misma aplicación para aplicar los contenidos de la asignatura y relacionarlos entre sí.
 
-Imagina a una persona que busca un lugar para organizar una actividad: necesita conocer su ubicación, aforo, equipamiento, condiciones y precio, además de saber con quién contactar. Tu aplicación debe presentar esa información con claridad y permitir recorrer el proceso de elección y reserva. El usuario debe reconocer en cada momento qué espacio está consultando y qué importe corresponde a su solicitud.
+La aplicación debe acompañar al usuario desde la búsqueda de un espacio hasta la consulta de sus reservas. Para elegir un local, necesita conocer su ubicación, aforo, equipamiento, condiciones de uso y precio. Durante el recorrido debe quedar claro qué espacio ha seleccionado, qué servicios ha elegido y cuál es el importe de su reserva.
 
-Trabajaremos el proyecto de forma progresiva. Al principio utilizaremos datos ficticios y acciones simuladas para centrarnos en Dart, la composición con widgets y la organización del código. A medida que avancemos en la asignatura, esa base podrá incorporar nuevas responsabilidades. Cada decisión de esta primera fase debe facilitar que el proyecto crezca sin tener que rehacer sus pantallas.
+## Cómo trabajaremos
 
-También practicarás cómo transformar una necesidad en modelos de datos, componentes y recorridos de navegación. Separarás presentación, dominio y datos, y aprenderás a decidir qué pertenece a cada capa. Identificar y extraer las piezas visuales reutilizables será parte del trabajo, siguiendo el catálogo de componentes que hemos ido construyendo.
+Cada entrega parte del trabajo anterior e incorpora nuevas funcionalidades. Comenzarás con pantallas y datos locales; después añadirás formularios, validación y una navegación más completa. Organiza el código para poder ampliar la aplicación sin duplicar datos ni rehacer las pantallas en cada fase.
 
-Tienes libertad para elegir el nombre, la identidad visual y el diseño de tu aplicación. Las propuestas y los mockups sirven de orientación; debes respetar los requisitos mínimos y aplicar un estilo coherente a todo el conjunto. Podrás añadir pantallas y detalles propios siempre que puedas explicar su finalidad y su implementación con los contenidos trabajados.
+Separarás las responsabilidades de presentación, dominio y datos. También crearás componentes para los elementos visuales que se repitan, siguiendo el trabajo del catálogo de widgets. El objetivo es que puedas explicar cómo se relacionan los datos, qué hace cada parte del código y cómo responde la aplicación a las acciones del usuario.
 
-La [primera entrega](./entrega-1/) concreta los requisitos de esta fase: al menos siete pantallas conectadas mediante navegación, modelos de dominio, DTO y una fuente de datos simulada. Consulta su enunciado y las subsecciones de cada capa antes de empezar a repartir el trabajo entre archivos.
+Puedes elegir el nombre, la identidad visual y la distribución de las pantallas. Las imágenes y propuestas de diseño sirven de orientación. Tu solución debe respetar los requisitos de cada entrega y mantener una apariencia coherente en toda la aplicación.
 
-La [segunda entrega](./entrega-2/) desarrolla los contenidos de Formularios y navegación: acceso validado, solicitud y creación de reservas en memoria, ViewModels, rutas con `go_router` y secciones con estado conservado. Incluye orientaciones para evolucionar datos y dominio y casos de comprobación del recorrido completo.
+## Entregas del proyecto
+
+| Entrega | Trabajo principal |
+| --- | --- |
+| [Primera entrega](./entrega-1/) | Construir al menos siete pantallas conectadas, representar los datos con modelos y obtenerlos mediante DTO, un servicio local y repositorios. |
+| [Segunda entrega](./entrega-2/) | Configurar rutas con `go_router` y desarrollar los formularios de acceso, registro y reserva, con validación, revisión y creación de reservas en memoria. |
+
+Consulta el enunciado y los apartados de la entrega que estés desarrollando. Allí encontrarás los requisitos de las pantallas, los recorridos que deben funcionar y las ampliaciones opcionales.
