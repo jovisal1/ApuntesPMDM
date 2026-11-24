@@ -4,77 +4,102 @@ sidebar:
   order: 3
 ---
 
-Ja tenim dos pantalles: el catàleg (`/`) i Ajuda (`/ayuda`). Ara provarem **dos formes d’obrir la mateixa pantalla** i observarem què ocorre en tornar. Encara no afegirem Tallers ni el login.
+Ja tenim dos rutes. Abans d’afegir-ne més, convé entendre bé **què fa cada operació de navegació amb la pila de pàgines**, perquè és el que decidix si apareix la fletxa de tornar, què passa amb l’estat d’una pantalla i si podem retornar un resultat.
 
-En la primera prova, anirem a Ajuda com a destinació i oferirem un botó per a tornar al catàleg. En la segona, obrirem Ajuda damunt del catàleg i retornarem el missatge «Consejo leído» en tancar-la. Són proves alternatives: canviarem el callback de la mateixa entrada, no crearem diversos botons d’accés.
+## La pila de pàgines
 
-## 1. Anar a Ajuda amb `go`
+Recorda que `Navigator` mostra una **pila**: la pàgina de dalt és la visible i, si n’hi ha alguna davall, l’`AppBar` mostra automàticament la fletxa de tornar.
 
-En `catalogo_pantalla.dart`, el callback de l’entrada **Ayuda con go_router** que afegírem en el pas anterior és:
+go_router oferix dos maneres de canviar eixa pila:
 
-```dart
-onTap: () => context.go('/ayuda'),
+- **`go`** (anar a una ubicació): el router **substituïx la pila completa** per la que correspon a la nova ubicació segons el mapa. El que hi haguera abans desapareix.
+- **`push`** (apilar): el router **afig** la pàgina de la nova ubicació damunt de les que ja hi havia. El que hi ha davall es conserva.
+
+Amb el mapa actual, `/` i `/ayuda` són rutes independents (cap no està dins de l’altra). Per això:
+
+```text
+context.go('/ayuda')    →  pila: [Ayuda]              (sense fletxa de tornar)
+context.push('/ayuda')  →  pila: [Catálogo, Ayuda]    (amb fletxa de tornar)
 ```
 
-En polsar, el router busca `/ayuda` en la configuració i mostra `AyudaPantalla`. Amb les dos rutes independents que tenim ara, la pila de pàgines passa del catàleg a Ajuda: **el catàleg no queda davall com una pàgina a la qual fer `pop`**. L’historial del navegador web és un mecanisme diferent.
+![Amb go, Ajuda substituïx la pila i queda sola; amb push, Ajuda s’apila sobre el catàleg i pop retorna un resultat.](../../../../../assets/navegacion/router-go-push-ca.svg)
 
-Perquè l’usuari puga tornar, afig este widget a `children` del `ListView` d’`AyudaPantalla`, després de l’interruptor i del consell condicional. Afig també `import 'package:go_router/go_router.dart';` al principi del fitxer:
+En el pas 4 veurem que, quan una ruta està imbricada dins d’una altra, `go` construïx també les pàgines pare.
 
-```dart
-FilledButton(
-  onPressed: () => context.go('/'),
-  child: const Text('Volver al catálogo'),
-),
-```
+## Experiment 1: `go` substituïx la pila
 
-Prova el recorregut: **catàleg → Ajuda → activar el consell → Volver al catálogo**. En tornar a obrir Ajuda amb esta configuració, es crea de nou la pantalla i l’interruptor comença desactivat. Més avant aprendrem a conservar-lo entre pestanyes.
+L’entrada del catàleg utilitza `context.go('/ayuda')`. Obri Ajuda i fixa’t en la capçalera: **no hi ha fletxa de tornar**, perquè el catàleg ja no està davall. Per això hem afegit la icona de la casa amb `context.go('/')`.
 
-## 2. Obrir Ajuda amb `push` i retornar una resposta
+Activa l’interruptor, torna al catàleg i obri de nou Ajuda: l’interruptor apareix desactivat. En fer `go('/')`, la pàgina d’Ajuda va eixir de la pila i el seu `State` es va destruir; en tornar, se’n crea un altre de nou.
 
-Ara volem que el catàleg espere una resposta d’Ajuda. `push` afig la pantalla damunt del recorregut actual; en tancar-la amb `pop`, reapareix la pàgina anterior. En esta prova la pila serà **catàleg davall i Ajuda damunt**.
+## Experiment 2: `push` apila i `pop` retorna un resultat
 
-En `catalogo_pantalla.dart`, substituïx l’`onTap` anterior per este. L’import de go_router ja ha d’estar afegit en esta vista:
+Ara farem que el catàleg òbriga Ajuda **damunt** i espere una resposta. És un canvi temporal: al final del pas el desfarem.
+
+En `catalogo_pantalla.dart`, canvia l’`onTap` d’**Ayuda con go_router** per este:
 
 ```dart
 onTap: () async {
-  final elegido = await context.push<String>('/ayuda');
-  if (!context.mounted || elegido == null) return;
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(elegido)));
+  final respuesta = await context.push<String>('/ayuda');
+  if (!context.mounted || respuesta == null) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(respuesta)),
+  );
 },
 ```
 
-`<String>` indica que esperem un text. `await` espera que Ajuda es tanque, sense bloquejar la interfície. Si torna un text, el mostrem en una `SnackBar` del catàleg. Si es tanca sense resposta, rebem `null`. La comprovació `context.mounted` evita utilitzar el context si la vista que esperava ja s’ha retirat.
+- `push<String>` indica que esperem rebre un `String` quan Ajuda es tanque.
+- `await` espera eixe tancament sense bloquejar la interfície. Si Ajuda es tanca amb la fletxa de tornar, sense resposta, rebem `null`.
+- `context.mounted` comprova que el catàleg continua en pantalla abans d’utilitzar el seu `context` després de l’espera.
 
-En Ajuda, substituïx el botó de la primera prova per este:
+En `ayuda_pantalla.dart`, afig este botó al final dels `children` del `ListView`:
 
 ```dart
-FilledButton(
-  onPressed: context.canPop() ? () => context.pop('Consejo leído') : null,
-  child: const Text('He leído el consejo'),
+Padding(
+  padding: const EdgeInsets.all(16),
+  child: FilledButton(
+    onPressed: context.canPop()
+        ? () => context.pop('Consejo leído')
+        : null,
+    child: const Text('He leído el consejo'),
+  ),
 ),
 ```
 
-`canPop()` comprova que hi ha una pàgina anterior. Si n’hi ha, el botó està habilitat: `pop` retira Ajuda i retorna el text. Si entrem directament en `/ayuda` sense una pàgina davall, es deshabilita este botó de resposta.
+- `context.pop('Consejo leído')` lleva Ajuda de la pila i entrega el text a qui va fer `push`.
+- `context.canPop()` indica si hi ha una pàgina davall. Si Ajuda s’haguera obert amb `go`, no n’hi hauria, i el botó apareix deshabilitat (`onPressed: null`).
 
-Prova **catàleg → Ajuda → He leído el consejo**. Has de tornar al catàleg i veure «Consejo leído» en una `SnackBar`. El text no es guarda en les dades ni inicia sessió: només demostra com una pantalla retorna un resultat a la que l’ha oberta. `go` no retorna este tipus de resposta.
+Prova: **catàleg → Ajuda → He leído el consejo**. Tornes al catàleg i apareix «Consejo leído» en una `SnackBar`. Ara la capçalera d’Ajuda sí que mostra la fletxa de tornar, perquè el catàleg continua davall.
 
-## Triar l’operació segons el recorregut
+`go` mai retorna resultats: com que substituïx la pila, no hi ha ningú esperant davall.
 
-| Operació | Resultat en estes proves |
-| --- | --- |
-| `go('/ayuda')` | Configura les pàgines que corresponen a la ubicació d’Ajuda. |
-| `go('/')` | Configura la destinació del catàleg. |
-| `push<String>('/ayuda')` | Obri Ajuda damunt del catàleg i espera un text en tancar-la. |
-| `pop('Consejo leído')` | Tanca Ajuda i entrega eixe text a qui ha fet `push`. |
-| `canPop()` | Comprova si hi ha una pàgina que puguem retirar. |
-| `goNamed('ayuda')` | Busca la ruta registrada amb `name: 'ayuda'`; en esta configuració té la mateixa destinació que `go('/ayuda')`. |
+## Resum d’operacions
 
-`go` pot configurar diverses pàgines quan la ubicació té rutes pare i filles. Ho veurem en afegir `/talleres/20`; l’explicació d’una sola pàgina de la primera prova correspon a les dos rutes independents d’este pas.
+go_router oferix més operacions que les dos que hem provat. Esta taula les reunix amb el seu efecte sobre la pila, perquè pugues consultar-la quan dubtes quina utilitzar:
 
-## Què conservem per a continuar
+| Operació | Efecte en la pila | Retorna resultat? |
+| --- | --- | --- |
+| `context.go('/ayuda')` | Substituïx la pila per la de `/ayuda`. | No |
+| `context.goNamed('ayuda')` | Igual que `go`, utilitzant el `name` de la ruta. | No |
+| `context.push('/ayuda')` | Afig Ajuda damunt. | Sí, amb `await` |
+| `context.pushNamed('ayuda')` | Igual que `push`, utilitzant el nom. | Sí |
+| `context.pop([valor])` | Lleva la pàgina de dalt i entrega `valor`. | — |
+| `context.canPop()` | Indica si hi ha pàgina davall. | — |
+| `context.replace('/ayuda')` | Substituïx només la pàgina de dalt. | No |
 
-Estes dos proves servixen per a comparar operacions. Abans del pas següent, restaura l’accés del catàleg amb `context.go('/ayuda')` i retira el botó de prova afegit a Ajuda. Mantín l’interruptor i el consell, tal com estaven en el pas 2. Així continuarem tots des del mateix exemple.
+**Quan utilitzar cada una?**
 
-En web, comprova per separat els botons arrere i avant del navegador i la recàrrega: les operacions imperatives poden tindre matisos amb eixe historial. Un diàleg breu pot continuar obrint-se amb `showDialog`; no necessita una ruta pròpia per a esta pràctica.
+- **`go`** per a la navegació normal entre destinacions: entrades de menú, pestanyes, enllaços, anar a un detall. La pila sempre coincidix amb la ubicació, així que un enllaç directe i un botó produïxen exactament el mateix resultat.
+- **`push`** quan la pantalla nova és un pas temporal del qual es torna amb una resposta (triar un valor, confirmar alguna cosa).
+- **`pop`** per a tancar la pantalla actual.
 
-Referències: [navegació i retorn de valors](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) i [rutes amb nom](https://pub.dev/documentation/go_router/latest/topics/Named%20routes-topic.html).
+En la resta de la secció utilitzarem `go`. Per a diàlegs breus continuem utilitzant `showDialog`, que no necessita ruta.
+
+## Tornar al punt de partida
+
+Desfés l’experiment 2 per a continuar tots des del mateix codi:
+
+1. En `catalogo_pantalla.dart`, l’`onTap` d’Ajuda torna a ser `onTap: () => context.go('/ayuda'),`.
+2. En `ayuda_pantalla.dart`, lleva el botó **He leído el consejo**.
+
+Referències: [navegació](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) i [rutes amb nom](https://pub.dev/documentation/go_router/latest/topics/Named%20routes-topic.html).

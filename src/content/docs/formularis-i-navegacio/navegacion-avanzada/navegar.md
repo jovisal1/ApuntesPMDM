@@ -4,77 +4,102 @@ sidebar:
   order: 3
 ---
 
-Ya tenemos dos pantallas: el catálogo (`/`) y Ayuda (`/ayuda`). Ahora vamos a probar **dos formas de abrir la misma pantalla** y observar qué ocurre al volver. No añadiremos todavía Talleres ni el login.
+Ya tenemos dos rutas. Antes de añadir más, conviene entender bien **qué hace cada operación de navegación con la pila de páginas**, porque es lo que decide si aparece la flecha de volver, qué pasa con el estado de una pantalla y si podemos devolver un resultado.
 
-En la primera prueba, iremos a Ayuda como destino y ofreceremos un botón para regresar al catálogo. En la segunda, abriremos Ayuda encima del catálogo y devolveremos el mensaje «Consejo leído» al cerrarla. Son pruebas alternativas: cambiaremos el callback de la misma entrada, no crearemos varios botones de acceso.
+## La pila de páginas
 
-## 1. Ir a Ayuda con `go`
+Recuerda que `Navigator` muestra una **pila**: la página de arriba es la visible y, si hay alguna debajo, la `AppBar` muestra automáticamente la flecha de volver.
 
-En `catalogo_pantalla.dart`, el callback de la entrada **Ayuda con go_router** que añadimos en el paso anterior es:
+go_router ofrece dos formas de cambiar esa pila:
 
-```dart
-onTap: () => context.go('/ayuda'),
+- **`go`** (ir a una ubicación): el router **sustituye la pila completa** por la que corresponde a la nueva ubicación según el mapa. Lo que hubiera antes desaparece.
+- **`push`** (apilar): el router **añade** la página de la nueva ubicación encima de las que ya había. Lo de debajo se conserva.
+
+Con el mapa actual, `/` y `/ayuda` son rutas independientes (ninguna está dentro de otra). Por eso:
+
+```text
+context.go('/ayuda')    →  pila: [Ayuda]              (sin flecha de volver)
+context.push('/ayuda')  →  pila: [Catálogo, Ayuda]    (con flecha de volver)
 ```
 
-Al pulsar, el router busca `/ayuda` en su configuración y muestra `AyudaPantalla`. Con las dos rutas independientes que tenemos ahora, la pila de páginas pasa del catálogo a Ayuda: **el catálogo no queda debajo como una página a la que hacer `pop`**. El historial del navegador web es un mecanismo distinto.
+![Con go, Ayuda sustituye la pila y queda sola; con push, Ayuda se apila sobre el catálogo y pop devuelve un resultado.](../../../../assets/navegacion/router-go-push-es.svg)
 
-Para que el usuario pueda regresar, añade este widget a `children` del `ListView` de `AyudaPantalla`, después del interruptor y del consejo condicional. Añade también `import 'package:go_router/go_router.dart';` al principio del archivo:
+En el paso 4 veremos que, cuando una ruta está anidada dentro de otra, `go` construye también las páginas padre.
 
-```dart
-FilledButton(
-  onPressed: () => context.go('/'),
-  child: const Text('Volver al catálogo'),
-),
-```
+## Experimento 1: `go` sustituye la pila
 
-Prueba el recorrido: **catálogo → Ayuda → activar el consejo → Volver al catálogo**. Al volver a abrir Ayuda con esta configuración, se crea de nuevo su pantalla y el interruptor empieza desactivado. Más adelante aprenderemos a conservarlo entre pestañas.
+La entrada del catálogo usa `context.go('/ayuda')`. Abre Ayuda y fíjate en la cabecera: **no hay flecha de volver**, porque el catálogo ya no está debajo. Por eso añadimos el icono de la casa con `context.go('/')`.
 
-## 2. Abrir Ayuda con `push` y devolver una respuesta
+Activa el interruptor, vuelve al catálogo y abre de nuevo Ayuda: el interruptor aparece desactivado. Al hacer `go('/')`, la página de Ayuda salió de la pila y su `State` se destruyó; al volver, se crea otra nueva.
 
-Ahora queremos que el catálogo espere una respuesta de Ayuda. `push` añade la pantalla sobre el recorrido actual; al cerrarla con `pop`, reaparece la página anterior. En esta prueba la pila será **catálogo debajo y Ayuda encima**.
+## Experimento 2: `push` apila y `pop` devuelve un resultado
 
-En `catalogo_pantalla.dart`, sustituye el `onTap` anterior por este. El import de go_router ya debe estar añadido en esta vista:
+Ahora haremos que el catálogo abra Ayuda **encima** y espere una respuesta. Es un cambio temporal: al final del paso lo desharemos.
+
+En `catalogo_pantalla.dart`, cambia el `onTap` de **Ayuda con go_router** por este:
 
 ```dart
 onTap: () async {
-  final elegido = await context.push<String>('/ayuda');
-  if (!context.mounted || elegido == null) return;
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(elegido)));
+  final respuesta = await context.push<String>('/ayuda');
+  if (!context.mounted || respuesta == null) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(respuesta)),
+  );
 },
 ```
 
-`<String>` indica que esperamos un texto. `await` espera a que Ayuda se cierre, sin bloquear la interfaz. Si vuelve un texto, lo mostramos en una `SnackBar` del catálogo. Si se cierra sin respuesta, recibimos `null`. La comprobación `context.mounted` evita utilizar el contexto si la vista que esperaba ya se ha retirado.
+- `push<String>` indica que esperamos recibir un `String` cuando Ayuda se cierre.
+- `await` espera a ese cierre sin bloquear la interfaz. Si Ayuda se cierra con la flecha de volver, sin respuesta, recibimos `null`.
+- `context.mounted` comprueba que el catálogo sigue en pantalla antes de usar su `context` después de la espera.
 
-En Ayuda, sustituye el botón de la primera prueba por este:
+En `ayuda_pantalla.dart`, añade este botón al final de los `children` del `ListView`:
 
 ```dart
-FilledButton(
-  onPressed: context.canPop() ? () => context.pop('Consejo leído') : null,
-  child: const Text('He leído el consejo'),
+Padding(
+  padding: const EdgeInsets.all(16),
+  child: FilledButton(
+    onPressed: context.canPop()
+        ? () => context.pop('Consejo leído')
+        : null,
+    child: const Text('He leído el consejo'),
+  ),
 ),
 ```
 
-`canPop()` comprueba que hay una página anterior. Si la hay, el botón está habilitado: `pop` retira Ayuda y devuelve el texto. Si entramos directamente en `/ayuda` sin una página debajo, se deshabilita este botón de respuesta.
+- `context.pop('Consejo leído')` quita Ayuda de la pila y entrega el texto a quien hizo `push`.
+- `context.canPop()` indica si hay una página debajo. Si Ayuda se hubiera abierto con `go`, no la habría, y el botón aparece deshabilitado (`onPressed: null`).
 
-Prueba **catálogo → Ayuda → He leído el consejo**. Debes volver al catálogo y ver «Consejo leído» en una `SnackBar`. El texto no se guarda en los datos ni inicia sesión: solo demuestra cómo una pantalla devuelve un resultado a la que la abrió. `go` no devuelve este tipo de respuesta.
+Prueba: **catálogo → Ayuda → He leído el consejo**. Vuelves al catálogo y aparece «Consejo leído» en una `SnackBar`. Ahora la cabecera de Ayuda sí muestra la flecha de volver, porque el catálogo sigue debajo.
 
-## Elegir la operación según el recorrido
+`go` nunca devuelve resultados: como sustituye la pila, no hay nadie esperando debajo.
 
-| Operación | Resultado en estas pruebas |
-| --- | --- |
-| `go('/ayuda')` | Configura las páginas que corresponden a la ubicación de Ayuda. |
-| `go('/')` | Configura el destino del catálogo. |
-| `push<String>('/ayuda')` | Abre Ayuda sobre el catálogo y espera un texto al cerrarla. |
-| `pop('Consejo leído')` | Cierra Ayuda y entrega ese texto a quien hizo `push`. |
-| `canPop()` | Comprueba si hay una página que podamos retirar. |
-| `goNamed('ayuda')` | Busca la ruta registrada con `name: 'ayuda'`; en esta configuración tiene el mismo destino que `go('/ayuda')`. |
+## Resumen de operaciones
 
-`go` puede configurar varias páginas cuando la ubicación tiene rutas padre e hijas. Lo veremos al añadir `/talleres/20`; la explicación de una sola página de la primera prueba corresponde a las dos rutas independientes de este paso.
+go_router ofrece más operaciones que las dos que hemos probado. Esta tabla las reúne con su efecto sobre la pila, para que puedas consultarla cuando dudes cuál usar:
 
-## Qué conservamos para continuar
+| Operación | Efecto en la pila | ¿Devuelve resultado? |
+| --- | --- | --- |
+| `context.go('/ayuda')` | Sustituye la pila por la de `/ayuda`. | No |
+| `context.goNamed('ayuda')` | Igual que `go`, usando el `name` de la ruta. | No |
+| `context.push('/ayuda')` | Añade Ayuda encima. | Sí, con `await` |
+| `context.pushNamed('ayuda')` | Igual que `push`, usando el nombre. | Sí |
+| `context.pop([valor])` | Quita la página de arriba y entrega `valor`. | — |
+| `context.canPop()` | Indica si hay página debajo. | — |
+| `context.replace('/ayuda')` | Sustituye solo la página de arriba. | No |
 
-Estas dos pruebas sirven para comparar operaciones. Antes del paso siguiente, restaura el acceso del catálogo con `context.go('/ayuda')` y retira el botón de prueba añadido a Ayuda. Mantén su interruptor y el consejo, tal como estaban en el paso 2. Así continuaremos todos desde el mismo ejemplo.
+**¿Cuándo usar cada una?**
 
-En web, comprueba por separado los botones atrás y adelante del navegador y la recarga: las operaciones imperativas pueden tener matices con ese historial. Un diálogo breve puede seguir abriéndose con `showDialog`; no necesita una ruta propia para esta práctica.
+- **`go`** para la navegación normal entre destinos: entradas de menú, pestañas, enlaces, ir a un detalle. La pila siempre coincide con la ubicación, así que un enlace directo y un botón producen exactamente el mismo resultado.
+- **`push`** cuando la pantalla nueva es un paso temporal del que se vuelve con una respuesta (elegir un valor, confirmar algo).
+- **`pop`** para cerrar la pantalla actual.
 
-Referencias: [navegación y retorno de valores](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) y [rutas con nombre](https://pub.dev/documentation/go_router/latest/topics/Named%20routes-topic.html).
+En el resto de la sección usaremos `go`. Para diálogos breves seguimos usando `showDialog`, que no necesita ruta.
+
+## Volver al punto de partida
+
+Deshaz el experimento 2 para continuar todos desde el mismo código:
+
+1. En `catalogo_pantalla.dart`, el `onTap` de Ayuda vuelve a ser `onTap: () => context.go('/ayuda'),`.
+2. En `ayuda_pantalla.dart`, quita el botón **He leído el consejo**.
+
+Referencias: [navegación](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) y [rutas con nombre](https://pub.dev/documentation/go_router/latest/topics/Named%20routes-topic.html).

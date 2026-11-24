@@ -4,18 +4,54 @@ sidebar:
   order: 6
 ---
 
-Protegeremos `/cuenta`. Talleres, Ayuda y el catálogo siguen siendo públicos. La protección se aplica también al escribir la URL: ocultar el botón no bastaría.
+En este paso añadimos **Mi cuenta** (`/cuenta`), una pantalla que solo se puede ver después de iniciar sesión con el formulario de la unidad anterior. Talleres, Ayuda y el catálogo siguen siendo públicos.
 
-El login mantiene el recorrido conocido: **vista → InscripcionViewModel → contrato → repositorio → servicio y DTO → modelo de dominio**. El router no comprueba credenciales. Cuando `login()` encuentra una ficha y devuelve `DatosAcceso`, la vista comunica el resultado y actualizamos el estado de sesión.
-
-Antes de programarlo, sigue el recorrido de la imagen: sin sesión se conserva el destino en `from` y se abre Login. Si los datos son válidos, el formulario comunica `DatosAcceso`, cambia la sesión y el router permite llegar a Cuenta. Si hay errores, no se activa la sesión. La rama «Sí» representa a quien ya había accedido.
+La protección tiene que funcionar **llegue como llegue** la persona a `/cuenta`: desde un botón, escribiendo la dirección o volviendo atrás en el navegador. Ocultar un botón no basta. Por eso la comprobación no estará en las pantallas, sino en el router.
 
 ![Flujo de Cuenta a Login sin sesión, consulta por capas, activación de sesión y retorno a Cuenta.](../../../../assets/navegacion/router-acceso-es.svg)
 
-## Estado de sesión de presentación
+Archivos de este paso:
 
-Crea este ViewModel compartido. Guarda el resultado de la consulta, no contraseñas ni DTO. Es estado en memoria de la demostración, por eso se pierde al reiniciar. `notifyListeners()` permitirá al router reevaluar la redirección al entrar y salir.
+```text
+lib/
+  main.dart                                       ← crea la sesión
+  ui/
+    core/app_router.dart                          ← login, cuenta y redirect
+    core/redireccion_sesion.dart                  ← nuevo: la política de acceso
+    core/view_models/sesion_viewmodel.dart        ← nuevo: estado de sesión
+    inscripcion/ui/inscripcion_pantalla.dart      ← avisa del login con un callback
+    inscripcion/ui/inscripcion_ejemplo_pantalla.dart ← adapta la demo antigua
+    inscripcion/ui/login_ruta_pantalla.dart       ← nuevo: el formulario como ruta
+    navegacion_avanzada/ui/cuenta_pantalla.dart   ← nuevo
+```
 
+## Cómo funciona `redirect`
+
+Antes de programar, veamos la herramienta que usaremos para proteger Cuenta y cómo se entera el router de que la sesión ha cambiado.
+
+`GoRouter` admite una función **`redirect`** que se ejecuta **antes de mostrar cualquier ubicación**: al arrancar, con cada `go` o `push`, con un enlace directo y con los botones atrás y adelante del navegador.
+
+```dart
+redirect: (context, state) {
+  // state.uri es la ubicación que se quiere mostrar.
+  // Devuelve otra ubicación para desviar la navegación,
+  // o null para dejarla continuar.
+},
+```
+
+- Si devuelve **`null`**, la navegación sigue hacia la ubicación pedida.
+- Si devuelve **otra ubicación**, go_router navega allí en su lugar (y vuelve a llamar a `redirect` con la nueva ubicación, por si hubiera que desviarla otra vez).
+- Solo **decide**: no debe llamar a `context.go`, ni iniciar sesión, ni consultar el repositorio. Recibe un estado y devuelve una dirección.
+
+Hay un problema: `redirect` se ejecuta al navegar, pero la sesión cambia sin navegar (al pulsar Login o Cerrar sesión). Para eso existe **`refreshListenable`**: le damos un `Listenable` (nuestro ViewModel de sesión) y, cada vez que notifica un cambio, el router **vuelve a evaluar `redirect` sobre la ubicación actual**. Así, al iniciar sesión estando en Login, el router nos lleva a Cuenta; y al cerrar sesión estando en Cuenta, nos saca de ella.
+
+:::note[redirect global y por ruta]
+Además del `redirect` de `GoRouter`, cada `GoRoute` puede tener el suyo, que solo se aplica a esa ruta y sus hijas. Usamos el global para tener toda la política de acceso en un único sitio.
+:::
+
+## 1. El estado de sesión
+
+El router necesita saber en todo momento si hay una sesión activa. Lo guardamos en un ViewModel compartido que avisa cada vez que cambia.
 
 `lib/ui/core/view_models/sesion_viewmodel.dart`
 
@@ -25,8 +61,10 @@ import '../../../domain/models/datos_acceso.dart';
 
 class SesionViewModel extends ChangeNotifier {
   DatosAcceso? _acceso;
+
   DatosAcceso? get acceso => _acceso;
   bool get activa => _acceso != null;
+
   void iniciarSesion(DatosAcceso acceso) {
     _acceso = acceso;
     notifyListeners();
@@ -39,47 +77,68 @@ class SesionViewModel extends ChangeNotifier {
 }
 ```
 
-## Comunicar el éxito sin acoplar el formulario al router
+Guarda el resultado del login (`DatosAcceso`), nunca lo que se escribió en los campos. Es estado en memoria: al reiniciar la aplicación, la sesión desaparece. Está en `ui/core` porque lo comparten varias pantallas y el router. `notifyListeners()` es lo que escucha `refreshListenable`.
 
-En `inscripcion_pantalla.dart`, conserva el aspecto, Login, Limpiar, los controladores y sus validadores. Sustituye el import de `detalle_usuario_pantalla.dart` por `../../../domain/models/datos_acceso.dart`. Añade al constructor y a la clase el callback requerido:
+## 2. El formulario avisa del login, no navega
 
+El formulario de la unidad anterior abría el detalle con `Navigator.push` al validar. Ahora queremos reutilizarlo en dos sitios distintos:
 
-```dart
-const InscripcionPantalla({
-  super.key, required this.viewModel, required this.onLogin,
-});
-final InscripcionViewModel viewModel;
-final ValueChanged<DatosAcceso> onLogin;
-```
+- En la demo **Login de demostración** del catálogo, que sigue abriendo el detalle con `Navigator.push`.
+- En la ruta `/login`, donde no debe navegar: tras el login, **el router** decide el destino.
 
-Sustituye solo `_login` por este método. Elimina su antiguo `Navigator.push`: no deben ejecutarse una navegación imperativa y una redirección para el mismo acceso. El callback solo se llama con un resultado válido.
+La solución es que el formulario no decida qué hacer: **avisa** con un callback y quien lo usa decide.
 
+En `lib/ui/inscripcion/ui/inscripcion_pantalla.dart`:
 
-```dart
-void _login() {
-  setState(() => _intentoLogin = true);
-  if (!(_formKey.currentState?.validate() ?? false)) return;
-  final resultado = widget.viewModel.login();
-  if (resultado == null) return;
-  widget.onLogin(resultado);
-}
-```
+1. Sustituye el import de `detalle_usuario_pantalla.dart` por este:
 
-Para conservar la demostración antigua del catálogo, en `inscripcion_ejemplo_pantalla.dart` mantén su creación del servicio, repositorio y ViewModel. Añade `import 'detalle_usuario_pantalla.dart';` y sustituye solo su `build`:
+   ```dart
+   import '../../../domain/models/datos_acceso.dart';
+   ```
 
+2. Sustituye el constructor y los campos de `InscripcionPantalla`:
+
+   ```dart
+   const InscripcionPantalla({
+     super.key,
+     required this.viewModel,
+     required this.onLogin,
+   });
+   final InscripcionViewModel viewModel;
+   final ValueChanged<DatosAcceso> onLogin;
+   ```
+
+3. Sustituye el método `_login` por este. El callback solo se llama con un resultado válido:
+
+   ```dart
+   void _login() {
+     setState(() => _intentoLogin = true);
+     if (!(_formKey.currentState?.validate() ?? false)) return;
+     final resultado = widget.viewModel.login();
+     if (resultado == null) return;
+     widget.onLogin(resultado);
+   }
+   ```
+
+`ValueChanged<DatosAcceso>` es un tipo de Flutter equivalente a `void Function(DatosAcceso)`.
+
+Para que la demo antigua siga igual, en `lib/ui/inscripcion/ui/inscripcion_ejemplo_pantalla.dart` añade `import 'detalle_usuario_pantalla.dart';` y sustituye su `build`:
 
 ```dart
 @override
 Widget build(BuildContext context) => InscripcionPantalla(
   viewModel: _viewModel,
   onLogin: (resultado) => Navigator.of(context).push<void>(
-    MaterialPageRoute<void>(builder: (_) => DetalleUsuarioPantalla(acceso: resultado)),
+    MaterialPageRoute<void>(
+      builder: (_) => DetalleUsuarioPantalla(acceso: resultado),
+    ),
   ),
 );
 ```
 
-La demostración básica conserva así su recorrido. La ruta `/login` utilizará este nuevo adaptador: recibe el contrato por constructor, crea una sola instancia del ViewModel y la libera al salir. No importa ninguna implementación de `data`.
+## 3. El formulario como ruta
 
+La ruta `/login` necesita su propio adaptador. Igual que `InscripcionEjemploPantalla`, crea el ViewModel una vez y lo libera al salir; la diferencia es que **recibe** el contrato del repositorio y el callback, en lugar de crearlos. Así no conoce ninguna implementación de `data`.
 
 `lib/ui/inscripcion/ui/login_ruta_pantalla.dart`
 
@@ -98,12 +157,14 @@ class LoginRutaPantalla extends StatefulWidget {
   });
   final InscripcionesRepository repository;
   final ValueChanged<DatosAcceso> onLogin;
+
   @override
   State<LoginRutaPantalla> createState() => _LoginRutaPantallaState();
 }
 
 class _LoginRutaPantallaState extends State<LoginRutaPantalla> {
   late final InscripcionViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
@@ -122,58 +183,274 @@ class _LoginRutaPantallaState extends State<LoginRutaPantalla> {
 }
 ```
 
-## Definir la política de redirección
+## 4. La pantalla de Cuenta
 
-`redirect` devuelve una ubicación si debemos cambiar de destino y `null` si la navegación puede continuar. Es una decisión, no un lugar para llamar a `context.go`, crear sesiones ni ejecutar el login.
+Recibe los datos de la sesión y un callback para salir. No consulta el repositorio ni navega: cerrar sesión solo cambia el estado, y el router reacciona.
 
-Guardamos el destino solicitado en `from` mediante `Uri`, para codificar sus parámetros. Tras el acceso lo recuperamos. La función solo acepta `/cuenta` como destino interno permitido: rechaza URLs externas y evita regresar al propio login en bucle. Si añades otras rutas protegidas, amplía **tanto** la comprobación de acceso como los destinos permitidos.
-
-
-`lib/app/router/redireccion_sesion.dart`
+`lib/ui/navegacion_avanzada/ui/cuenta_pantalla.dart`
 
 ```dart
-import 'package:go_router/go_router.dart';
-import '../../ui/core/view_models/sesion_viewmodel.dart';
+import 'package:flutter/material.dart';
+import '../../../domain/models/datos_acceso.dart';
 
-String destinoTrasLogin(String? valor) {
-  final uri = Uri.tryParse(valor ?? '');
+class CuentaPantalla extends StatelessWidget {
+  const CuentaPantalla({
+    super.key,
+    required this.acceso,
+    required this.onSalir,
+  });
+  final DatosAcceso acceso;
+  final VoidCallback onSalir;
+
+  @override
+  Widget build(BuildContext context) {
+    final usuario = acceso.usuario;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Mi cuenta')),
+      body: ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          Text(
+            '¡Hola, ${usuario.nombreCompleto}!',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 16),
+          Text('Identificador: ${usuario.id}'),
+          Text('Correo: ${usuario.correo}'),
+          Text('Teléfono: ${usuario.telefono}'),
+          Text('Localidad: ${usuario.localidad}'),
+          Text('Taller: ${acceso.taller.titulo}'),
+          Text(
+            acceso.recordatorio
+                ? 'Recordatorio simulado: sí'
+                : 'Sin recordatorio',
+          ),
+          const SizedBox(height: 24),
+          OutlinedButton.icon(
+            onPressed: onSalir,
+            icon: const Icon(Icons.logout),
+            label: const Text('Cerrar sesión'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+## 5. La política de acceso
+
+Escribimos la decisión de `redirect` como una función **pura**: recibe si hay sesión y la ubicación pedida, y devuelve la nueva ubicación o `null`. No depende de Flutter ni del router, así que es fácil de leer y de probar.
+
+`lib/ui/core/redireccion_sesion.dart`
+
+```dart
+const rutaLogin = '/login';
+const rutaCuenta = '/cuenta';
+
+/// Rutas que exigen sesión. Para proteger otra, basta con añadirla aquí.
+const rutasProtegidas = {rutaCuenta};
+
+/// Quita la barra final para que `/cuenta/` y `/cuenta` se traten igual.
+String _normalizar(String path) =>
+    path.length > 1 && path.endsWith('/')
+    ? path.substring(0, path.length - 1)
+    : path;
+
+bool esRutaProtegida(Uri ubicacion) =>
+    rutasProtegidas.contains(_normalizar(ubicacion.path));
+
+/// Devuelve el destino tras el login. Solo acepta rutas protegidas internas;
+/// cualquier otro valor (otra web, el propio login, texto vacío) lleva a Cuenta.
+String destinoTrasLogin(String? from) {
+  final uri = Uri.tryParse(from ?? '');
   if (uri != null &&
       !uri.hasScheme &&
       !uri.hasAuthority &&
-      uri.path == '/cuenta' &&
-      uri.fragment.isEmpty) {
+      uri.fragment.isEmpty &&
+      esRutaProtegida(uri)) {
     return uri.toString();
   }
-  return '/cuenta';
+  return rutaCuenta;
 }
 
-String? redireccionSesion(SesionViewModel sesion, GoRouterState state) {
-  final enLogin = state.uri.path == '/login';
-  final protegida = state.uri.path == '/cuenta';
-  if (!sesion.activa && protegida) {
+/// Política de acceso: devuelve otra ubicación o `null` para continuar.
+String? redireccionSesion({
+  required bool sesionActiva,
+  required Uri ubicacion,
+}) {
+  if (!sesionActiva && esRutaProtegida(ubicacion)) {
     return Uri(
-      path: '/login',
-      queryParameters: {'from': state.uri.toString()},
+      path: rutaLogin,
+      queryParameters: {'from': ubicacion.toString()},
     ).toString();
   }
-  if (sesion.activa && enLogin) {
-    return destinoTrasLogin(state.uri.queryParameters['from']);
+  if (sesionActiva && _normalizar(ubicacion.path) == rutaLogin) {
+    return destinoTrasLogin(ubicacion.queryParameters['from']);
   }
   return null;
 }
 ```
 
-En el `GoRouter` añadiremos `refreshListenable: sesion` y `redirect: (context, state) => redireccionSesion(sesion, state)`. El router escucha los cambios; no se crea de nuevo cada vez que cambia la sesión. El montaje completo del paso 8 conecta esas dependencias.
+Las dos reglas, en palabras:
 
-| Situación | Resultado |
+1. **Sin sesión y pidiendo una ruta protegida** → ve a Login, y guarda en el parámetro `from` adónde querías ir. Construimos la dirección con `Uri(...)` para que `from` quede codificado: `/cuenta?origen=menu` se convierte en `/login?from=%2Fcuenta%3Forigen%3Dmenu`.
+2. **Con sesión y en Login** → no tiene sentido pedir el acceso otra vez: ve al destino guardado en `from`.
+
+En cualquier otro caso, `null`: la navegación continúa.
+
+`destinoTrasLogin` no se fía de `from`, porque cualquiera puede escribirlo en la dirección. Solo acepta una ruta interna (sin esquema como `https:` ni dominio como `//otra.web`) que además sea protegida. Así un enlace manipulado no puede sacarnos de la aplicación ni provocar un bucle volviendo a `/login`.
+
+## 6. El mapa de rutas con acceso protegido
+
+Con todas las piezas preparadas, las conectamos en el mapa de rutas: añadimos Login y Cuenta, y la política de acceso.
+
+Sustituye `app_router.dart`:
+
+`lib/ui/core/app_router.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../domain/repositories/inscripciones_repository.dart';
+import '../catalogo/ui/catalogo_pantalla.dart';
+import 'view_models/sesion_viewmodel.dart';
+import '../inscripcion/ui/login_ruta_pantalla.dart';
+import '../navegacion_avanzada/ui/ayuda_pantalla.dart';
+import '../navegacion_avanzada/ui/cuenta_pantalla.dart';
+import '../navegacion_avanzada/ui/secciones_pantalla.dart';
+import 'redireccion_sesion.dart';
+import 'ruta_talleres.dart';
+
+GoRouter crearRouter(
+  InscripcionesRepository repository,
+  SesionViewModel sesion,
+) => GoRouter(
+  initialLocation: '/',
+  debugLogDiagnostics: true,
+  refreshListenable: sesion,
+  redirect: (context, state) =>
+      redireccionSesion(sesionActiva: sesion.activa, ubicacion: state.uri),
+  routes: [
+    GoRoute(
+      path: '/',
+      name: 'catalogo',
+      builder: (context, state) => const CatalogoPantalla(),
+      routes: [
+        GoRoute(
+          path: 'login',
+          name: 'login',
+          builder: (context, state) => LoginRutaPantalla(
+            repository: repository,
+            onLogin: sesion.iniciarSesion,
+          ),
+        ),
+        GoRoute(
+          path: 'cuenta',
+          name: 'cuenta',
+          builder: (context, state) {
+            final acceso = sesion.acceso;
+            if (acceso == null) return const SizedBox.shrink();
+            return CuentaPantalla(
+              acceso: acceso,
+              onSalir: sesion.cerrarSesion,
+            );
+          },
+        ),
+      ],
+    ),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) =>
+          SeccionesPantalla(navigationShell: navigationShell),
+      branches: [
+        StatefulShellBranch(routes: [rutaTalleres(repository)]),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/ayuda',
+              name: 'ayuda',
+              builder: (context, state) => const AyudaPantalla(),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+```
+
+Novedades:
+
+- **`refreshListenable: sesion`** y **`redirect`** conectan la política con el estado de sesión. El router no se crea de nuevo cuando cambia la sesión: solo reevalúa la redirección.
+- **`login` y `cuenta` son hijas de `/`**. Sus direcciones son `/login` y `/cuenta`, pero, como en el paso 4, `go('/cuenta')` construye la pila `[Catálogo, Cuenta]`: la cabecera muestra la flecha para volver al catálogo. Además quedan fuera de la shell, así que la barra inferior no aparece encima del formulario.
+- **`onLogin: sesion.iniciarSesion`**: cuando el formulario valida, la sesión se activa y notifica; el router reevalúa `redirect` en `/login` y la regla 2 nos lleva a Cuenta.
+- **`onSalir: sesion.cerrarSesion`**: al cerrar sesión, el router reevalúa `redirect` en `/cuenta` y la regla 1 nos lleva a Login. Si vuelves a entrar, regresas a Cuenta.
+- El `builder` de Cuenta comprueba que haya acceso en lugar de usar `sesion.acceso!`. La redirección ya impide llegar sin sesión; esta comprobación evita depender solo de ella.
+
+## 7. Crear la sesión en el arranque
+
+Sustituye `main.dart` por su versión final. La sesión se crea una sola vez y se comparte con el router, que la escucha. Las pantallas no la crean: la reciben a través de los callbacks del router.
+
+`lib/main.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'data/repositories/inscripciones_local_repository.dart';
+import 'data/services/inscripciones_local_service.dart';
+import 'ui/core/app_router.dart';
+import 'ui/core/view_models/sesion_viewmodel.dart';
+
+void main() {
+  final repository = InscripcionesLocalRepository(
+    const InscripcionesLocalService(),
+  );
+  final sesion = SesionViewModel();
+  final router = crearRouter(repository, sesion);
+  runApp(
+    MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Catálogo de widgets',
+      routerConfig: router,
+    ),
+  );
+}
+```
+
+## 8. Entrada en el catálogo
+
+Por último, añadimos el acceso a Cuenta desde el catálogo.
+
+Añade esta entrada debajo de la de Talleres:
+
+```dart
+ListTile(
+  leading: const Icon(Icons.lock_outline),
+  title: const Text('Mi cuenta protegida'),
+  trailing: const Icon(Icons.chevron_right),
+  onTap: () => context.go('/cuenta'),
+),
+```
+
+El botón no comprueba nada: pide `/cuenta` y la política decide.
+
+## Probar
+
+Recorre estas situaciones para comprobar las dos reglas de la política de acceso.
+
+Haz **hot restart** y observa en la consola las líneas de redirección de `GoRouter`:
+
+| Situación | Resultado esperado |
 | --- | --- |
-| Sin sesión y solicita `/cuenta?origen=menu` | Abre Login y conserva esa ubicación en `from`. |
-| Datos de formulario incorrectos | Permanece en Login; no se activa la sesión. |
-| Datos correctos | El callback activa la sesión; el router reevalúa y abre el destino conservado. |
-| Con sesión y solicita `/login` | Redirige a Cuenta; no vuelve a mostrar acceso. |
-| Cierra sesión desde Cuenta | Borra los datos de sesión y redirige fuera de la ruta protegida. |
-| Atrás intenta volver a Cuenta sin sesión | La redirección vuelve a impedir el acceso. |
+| Sin sesión, pulsar Mi cuenta protegida | Se abre Login; la ubicación es `/login?from=%2Fcuenta`. |
+| Login con Ana y `pau@centro.es` | Error de consulta; sigue en Login y no hay sesión. |
+| Login con Ana, `ana@centro.es` y un taller | Se abre Mi cuenta con el saludo de Ana García Pérez. |
+| Flecha de volver en Mi cuenta | Vuelve al catálogo. |
+| Pulsar otra vez Mi cuenta protegida | Abre Cuenta directamente: ya hay sesión. |
+| Cerrar sesión | Vuelve a Login. |
+| Login de demostración (entrada antigua) | Funciona como en la unidad de formularios y no inicia sesión. |
 
-El mecanismo protege destinos **declarados en este router**. No convierte la demostración anterior del catálogo en autenticación real ni impide que se inspeccionen datos incrustados en la aplicación. En un sistema real, un servidor debe autenticar y autorizar las operaciones; si la sesión se restaura de forma asíncrona, conviene representar primero un estado de comprobación para no decidir prematuramente que está cerrada.
+:::caution[Esto es una demostración]
+Esta protección decide qué pantallas se muestran en la aplicación, pero no es seguridad real: no hay contraseñas y los datos están dentro de la propia app. En un sistema real, es el servidor quien autentica y autoriza cada petición. Además, si la sesión se recuperase de forma asíncrona (por ejemplo, desde almacenamiento), habría que representar un estado «comprobando» para no enviar a Login antes de saber si hay sesión.
+:::
 
-Referencia: [redirecciones](https://pub.dev/documentation/go_router/latest/topics/Redirection-topic.html) y [refreshListenable](https://pub.dev/documentation/go_router/latest/go_router/GoRouter-class.html).
+Referencias: [redirecciones](https://pub.dev/documentation/go_router/latest/topics/Redirection-topic.html) y [GoRouter](https://pub.dev/documentation/go_router/latest/go_router/GoRouter-class.html).

@@ -4,53 +4,74 @@ sidebar:
   order: 1
 ---
 
-En [Navegación](../navegacion/) abríamos pantallas con `Navigator`. Ahora organizaremos destinos identificables por URL con **go_router**: por ejemplo, `/talleres/20` describe un detalle y `/cuenta` una ficha que solo se muestra después del acceso simulado.
+En [Navegación](../navegacion/) abríamos pantallas con `Navigator.push`: el código de un botón construía la pantalla siguiente y la colocaba encima de la actual. En esta sección daremos un paso más: cada pantalla tendrá una **dirección** (por ejemplo, `/talleres/20`) y un único **mapa de rutas** decidirá qué se muestra para cada dirección. Para ello usaremos el paquete **go_router**.
 
-Trabajaremos en **`catalogo_widgets`**, conservando sus pantallas y entradas. A diferencia de los ejemplos básicos, aquí cambiaremos su arranque a `MaterialApp.router`. No crearemos un segundo `MaterialApp` dentro de una pantalla del catálogo.
+Trabajaremos en el proyecto **`catalogo_widgets`**, conservando sus pantallas y entradas anteriores.
 
 ## El ejemplo que vamos a construir
 
-Añadiremos al catálogo una **demostración de consulta de talleres y acceso a una ficha de usuario**. Imagina que una persona quiere consultar actividades como Fotografía o Cerámica, abrir sus detalles y acceder a su información personal. Los talleres y los usuarios serán los datos ficticios que ya utilizamos en el formulario.
+Añadiremos al catálogo una demostración de **consulta de talleres y acceso a una ficha de usuario**. Reutilizaremos los talleres y usuarios ficticios del [formulario](../formulario-con-viewmodel/) y su arquitectura por capas.
 
-El recorrido final será el siguiente:
+Al terminar, el catálogo tendrá tres entradas nuevas:
 
-1. Desde el catálogo, la entrada **Talleres con go_router** abrirá un listado. Podremos filtrar sus títulos y pulsar un taller para ver su detalle. Cada detalle tendrá una dirección propia, como `/talleres/20`.
-2. Una barra inferior permitirá alternar entre **Talleres** y **Ayuda**. Ayuda mostrará un interruptor con consejos; nos servirá para comprobar si conserva su estado al cambiar de pestaña.
-3. Otra entrada del catálogo, **Mi cuenta protegida**, intentará abrir la ficha personal. Sin sesión, aparecerá el formulario de login. Con datos válidos, veremos el saludo y los datos completos del usuario; al cerrar sesión, se volverá a solicitar el acceso.
+1. **Ayuda con go_router**: una pantalla con un interruptor «Mostrar consejos».
+2. **Talleres con go_router**: un listado con buscador. Al pulsar un taller se abre su detalle, con dirección propia como `/talleres/20`. Una barra inferior permite alternar entre **Talleres** y **Ayuda** sin perder lo que había en cada pestaña.
+3. **Mi cuenta protegida**: si no hay sesión, aparece el formulario de login; con datos correctos se muestra la ficha del usuario. Al cerrar sesión, se vuelve a pedir el acceso.
 
-Lo construiremos por etapas. **Primero solo conectaremos el catálogo con Ayuda** para aprender a declarar y abrir una ruta. Después añadiremos el listado y el detalle, la barra inferior y, finalmente, el acceso protegido. No es una aplicación de reservas nueva: es un recorrido de práctica dentro del catálogo de componentes que ya tenemos.
+![Mapa final del catálogo con Talleres, detalle, Ayuda y Cuenta protegida mediante Login.](../../../../assets/navegacion/router-catalogo-final-es.svg)
 
-## Qué es go_router
+Lo construiremos en siete pasos. Al final de cada uno la aplicación compila y se puede probar.
 
-**go_router es un paquete de navegación para Flutter**. Permite definir un mapa de rutas: para cada dirección de la aplicación, indicamos qué pantalla debe mostrarse. Por ejemplo, `/talleres` representa el listado y `/talleres/20` el detalle del taller con identificador `20`. Estas direcciones también sirven en una aplicación móvil; no son exclusivas de una web.
+## Navegación imperativa y declarativa
 
-Conviene distinguir tres nombres: `go_router` es el paquete que instalamos; `GoRouter` es la clase con la que configuramos el mapa completo; cada `GoRoute` declara una ruta de ese mapa. En los próximos pasos crearemos esas piezas y las conectaremos con `MaterialApp.router`.
+Con `Navigator` damos **órdenes**: «añade esta pantalla», «quita la de arriba». Es navegación **imperativa**. Funciona muy bien para recorridos cortos, como listado → detalle → volver.
 
-## Del botón que abre una pantalla a una dirección que identifica un destino
+Pero una aplicación real tiene otras formas de llegar a una pantalla: un enlace compartido, una notificación, la barra de direcciones del navegador web o la vuelta después de iniciar sesión. En todos esos casos no hay ningún botón que construya la pantalla: la aplicación recibe una dirección y tiene que **deducir** qué pantallas mostrar.
 
-Hasta ahora, el botón del listado ejecutaba `Navigator.push` y construía el detalle pasando sus datos por constructor. `Navigator` mantiene una **pila de pantallas**: `push` añade una y `pop` retira la superior para volver a la anterior. Este procedimiento resulta claro para un recorrido como listado → detalle → volver.
-
-Imagina ahora que queremos compartir el detalle de Cerámica mediante un enlace, abrirlo sin pasar por el listado o recuperar ese destino después del login. El código del botón ya no es el único punto de entrada: la aplicación necesita interpretar una dirección y decidir qué pantallas corresponden a ella.
-
-Con go_router declaramos una regla como `/talleres/:id`. `:id` representa la parte variable: al recibir `/talleres/20`, el router extrae `20`, ejecuta el constructor de pantalla configurado y nuestro ViewModel consulta el taller a través del repositorio. La URL identifica el destino; **el router no obtiene ni transforma los datos del taller**.
+go_router resuelve esto con navegación **declarativa**: declaramos una vez qué pantalla corresponde a cada dirección, y después, para navegar, solo pedimos ir a una dirección.
 
 ![Comparación: Navigator abre un detalle desde un botón; go_router interpreta una dirección mediante el mapa de rutas y construye el destino.](../../../../assets/navegacion/navigator-go-router-es.svg)
 
-La imagen muestra dos formas de llegar al mismo detalle. En el primer recorrido, el código pide añadir una pantalla. En el segundo, pide ir a una ubicación y el router configura las páginas asociadas. Por eso hablamos de navegación **imperativa** al ordenar operaciones como `push` y de configuración **declarativa** al definir qué debe mostrarse para cada ruta.
-
-## Qué aporta respecto al Navigator que ya conocemos
-
-| Necesidad | Con `Navigator.push` y `MaterialPageRoute` de los ejemplos anteriores | Con go_router |
+| Necesidad | Con `Navigator.push` | Con go_router |
 | --- | --- | --- |
-| Abrir un detalle desde un botón | Construimos la pantalla y la añadimos a la pila. | Pedimos una ubicación que tiene un destino configurado. |
-| Abrir el detalle desde un enlace | Ese botón, por sí solo, no interpreta enlaces; necesitamos configurar su recepción y la navegación correspondiente. | El mapa de rutas interpreta el destino y sus parámetros. Los enlaces externos requieren además la configuración de la plataforma. |
-| Identificar el taller que se consulta | Pasamos un objeto o identificador al constructor. | Extraemos el identificador de `/talleres/:id` y consultamos el repositorio. |
-| Pedir login antes de entrar en Cuenta | Hay que coordinar las comprobaciones en los puntos de entrada que implementemos. | Una política de redirección comprueba la sesión al resolver la ruta, también si se solicita directamente. |
-| Mantener varias secciones con historial propio | Podemos hacerlo con varios navegadores y su coordinación. | `StatefulShellRoute` organiza las ramas y conserva su estado mientras permanecen en la shell. |
+| Abrir un detalle desde un botón | Construimos la pantalla y la apilamos. | Pedimos ir a `/talleres/20`. |
+| Abrir el detalle desde un enlace | Hay que programar aparte cómo se interpreta el enlace. | El mismo mapa de rutas interpreta la dirección. |
+| Saber qué taller mostrar | Pasamos el objeto por constructor. | Leemos `20` de la dirección y consultamos el repositorio. |
+| Pedir login antes de entrar en Cuenta | Hay que comprobarlo en cada botón que abra Cuenta. | Una única regla (`redirect`) lo comprueba para cualquier forma de llegar. |
+| Pestañas con historial propio | Varios `Navigator` coordinados a mano. | `StatefulShellRoute` lo organiza. |
 
-Estas capacidades se apoyan en las API `Router` y `Navigator` de Flutter. go_router facilita su configuración; **Navigator sigue siendo quien gestiona las pilas y presenta las pantallas**. El cambio no consiste únicamente en escribir menos líneas para abrir un detalle: nos permite reunir las reglas de navegación y aplicarlas también cuando el acceso comienza desde una URL. [La guía de Flutter](https://docs.flutter.dev/ui/navigation) explica cuándo conviene utilizar cada enfoque.
+go_router no sustituye a `Navigator`: lo configura por nosotros. Por debajo, Flutter sigue usando `Navigator` para apilar y animar las pantallas. Para un ejemplo con dos pantallas, `Navigator.push` sigue siendo suficiente; go_router compensa cuando hay enlaces, parámetros, secciones o acceso protegido, como en este ejemplo.
 
-Para un ejemplo con dos pantallas y un botón de vuelta, `Navigator` sigue siendo suficiente. En esta sección usaremos go_router porque combinaremos enlaces directos, parámetros, secciones y acceso protegido. Primero configuraremos rutas públicas; después conectaremos el login por capas con el estado de sesión y las redirecciones.
+## Anatomía de una dirección
+
+En go_router, la dirección actual se llama **ubicación** (*location*) y se representa con un `Uri`. Tiene la misma forma que una URL web, aunque la aplicación sea móvil:
+
+```text
+/talleres/20?q=cer
+└───┬───┘└┬┘ └─┬─┘
+  ruta   id  parámetro de consulta
+```
+
+| Parte | Ejemplo | Para qué la usaremos |
+| --- | --- | --- |
+| **Ruta** (*path*) | `/talleres/20` | Identifica la pantalla. |
+| **Parámetro de ruta** | `20` en el patrón `/talleres/:id` | Dato obligatorio que identifica un registro. |
+| **Parámetro de consulta** | `q=cer` tras `?` | Dato opcional, como un filtro. |
+
+Una buena regla: la ubicación debe contener **todo lo necesario para reconstruir la pantalla**, y nada privado. Por eso enviaremos identificadores y filtros, pero nunca la ficha de un usuario ni una contraseña.
+
+## Las piezas de go_router
+
+Antes de escribir código conviene conocer los nombres que aparecerán en todos los pasos. Esta tabla resume las piezas principales y el papel de cada una:
+
+| Pieza | Qué es |
+| --- | --- |
+| `go_router` | El paquete que instalamos. |
+| `GoRouter` | El objeto que contiene el mapa de rutas completo y la configuración global (ubicación inicial, redirecciones, pantalla de error…). Se crea **una sola vez**. |
+| `GoRoute` | Una entrada del mapa: asocia un patrón de ruta (`path`) con la pantalla que se construye (`builder`). |
+| `GoRouterState` | La información de la navegación en curso: ubicación, parámetros de ruta y de consulta… El `builder` lo recibe para construir la pantalla. |
+| `MaterialApp.router` | La variante de `MaterialApp` que delega la navegación en un router. |
+| `context.go`, `context.push`, `context.pop`… | Métodos de extensión sobre `BuildContext` para navegar desde cualquier widget. |
 
 ## Instalar go_router
 
@@ -60,18 +81,23 @@ Desde la raíz de `catalogo_widgets`, donde está `pubspec.yaml`, ejecuta:
 flutter pub add go_router
 ```
 
-Este comando añade go_router a las dependencias de `pubspec.yaml` y descarga el paquete y sus dependencias. Cuando termine, podremos importarlo y configurar las rutas.
+El comando añade la dependencia a `pubspec.yaml` y descarga el paquete. A partir de aquí podremos importarlo con `import 'package:go_router/go_router.dart';`.
 
-Los identificadores y el código de demostración se comparten entre castellano y valenciano; la explicación y los textos alternativos están traducidos.
+:::caution[Hot reload y rutas]
+El router se crea una sola vez al arrancar. Si cambias el mapa de rutas (añades un `GoRoute`, cambias un `path`, un `redirect`…), usa **hot restart** (`R` en la terminal o el botón de reinicio), no hot reload: el hot reload conserva el router antiguo y no verás los cambios.
+:::
 
 ## Recorrido de la sección
 
-2. [Configurar las rutas](./configurar-rutas/).
-3. [Navegar entre pantallas](./navegar/).
-4. [Parámetros y consulta de datos](./parametros-y-datos/).
-5. [Rutas anidadas y secciones](./secciones/).
-6. [Acceso a rutas protegidas](./rutas-protegidas/).
-7. [Enlaces directos y errores](./enlaces-y-errores/).
-8. [Ejemplo integrado y comprobaciones](./ejemplo-integrado/).
+Cada paso añade una pieza al ejemplo y termina con la aplicación funcionando. Síguelos en orden:
 
-Referencia: [paquete go_router](https://pub.dev/packages/go_router) y [guía de navegación](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html).
+2. [Configurar las rutas](./configurar-rutas/): el primer mapa con el catálogo y Ayuda.
+3. [Navegar entre pantallas](./navegar/): `go`, `push`, `pop` y la pila de páginas.
+4. [Parámetros y consulta de datos](./parametros-y-datos/): listado, buscador y detalle.
+5. [Rutas anidadas y secciones](./secciones/): la barra inferior con `StatefulShellRoute`.
+6. [Acceso a rutas protegidas](./rutas-protegidas/): sesión, login y `redirect`.
+7. [Enlaces directos y errores](./enlaces-y-errores/): rutas desconocidas, web y móvil.
+8. [Ejemplo integrado y comprobaciones](./ejemplo-integrado/): resumen final y pruebas.
+9. [Ampliación: organizar las dependencias](./dependencias/): repositorios con provider cuando la aplicación crece.
+
+Referencias: [paquete go_router](https://pub.dev/packages/go_router), [guía de navegación de go_router](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) y [navegación en Flutter](https://docs.flutter.dev/ui/navigation).

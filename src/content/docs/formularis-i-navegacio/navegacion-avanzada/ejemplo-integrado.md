@@ -4,82 +4,56 @@ sidebar:
   order: 8
 ---
 
-Reunimos lo anterior en una configuración final: catálogo público, Talleres y Ayuda con barra inferior, Login y Cuenta protegida. Mantén los archivos de los pasos anteriores y las entradas antiguas del catálogo. No mezcles esta versión del router con otra declaración de los mismos paths.
+Con los pasos anteriores el ejemplo está completo. En esta página reunimos el resultado final, relacionamos cada concepto con el archivo donde aparece y proponemos un recorrido de comprobación.
 
-El mapa muestra el resultado que montaremos en el catálogo: dos entradas nuevas dan acceso a los recorridos de esta sección. Talleres y Ayuda comparten barra inferior; Cuenta utiliza el login cuando hace falta y queda fuera de esa barra. Las flechas indican recorridos de acceso, no todas las pilas posibles.
+![Mapa final del catálogo con Ayuda, Talleres y su detalle en la barra inferior, y Cuenta protegida mediante Login.](../../../../assets/navegacion/router-catalogo-final-es.svg)
 
-![Mapa final del catálogo con Talleres, detalle, Ayuda y Cuenta protegida mediante Login.](../../../../assets/navegacion/router-catalogo-final-es.svg)
+## Archivos del ejemplo
 
-## Vista de Cuenta
+Este es el resultado final. Los archivos de esta sección se suman a los del catálogo y del formulario:
 
-Recibe `DatosAcceso` desde la sesión: muestra la ficha obtenida por el login y expone un callback de salida. No consulta DTO ni crea usuarios. Cerrar sesión notifica un cambio; la política del router decide después el destino.
+```text
+lib/
+  main.dart                                        repositorio, sesión, router y MaterialApp.router
+  ui/
+    catalogo/ui/catalogo_pantalla.dart             entradas que llaman a context.go
+    core/
+      app_router.dart                              el mapa de rutas completo
+      ruta_talleres.dart                           /talleres y /talleres/:id
+      redireccion_sesion.dart                      la política de acceso
+      view_models/sesion_viewmodel.dart            estado de sesión compartido
+    inscripcion/ui/
+      inscripcion_pantalla.dart                    formulario que avisa con onLogin
+      inscripcion_ejemplo_pantalla.dart            demo antigua con Navigator.push
+      login_ruta_pantalla.dart                     formulario para la ruta /login
+    navegacion_avanzada/
+      view_models/talleres_viewmodel.dart
+      view_models/detalle_taller_viewmodel.dart
+      ui/ayuda_pantalla.dart
+      ui/talleres_pantalla.dart
+      ui/detalle_taller_pantalla.dart
+      ui/secciones_pantalla.dart                   la barra inferior (shell)
+      ui/cuenta_pantalla.dart
+      ui/ruta_no_encontrada_pantalla.dart
+```
 
+## El mapa de rutas final
 
-`lib/ui/navegacion_avanzada/ui/cuenta_pantalla.dart`
+Este archivo es el centro de la navegación: reúne todas las rutas y las reglas de acceso de la demostración. Esta es su versión final, después del paso 7:
+
+`lib/ui/core/app_router.dart`
 
 ```dart
 import 'package:flutter/material.dart';
-import '../../../domain/models/datos_acceso.dart';
-
-class CuentaPantalla extends StatelessWidget {
-  const CuentaPantalla({
-    super.key,
-    required this.acceso,
-    required this.onSalir,
-  });
-  final DatosAcceso acceso;
-  final VoidCallback onSalir;
-  @override
-  Widget build(BuildContext context) {
-    final usuario = acceso.usuario;
-    return Scaffold(
-      appBar: AppBar(title: const Text('Mi cuenta')),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
-          Text(
-            '¡Hola, ${usuario.nombreCompleto}!',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          Text('Identificador: ${usuario.id}'),
-          Text('Correo: ${usuario.correo}'),
-          Text('Teléfono: ${usuario.telefono}'),
-          Text('Localidad: ${usuario.localidad}'),
-          Text('Taller: ${acceso.taller.titulo}'),
-          Text(
-            acceso.recordatorio
-                ? 'Recordatorio simulado: sí'
-                : 'Sin recordatorio',
-          ),
-          const SizedBox(height: 24),
-          OutlinedButton(
-            onPressed: onSalir,
-            child: const Text('Cerrar sesión'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-```
-
-## Router completo
-
-Sustituye `app_router.dart` por este archivo. `/login` y `/cuenta` están fuera de la shell; la barra de las secciones públicas no aparece encima del formulario. El acceso no nulo en `sesion.acceso!` se apoya en la redirección previa de `/cuenta`: si no hay sesión, no se construye esa vista. No reutilices ese acceso fuera de la ruta protegida.
-
-
-`lib/app/router/app_router.dart`
-
-```dart
 import 'package:go_router/go_router.dart';
 import '../../domain/repositories/inscripciones_repository.dart';
-import '../../ui/catalogo/ui/catalogo_pantalla.dart';
-import '../../ui/core/view_models/sesion_viewmodel.dart';
-import '../../ui/inscripcion/ui/login_ruta_pantalla.dart';
-import '../../ui/navegacion_avanzada/ui/ayuda_pantalla.dart';
-import '../../ui/navegacion_avanzada/ui/cuenta_pantalla.dart';
-import '../../ui/navegacion_avanzada/ui/ruta_no_encontrada_pantalla.dart';
-import '../../ui/navegacion_avanzada/ui/secciones_pantalla.dart';
+import '../catalogo/ui/catalogo_pantalla.dart';
+import 'view_models/sesion_viewmodel.dart';
+import '../inscripcion/ui/login_ruta_pantalla.dart';
+import '../navegacion_avanzada/ui/ayuda_pantalla.dart';
+import '../navegacion_avanzada/ui/cuenta_pantalla.dart';
+import '../navegacion_avanzada/ui/ruta_no_encontrada_pantalla.dart';
+import '../navegacion_avanzada/ui/secciones_pantalla.dart';
 import 'redireccion_sesion.dart';
 import 'ruta_talleres.dart';
 
@@ -88,26 +62,43 @@ GoRouter crearRouter(
   SesionViewModel sesion,
 ) => GoRouter(
   initialLocation: '/',
+  debugLogDiagnostics: true,
   refreshListenable: sesion,
-  redirect: (context, state) => redireccionSesion(sesion, state),
+  redirect: (context, state) =>
+      redireccionSesion(sesionActiva: sesion.activa, ubicacion: state.uri),
+  errorBuilder: (context, state) =>
+      RutaNoEncontradaPantalla(ubicacion: state.uri.toString()),
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const CatalogoPantalla()),
     GoRoute(
-      path: '/login',
-      builder: (context, state) => LoginRutaPantalla(
-        repository: repository,
-        onLogin: sesion.iniciarSesion,
-      ),
-    ),
-    GoRoute(
-      path: '/cuenta',
-      name: 'cuenta',
-      builder: (context, state) =>
-          CuentaPantalla(acceso: sesion.acceso!, onSalir: sesion.cerrarSesion),
+      path: '/',
+      name: 'catalogo',
+      builder: (context, state) => const CatalogoPantalla(),
+      routes: [
+        GoRoute(
+          path: 'login',
+          name: 'login',
+          builder: (context, state) => LoginRutaPantalla(
+            repository: repository,
+            onLogin: sesion.iniciarSesion,
+          ),
+        ),
+        GoRoute(
+          path: 'cuenta',
+          name: 'cuenta',
+          builder: (context, state) {
+            final acceso = sesion.acceso;
+            if (acceso == null) return const SizedBox.shrink();
+            return CuentaPantalla(
+              acceso: acceso,
+              onSalir: sesion.cerrarSesion,
+            );
+          },
+        ),
+      ],
     ),
     StatefulShellRoute.indexedStack(
-      builder: (context, state, shell) =>
-          SeccionesPantalla(navigationShell: shell),
+      builder: (context, state, navigationShell) =>
+          SeccionesPantalla(navigationShell: navigationShell),
       branches: [
         StatefulShellBranch(routes: [rutaTalleres(repository)]),
         StatefulShellBranch(
@@ -122,90 +113,94 @@ GoRouter crearRouter(
       ],
     ),
   ],
-  errorBuilder: (context, state) => const RutaNoEncontradaPantalla(),
 );
 ```
 
-## Composición y ciclo de vida
+Leído de arriba abajo, este archivo describe toda la navegación de la demostración:
 
-Sustituye `catalogo_router_app.dart` por este archivo. El arranque es el único punto que importa las implementaciones de `data`. Crea una sesión compartida y un router una sola vez. Al liberar la app, dispone primero el router que escucha la sesión y después la sesión. `main.dart` conserva el arranque del paso 2.
-
-
-`lib/app/catalogo_router_app.dart`
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../data/repositories/inscripciones_local_repository.dart';
-import '../data/services/inscripciones_local_service.dart';
-import '../ui/core/view_models/sesion_viewmodel.dart';
-import 'router/app_router.dart';
-
-class CatalogoRouterApp extends StatefulWidget {
-  const CatalogoRouterApp({super.key});
-  @override
-  State<CatalogoRouterApp> createState() => _CatalogoRouterAppState();
-}
-
-class _CatalogoRouterAppState extends State<CatalogoRouterApp> {
-  late final GoRouter _router;
-  final _sesion = SesionViewModel();
-  @override
-  void initState() {
-    super.initState();
-    final repository = InscripcionesLocalRepository(
-      const InscripcionesLocalService(),
-    );
-    _router = crearRouter(repository, _sesion);
-  }
-
-  @override
-  void dispose() {
-    _router.dispose();
-    _sesion.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => MaterialApp.router(
-    debugShowCheckedModeBanner: false,
-    title: 'Catálogo con rutas',
-    routerConfig: _router,
-  );
-}
+```text
+/                       Catálogo
+├── /login              Login          (hija de /: flecha para volver)
+└── /cuenta             Mi cuenta      (protegida por redirect)
+Shell con barra inferior
+├── rama 0: /talleres   Talleres
+│           └── /talleres/:id   Detalle
+└── rama 1: /ayuda      Ayuda
 ```
 
-En el `ListView` de `CatalogoPantalla`, conserva las entradas anteriores y añade estas dos, con el import de go_router:
-
+Las entradas del catálogo quedan así, a continuación de las anteriores:
 
 ```dart
+const Divider(),
+const ListTile(title: Text('Navegación con go_router')),
 ListTile(
+  leading: const Icon(Icons.help_outline),
+  title: const Text('Ayuda con go_router'),
+  trailing: const Icon(Icons.chevron_right),
+  onTap: () => context.go('/ayuda'),
+),
+ListTile(
+  leading: const Icon(Icons.school_outlined),
   title: const Text('Talleres con go_router'),
+  trailing: const Icon(Icons.chevron_right),
   onTap: () => context.go('/talleres'),
 ),
 ListTile(
+  leading: const Icon(Icons.lock_outline),
   title: const Text('Mi cuenta protegida'),
+  trailing: const Icon(Icons.chevron_right),
   onTap: () => context.go('/cuenta'),
 ),
 ```
 
-## Comprobar el recorrido
+## Cada concepto, en su sitio
 
-Desde la raíz del proyecto, ejecuta `dart format lib test` para formatear, `flutter analyze` para revisar el código y `flutter test` para ejecutar las pruebas que tenga tu catálogo. Después usa `flutter run` o `flutter run -d chrome` para comprobar el comportamiento.
+Para repasar, esta tabla relaciona cada concepto de go_router con el archivo donde lo usamos y el paso donde se explica:
+
+| Concepto | Dónde se ve | Paso |
+| --- | --- | --- |
+| `MaterialApp.router` y `routerConfig` | `main.dart` | 2 |
+| Crear el router una sola vez, antes de `runApp` | `main()` en `main.dart` | 2 |
+| `GoRoute`: `path`, `name`, `builder` | `app_router.dart` | 2 |
+| `go` sustituye la pila, `push` apila, `pop` devuelve | Ayuda (experimentos) | 3 |
+| Parámetro de ruta `:id` | `ruta_talleres.dart` → `state.pathParameters` | 4 |
+| Parámetro de consulta `?q=` | `ruta_talleres.dart` → `state.uri.queryParameters` | 4 |
+| `goNamed` con `pathParameters` y `queryParameters` | `talleres_pantalla.dart` | 4 |
+| Ruta hija: `go` construye la pila padre + hija | `/talleres/:id`, `/login`, `/cuenta` | 4 y 6 |
+| `GoRouterState.of(context)` | `detalle_taller_pantalla.dart` | 4 |
+| `StatefulShellRoute`, ramas y `goBranch` | `app_router.dart`, `secciones_pantalla.dart` | 5 |
+| `redirect` y `refreshListenable` | `app_router.dart`, `redireccion_sesion.dart` | 6 |
+| Conservar el destino con `from` | `redireccion_sesion.dart` | 6 |
+| `errorBuilder` | `ruta_no_encontrada_pantalla.dart` | 7 |
+| Enlaces directos | Barra de direcciones en web | 7 |
+
+## Recorrido de comprobación
+
+Desde la raíz del proyecto ejecuta `dart format lib` y `flutter analyze`. Después, `flutter run -d chrome` y comprueba:
 
 | Caso | Resultado observable |
 | --- | --- |
-| `/talleres/20` por URL | Detalle de Cerámica obtenido del repositorio. |
-| `/talleres?q=cer` | Solo talleres cuyo título coincide con el filtro. |
-| `/talleres/999` | Mensaje de dato inexistente, con salida al listado. |
+| `/talleres/20` por URL | Detalle de Cerámica, con flecha para volver al listado. |
+| Buscar `cer` en Talleres | Ubicación `/talleres?q=cer`; solo Cerámica. |
+| Abrir Cerámica y volver | El listado sigue filtrado. |
+| `/talleres/999` | «No existe el taller 999». |
 | `/no-existe` | Pantalla de ruta no encontrada, con salida al catálogo. |
-| Detalle → Ayuda → Talleres | Conserva la pila de la rama y el estado del interruptor de Ayuda. |
-| `/cuenta?origen=menu` sin sesión | Login conserva la ubicación solicitada. |
-| Login con Ana y pau@centro.es | Error de consulta; no activa sesión ni abre Cuenta. |
-| Login con Ana y ana@centro.es, eligiendo un taller | Saludo de Ana García Pérez y datos completos procedentes de la fuente. |
-| Limpiar en Login | Vacía controles y errores; no modifica la fuente. |
-| Cerrar sesión y volver a pedir `/cuenta` | Vuelve a solicitar el acceso. |
-| Recargar la app | No conserva la sesión simulada en memoria. |
-| `from` externo o apuntando a `/login` | No abandona la app ni crea un bucle; utiliza Cuenta como destino permitido. |
+| Detalle → Ayuda → Talleres | Sigue el detalle; al volver a Ayuda, el interruptor conserva su valor. |
+| Pulsar Talleres estando en Talleres | Vuelve al listado. |
+| `/cuenta?origen=menu` sin sesión | Login, con el destino conservado en `from`. |
+| Login con Ana y `pau@centro.es` | Error de consulta; no se abre Cuenta. |
+| Login con Ana, `ana@centro.es` y un taller | `/cuenta?origen=menu` con el saludo de Ana García Pérez. |
+| Cerrar sesión | Vuelve a Login. |
+| Recargar la página en `/cuenta` | Login: la sesión simulada no se guarda. |
+| `/login?from=https://otra.web` con sesión | Abre `/cuenta`; nunca sale de la aplicación. |
+| Login de demostración (entrada antigua) | Funciona con `Navigator.push`, sin sesión. |
 
-Las comprobaciones automáticas de referencia de esta sección utilizan el flujo nuevo con un catálogo anfitrión mínimo. No sustituyen las pruebas de tus entradas anteriores ni la comprobación del historial y enlaces externos en cada plataforma.
+## Para practicar
+
+Estas propuestas te permiten aplicar lo aprendido modificando el ejemplo. Cada una practica un concepto distinto:
+
+1. Añade una ruta protegida `/cuenta/editar` como hija de `cuenta`. Solo tienes que añadir la ruta al mapa y su dirección a `rutasProtegidas`. Comprueba que, sin sesión, después del login llegas a la página de edición.
+2. Añade una tercera rama a la barra inferior, por ejemplo **Favoritos** en `/favoritos`. Recuerda mantener el mismo orden en `branches` y en `destinations`.
+3. Cambia el listado para que el filtro también se pueda borrar con un botón de la cabecera que navegue a `/talleres` sin parámetros.
+
+Si la aplicación sigue creciendo y cada funcionalidad necesita su propio repositorio, continúa con la [ampliación: organizar las dependencias](../dependencias/).

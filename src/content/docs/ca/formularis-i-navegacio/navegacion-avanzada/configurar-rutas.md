@@ -4,35 +4,53 @@ sidebar:
   order: 2
 ---
 
-En este pas construirem la primera part de l’exemple: des del catàleg, polsarem **Ayuda con go_router** i veurem una pantalla amb l’interruptor **Mostrar consejos**. En activar-lo, apareixerà un text d’ajuda. L’objectiu és comprovar com una entrada del catàleg obri una pantalla mitjançant una ruta declarada. Encara no implementarem la consulta de tallers ni el login.
-
-Començarem amb dos rutes públiques: `/` conserva el catàleg i `/ayuda` obri una pantalla nova. `GoRouter` definix la taula de rutes, cada `GoRoute` associa un `path` a una destinació i `builder` construïx eixa destinació. El `state` que rep conté informació de la URL.
-
-Este és el resultat del primer pas: una entrada del catàleg obri Ajuda. La resta d’exemples es conserva. Més avant ampliarem este mapa.
+En este pas crearem el primer mapa de rutes amb dos destinacions: el catàleg (`/`) i una pantalla d’Ajuda (`/ayuda`). En acabar, l’entrada **Ayuda con go_router** del catàleg obrirà Ajuda mitjançant la seua adreça.
 
 ![El catàleg connecta amb Ajuda mitjançant go_router; les dos rutes es configuren en l’arrancada.](../../../../../assets/navegacion/router-primer-paso-ca.svg)
 
-## Preparar una pantalla de destinació
+Crearem o modificarem estos fitxers:
 
-Crea este fitxer complet. L’interruptor conserva estat local i ens servirà per a observar després què ocorre en canviar de secció.
+```text
+lib/
+  main.dart                                   ← crea el router i usa MaterialApp.router
+  ui/
+    core/app_router.dart                      ← nou: el mapa de rutes
+    catalogo/ui/catalogo_pantalla.dart        ← entrada nova
+    navegacion_avanzada/ui/ayuda_pantalla.dart ← pantalla nova
+```
 
+## 1. La pantalla de destinació
+
+Ajuda és un `StatefulWidget` amb un interruptor. Eixe estat local ens servirà més avant per a comprovar quan es conserva una pantalla i quan es crea de nou. El botó de la capçalera torna al catàleg amb `context.go('/')`; en el pas següent veurem per què el necessitem.
 
 `lib/ui/navegacion_avanzada/ui/ayuda_pantalla.dart`
 
 ```dart
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AyudaPantalla extends StatefulWidget {
   const AyudaPantalla({super.key});
+
   @override
   State<AyudaPantalla> createState() => _AyudaPantallaState();
 }
 
 class _AyudaPantallaState extends State<AyudaPantalla> {
   bool _mostrar = false;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Ayuda')),
+    appBar: AppBar(
+      title: const Text('Ayuda'),
+      actions: [
+        IconButton(
+          tooltip: 'Catálogo',
+          icon: const Icon(Icons.home_outlined),
+          onPressed: () => context.go('/'),
+        ),
+      ],
+    ),
     body: ListView(
       children: [
         SwitchListTile(
@@ -51,77 +69,104 @@ class _AyudaPantallaState extends State<AyudaPantalla> {
 }
 ```
 
-## Declarar les rutes
+## 2. El mapa de rutes
 
-Crea `lib/app/router/app_router.dart` amb este codi. `initialLocation` és la ubicació inicial quan no n’arriba una altra des de la plataforma. Els `path` de primer nivell comencen per `/`; `name` és un identificador únic per a navegar sense repetir eixa ruta literal.
+Guardem la configuració de la navegació en `lib/ui/core/`, al costat de les peces compartides per tota la interfície.
 
+`lib/ui/core/app_router.dart`
 
 ```dart
 import 'package:go_router/go_router.dart';
-import '../../ui/catalogo/ui/catalogo_pantalla.dart';
-import '../../ui/navegacion_avanzada/ui/ayuda_pantalla.dart';
+import '../catalogo/ui/catalogo_pantalla.dart';
+import '../navegacion_avanzada/ui/ayuda_pantalla.dart';
 
 GoRouter crearRouter() => GoRouter(
   initialLocation: '/',
+  debugLogDiagnostics: true,
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const CatalogoPantalla()),
-    GoRoute(path: '/ayuda', name: 'ayuda',
-      builder: (context, state) => const AyudaPantalla()),
+    GoRoute(
+      path: '/',
+      name: 'catalogo',
+      builder: (context, state) => const CatalogoPantalla(),
+    ),
+    GoRoute(
+      path: '/ayuda',
+      name: 'ayuda',
+      builder: (context, state) => const AyudaPantalla(),
+    ),
   ],
 );
 ```
 
-## Connectar el router en l’arrancada
+Analitzem cada part:
 
-Crea `lib/app/catalogo_router_app.dart` amb esta versió inicial. El router es crea una vegada en `initState`, no dins de `build`: reconstruir el widget no ha de reiniciar la configuració de navegació. `routerConfig` connecta `MaterialApp.router` amb ell. No es combina amb `home` ni amb la taula `routes` de `MaterialApp`.
+- **`GoRouter`** reunix tota la configuració. El creem dins d’una funció (`crearRouter`) per a poder passar-li dependències en els pròxims passos.
+- **`initialLocation`** és la ubicació amb què arranca l’aplicació quan ningú en demana una altra (per exemple, un enllaç o la barra d’adreces del navegador).
+- **`debugLogDiagnostics: true`** escriu en la consola de depuració cada navegació: quina ubicació es demana, quina ruta coincidix i, més avant, quines redireccions s’apliquen. És molt útil mentre aprenem; en una versió publicada es lleva.
+- **`routes`** és la llista de rutes de primer nivell. go_router recorre la llista i tria la primera el patró de la qual coincidix amb la ubicació.
+- **`path`** és el patró de la ruta. Les rutes de primer nivell **comencen sempre per `/`**.
+- **`name`** és un nom únic i opcional. Permet navegar amb `context.goNamed('ayuda')` sense escriure l’adreça literal; si un dia canviem `/ayuda` per `/soporte`, els botons que utilitzen el nom continuen funcionant.
+- **`builder`** rep el `BuildContext` i el `GoRouterState` de la navegació i retorna el widget de la pantalla. Encara no utilitzem `state`; en el pas 4 en llegirem els paràmetres.
 
+:::note[builder i pageBuilder]
+`builder` utilitza la transició per defecte de la plataforma. Si algun dia necessites una animació pròpia (per exemple, una fosa), `GoRoute` també admet `pageBuilder`, que retorna una `Page` com `CustomTransitionPage`. En esta secció no la necessitem.
+:::
+
+## 3. Crear el router en l’arrancada
+
+Fins ara, `main.dart` arrancava un `MaterialApp` que obria el catàleg amb `home`. Substituïx el fitxer per esta versió, que crea el router i el lliura a `MaterialApp.router`:
+
+`lib/main.dart`
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'router/app_router.dart';
+import 'ui/core/app_router.dart';
 
-class CatalogoRouterApp extends StatefulWidget {
-  const CatalogoRouterApp({super.key});
-  @override
-  State<CatalogoRouterApp> createState() => _CatalogoRouterAppState();
-}
-class _CatalogoRouterAppState extends State<CatalogoRouterApp> {
-  late final GoRouter _router;
-  @override
-  void initState() { super.initState(); _router = crearRouter(); }
-  @override
-  void dispose() { _router.dispose(); super.dispose(); }
-  @override
-  Widget build(BuildContext context) => MaterialApp.router(
-    debugShowCheckedModeBanner: false,
-    title: 'Catálogo con rutas',
-    routerConfig: _router,
+void main() {
+  final router = crearRouter();
+  runApp(
+    MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Catálogo de widgets',
+      routerConfig: router,
+    ),
   );
 }
 ```
 
-Obri el fitxer **`lib/main.dart`**. Afig l’import de `catalogo_router_app.dart` que apareix a continuació i canvia la funció `main()` perquè `runApp` reba `CatalogoRouterApp`. Així, en iniciar l’aplicació, s’utilitzarà el mapa de rutes que acabem de configurar.
+- **`MaterialApp.router`** substituïx `MaterialApp`. En lloc de `home` o de la taula `routes` de `MaterialApp`, rep **`routerConfig`**: el router decidix quines pantalles es mostren. No combines `routerConfig` amb `home` ni amb `routes`.
+- Creem el router **una sola vegada**, en `main()`, abans de `runApp`. No el crees mai dins del `build` d’un widget: `build` es pot executar moltes vegades, i un router nou en cada una reiniciaria la navegació.
+- El router viu mentre dura l’aplicació, així que no cal alliberar-lo.
 
-El bloc següent mostra els imports necessaris i la nova funció `main()`. Conserva qualsevol altre codi del fitxer que continue utilitzant el teu projecte:
+Si el teu `MaterialApp` anterior tenia `theme`, copia’l també a `MaterialApp.router`.
+
+El catàleg ja no l’obri `home`: l’obri la ruta `/`, que és la `initialLocation`.
+
+## 4. Afegir l’entrada al catàleg
+
+En `lib/ui/catalogo/ui/catalogo_pantalla.dart`, afig l’import de go_router i, al final de la llista del `ListView`, esta entrada. Conserva les anteriors:
 
 ```dart
-import 'package:flutter/material.dart';
-import 'app/catalogo_router_app.dart';
-
-void main() => runApp(const CatalogoRouterApp());
+import 'package:go_router/go_router.dart';
 ```
 
-En `catalogo_pantalla.dart`, conserva les entrades i afegix `import 'package:go_router/go_router.dart';` i esta entrada a la llista:
-
-
 ```dart
+const Divider(),
+const ListTile(title: Text('Navegación con go_router')),
 ListTile(
+  leading: const Icon(Icons.help_outline),
   title: const Text('Ayuda con go_router'),
+  trailing: const Icon(Icons.chevron_right),
   onTap: () => context.go('/ayuda'),
 ),
 ```
 
-Des de l’arrel del projecte executa `flutter run`, obri eixa entrada i observa Ajuda. Les demostracions anteriors que utilitzen `Navigator.push` continuen funcionant, però eixes rutes imperatives no tenen una URL pròpia declarada i no són destinacions d’enllaç directe. `go` pot substituir-les en reconstruir la pila d’una ubicació.
+`context.go('/ayuda')` demana al router la ubicació `/ayuda`. El router busca en el mapa la ruta que coincidix i construïx `AyudaPantalla`.
 
-Referència: [GoRouter](https://pub.dev/documentation/go_router/latest/go_router/GoRouter-class.html).
+## Provar
+
+Executa `flutter run` (o fes **hot restart** si ja estava en marxa). Obri **Ayuda con go_router**, activa l’interruptor i torna amb la icona de la casa. Observa la consola de depuració: veuràs línies de `GoRouter` que indiquen cada ubicació sol·licitada.
+
+Les entrades antigues del catàleg que utilitzen `Navigator.push` continuen funcionant: `MaterialApp.router` també crea un `Navigator`, i `push` apila la pantalla damunt del catàleg com abans. La diferència és que eixes pantalles no tenen adreça pròpia.
+
+Referències: [GoRouter](https://pub.dev/documentation/go_router/latest/go_router/GoRouter-class.html) i [GoRoute](https://pub.dev/documentation/go_router/latest/go_router/GoRoute-class.html).
