@@ -1,7 +1,7 @@
 ---
-title: "8. Exemple integrat i comprovacions"
+title: "9. Exemple integrat i comprovacions"
 sidebar:
-  order: 8
+  order: 9
 ---
 
 Amb els passos anteriors l’exemple està complet. En esta pàgina reunim el resultat final, relacionem cada concepte amb el fitxer on apareix i proposem un recorregut de comprovació.
@@ -23,7 +23,7 @@ lib/
       redireccion_sesion.dart                      la política d’accés
       view_models/sesion_viewmodel.dart            estat de sessió compartit
     inscripcion/ui/
-      inscripcion_pantalla.dart                    formulari que avisa amb onLogin
+      inscripcion_pantalla.dart                    formulari que avisa amb onLogin i protegix l’eixida
       inscripcion_ejemplo_pantalla.dart            demo antiga amb Navigator.push
       login_ruta_pantalla.dart                     formulari per a la ruta /login
     navegacion_avanzada/
@@ -172,6 +172,7 @@ Per a repassar, esta taula relaciona cada concepte de go_router amb el fitxer on
 | `redirect` i `refreshListenable` | `app_router.dart`, `redireccion_sesion.dart` | 6 |
 | Conservar la destinació amb `from` | `redireccion_sesion.dart` | 6 |
 | `errorBuilder` | `ruta_no_encontrada_pantalla.dart` | 7 |
+| `PopScope` i diàleg de descart | `inscripcion_pantalla.dart`, `dialogos.dart` | 8 |
 | Enllaços directes | Barra d’adreces en web | 7 |
 
 ## Recorregut de comprovació
@@ -194,6 +195,7 @@ Des de l’arrel del projecte executa `dart format lib` i `flutter analyze`. Des
 | Recarregar la pàgina en `/cuenta` | Login: la sessió simulada no es guarda. |
 | `/login?from=https://otra.web` amb sessió | Obri `/cuenta`; mai ix de l’aplicació. |
 | Login de demostración (entrada antiga) | Funciona amb `Navigator.push`, sense sessió. |
+| Escriure en Login i prémer la fletxa de tornar | Pregunta «Vols descartar els canvis?» abans d’eixir. |
 
 ## Per a practicar
 

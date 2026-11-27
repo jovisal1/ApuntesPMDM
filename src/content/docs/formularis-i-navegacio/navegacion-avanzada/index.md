@@ -97,7 +97,8 @@ Cada paso añade una pieza al ejemplo y termina con la aplicación funcionando. 
 5. [Rutas anidadas y secciones](./secciones/): la barra inferior con `StatefulShellRoute`.
 6. [Acceso a rutas protegidas](./rutas-protegidas/): sesión, login y `redirect`.
 7. [Enlaces directos y errores](./enlaces-y-errores/): rutas desconocidas, web y móvil.
-8. [Ejemplo integrado y comprobaciones](./ejemplo-integrado/): resumen final y pruebas.
-9. [Ampliación: organizar las dependencias](./dependencias/): repositorios con provider cuando la aplicación crece.
+8. [Cambios sin guardar al volver](./cambios-sin-guardar/): `PopScope` y diálogo de descarte en el formulario.
+9. [Ejemplo integrado y comprobaciones](./ejemplo-integrado/): resumen final y pruebas.
+10. [Ampliación: organizar las dependencias](./dependencias/): repositorios con provider cuando la aplicación crece.
 
 Referencias: [paquete go_router](https://pub.dev/packages/go_router), [guía de navegación de go_router](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) y [navegación en Flutter](https://docs.flutter.dev/ui/navigation).

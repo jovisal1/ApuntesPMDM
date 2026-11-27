@@ -117,7 +117,7 @@ En polsar **Confirmar reserva**, si l’operació acaba correctament, navega a l
 
 ## Diàlegs i canvis sense guardar
 
-Considera que un formulari té canvis quan els valors són diferents dels inicials. Si una acció eliminarà eixos canvis, demana confirmació abans de fer-la, tant des dels botons com des d’Arrere del sistema. Pots utilitzar `PopScope`, seguint els apunts. Tornar de la revisió al formulari manté l’esborrany i no requerix confirmar un descart.
+Considera que un formulari té canvis quan els valors són diferents dels inicials. Si una acció eliminarà eixos canvis, demana confirmació abans de fer-la, tant des dels botons com des d’Arrere del sistema. Per a l’Arrere del sistema, utilitza `PopScope` com en [Canvis sense guardar en tornar](../../../formularis-i-navegacio/navegacion-avanzada/cambios-sin-guardar/). `PopScope` no intercepta les navegacions amb `go` ni els canvis de secció: en eixos casos, demana confirmació abans de navegar. Tornar de la revisió al formulari manté l’esborrany i no requerix confirmar un descart.
 
 | Acció | Respostes | Resultat |
 | --- | --- | --- |

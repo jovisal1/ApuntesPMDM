@@ -1,7 +1,7 @@
 ---
-title: "9. Ampliación: organizar las dependencias"
+title: "10. Ampliación: organizar las dependencias"
 sidebar:
-  order: 9
+  order: 10
 ---
 
 En el ejemplo, `crearRouter` recibe el repositorio de inscripciones y la sesión, porque sus rutas los necesitan para crear los ViewModels. Con dos dependencias funciona, pero en una aplicación real cada funcionalidad trae su propio repositorio: talleres, préstamos, reservas, usuarios… Si todos pasan por `crearRouter`, el router acaba conociendo todas las piezas de la aplicación, aunque él solo se encarga de decidir qué pantalla mostrar.

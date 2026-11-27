@@ -1,7 +1,7 @@
 ---
-title: "9. Ampliació: organitzar les dependències"
+title: "10. Ampliació: organitzar les dependències"
 sidebar:
-  order: 9
+  order: 10
 ---
 
 En l’exemple, `crearRouter` rep el repositori d’inscripcions i la sessió, perquè les seues rutes els necessiten per a crear els ViewModels. Amb dos dependències funciona, però en una aplicació real cada funcionalitat porta el seu propi repositori: tallers, préstecs, reserves, usuaris… Si tots passen per `crearRouter`, el router acaba coneixent totes les peces de l’aplicació, encara que ell només s’encarrega de decidir quina pantalla mostrar.

@@ -1,0 +1,296 @@
+diff --git a/src/content/docs/ca/proyecto-integrador/entrega-2/index.md b/src/content/docs/ca/proyecto-integrador/entrega-2/index.md
+index a36d50a..c394227 100644
+--- a/src/content/docs/ca/proyecto-integrador/entrega-2/index.md
++++ b/src/content/docs/ca/proyecto-integrador/entrega-2/index.md
+@@ -3,35 +3,103 @@ title: "Entrega 2"
+ description: "Formularis validats, reserves en memòria i navegació amb go_router."
+ sidebar:
+   order: 1
++  label: "Enunciat i organització"
+ ---
+ 
+-En esta segona entrega ampliaràs l’aplicació de reserva d’espais de la [primera entrega](../entrega-1/) amb els continguts de [Formularis i navegació](../../formularis-i-navegacio/). El treball es dividix en dos parts: configurar les rutes que connecten les pantalles i desenvolupar els formularis d’accés, registre i reserva. L’usuari podrà introduir les dades, corregir els errors que detecte l’aplicació i revisar la informació i el preu abans de confirmar una reserva, que apareixerà en Les meues reserves.
++Abans de començar, repassa [Formulari amb ViewModel](../../formularis-i-navegacio/formulario-con-viewmodel/) i [Navegació avançada](../../formularis-i-navegacio/navegacion-avanzada/). Et serviran de referència per a separar el formulari del seu ViewModel, configurar les rutes amb `go_router` i protegir les pantalles que requerixen sessió.
+ 
+-## Configuració de rutes
++## Introducció
+ 
+-Configura amb `go_router` les rutes de tota l’aplicació. La navegació ha de complir els requisits següents:
++En esta entrega ampliaràs l’aplicació de reserva d’espais de la [primera entrega](../entrega-1/) amb els continguts de [Formularis i navegació](../../formularis-i-navegacio/). En acabar-la, l’usuari podrà iniciar sessió o registrar-se, emplenar una sol·licitud de reserva, corregir els errors que detecte l’aplicació, revisar el desglossament del preu i confirmar la reserva, que apareixerà en Les meues reserves.
+ 
+-- Un únic `MaterialApp.router` i un mapa de rutes per a accés, registre, espais, detall, reserva, revisió, reserves de l’usuari i perfil.
+-- Paràmetres d’identificador per a consultar espais i reserves mitjançant repositoris; tractament de rutes desconegudes i elements inexistents.
+-- Seccions Espais, Les meues reserves i Perfil amb conservació del desplaçament i la navegació en alternar.
+-- Sessió compartida en memòria, protecció de les opcions personals i retorn a la destinació sol·licitada després de l’accés.
+-- Tancament de sessió que netege l’estat privat i impedisca recuperar-lo amb Arrere.
++### Què has de demostrar
+ 
+-Consulta [Configuració de rutes](./rutas/) per als requisits detallats, el mapa de destinacions i el comportament davant d’accessos incorrectes o sense permisos.
++- Centralitzar la navegació amb `go_router`, utilitzant paràmetres de ruta, seccions que conserven l’estat i rutes protegides per sessió.
++- Construir formularis amb `Form`, controls adequats a cada dada i validacions que permeten corregir els errors abans de continuar.
++- Separar cada formulari en pantalla i ViewModel, i compartir la sessió entre les pantalles i el router.
++- Crear usuaris i reserves en els repositoris en memòria, amb un càlcul del preu coherent en tot el recorregut.
+ 
+-## Formularis
++### Abast de la segona entrega
+ 
+-Desenvolupa els formularis d’accés, registre i reserva. Han de complir els requisits següents:
++Partiràs de l’aplicació que vas lliurar en l’Entrega 1: models de domini, repositoris, dades fictícies i pantalles. No comences de zero: afegiràs pantalles, rutes i ViewModels sobre eixa base, i modificaràs els repositoris quan siga necessari.
+ 
+-- `Form`, camps etiquetats, controls adequats i missatges de validació que permeten corregir errors abans de continuar.
+-- Els ViewModels gestionen els valors, les validacions i les operacions del formulari. Les pantalles s’encarreguen de mostrar els resultats i de la navegació, i els repositoris proporcionen els models de domini. La vista gestiona els controladors i els allibera amb `dispose`.
+-- Accés amb nom i correu comprovat contra el repositori d’usuaris.
+-- [Formulari de registre](./formularios/#formulari-de-registre): nom, correu, confirmació del correu i acceptació de condicions; validació de duplicats, alta de l’usuari i retorn a Accés.
+-- [Formulari de reserva](./formularios/#formulari-de-reserva): activitat, data, hores, assistents i extres editables; validació d’aforament, interval i opcions admeses per l’espai. Inclou resum de preu i accions per a continuar a revisió, netejar o tornar al detall.
+-- Càlcul compartit del preu en cèntims, revisió del desglossament i retorn a edició conservant els valors.
+-- Alta única en confirmar, emmagatzematge local compartit i actualització immediata de Les meues reserves per a l’usuari actual.
+-- Diàlegs per a netejar o descartar formularis modificats, sense perdre canvis en cancel·lar.
++Les dades es continuen guardant **en memòria**: no s’utilitza cap base de dades ni emmagatzematge persistent, de manera que en tancar l’aplicació es perden els usuaris i les reserves creats. No s’exigix autenticació real ni serveis externs.
+ 
+-Consulta [Formularis](./formularios/) per a conéixer els camps, les validacions i les accions de cada pantalla.
++### Què canvia respecte a l’Entrega 1
+ 
+-Les millores opcionals es descriuen en [Possibles ampliacions](./ampliaciones/).
++- L’accés i el registre deixen de ser simulats. Es fan amb nom i correu, sense contrasenya, i `Usuario` continua sense guardar contrasenyes.
++- Confirmar una reserva ja no és una simulació: la reserva es guarda i apareix en Les meues reserves.
++- El catàleg i el detall d’un espai es poden consultar sense iniciar sessió.
++- Les pantalles reben identificadors a través de la ruta, en lloc de l’objecte `Espacio` per constructor.
++- Els extres de la reserva són els serveis addicionals que ja oferix cada espai des de l’Entrega 1.
++
++## Arquitectura proposada
++
++Mantín l’organització en `ui`, `domain` i `data` de l’Entrega 1. L’arbre següent mostra només les peces noves; els noms són orientatius.
++
++```text
++lib/
++├── main.dart
++├── ui/
++│   ├── core/
++│   │   ├── app_router.dart
++│   │   ├── redireccion_sesion.dart
++│   │   ├── view_models/sesion_viewmodel.dart
++│   │   └── ui/pagina_no_encontrada_screen.dart
++│   ├── acceso/
++│   │   ├── ui/…
++│   │   └── view_models/
++│   │       ├── login_viewmodel.dart
++│   │       └── registro_viewmodel.dart
++│   └── reservas/
++│       ├── ui/
++│       │   ├── nueva_reserva_screen.dart
++│       │   ├── revision_reserva_screen.dart
++│       │   └── reserva_detalle_screen.dart
++│       └── view_models/nueva_reserva_viewmodel.dart
++├── domain/models/…
++└── data/repositories/
++    ├── usuarios_repository.dart
++    └── reservas_repository.dart
++pubspec.yaml
++```
++
++Afig la dependència `go_router` en `pubspec.yaml`. `main.dart` crea els repositoris, la sessió i el router una sola vegada, i configura `MaterialApp.router`.
++
++| Element | Responsabilitat |
++| --- | --- |
++| **ViewModel** | Gestiona els valors del formulari, les validacions i les operacions associades. Estén `ChangeNotifier`. |
++| **Pantalla** | Escolta el ViewModel amb `ListenableBuilder`, mostra els resultats i s’encarrega de la navegació i els diàlegs. Crea els controladors de text i els allibera amb `dispose`. |
++| **Sessió** | `SesionViewModel` guarda l’usuari que ha iniciat sessió. El compartixen les pantalles i el router, que l’escolta amb `refreshListenable` per a aplicar les redireccions. |
++| **Repositori** | Proporciona els models de domini i guarda en memòria els usuaris i les reserves creats. |
++
++## Com treballar les dos parts
++
++El treball es dividix en dos parts. Cadascuna té la seua pròpia subsecció en esta entrega:
++
++- [Configuració de rutes](./rutas/): mapa de destinacions, paràmetres, seccions amb estat conservat, sessió, rutes protegides i errors.
++- [Formularis](./formularios/): accés, registre, reserva, revisió i confirmació, amb les validacions, les accions i els diàlegs.
++
++Pots començar per les rutes amb pantalles senzilles, continuar amb la sessió i les redireccions, i acabar amb els formularis. Així comprovaràs prompte que cada destinació s’obri amb el seu identificador i que les rutes protegides exigixen sessió. Després, els formularis només hauran de validar les dades i cridar els repositoris.
++
++## Convencions de noms
++
++Mantín les [convencions de l’Entrega 1](../entrega-1/#convencions-de-noms). A més:
++
++| Element | Convenció i exemple |
++| --- | --- |
++| ViewModels | Sufix `ViewModel`: `LoginViewModel`, `NuevaReservaViewModel`; arxiu `nueva_reserva_viewmodel.dart` |
++| Rutes | Minúscules i paràmetres amb dos punts: `/espacios/:id/reservar` |
++| Mètodes del ViewModel | Verbs en `lowerCamelCase`: `cambiarFecha()`, `confirmar()`, `limpiar()` |
++
++## Possibles ampliacions
++
++Les millores opcionals es descriuen en [Possibles ampliacions](./ampliaciones/). Incorpora-les després de completar els requisits mínims.
++
++### Referències
++
++[Formulari amb ViewModel](../../formularis-i-navegacio/formulario-con-viewmodel/): separació entre pantalla i ViewModel, validació i neteja del formulari.
++
++[Accés a rutes protegides](../../formularis-i-navegacio/navegacion-avanzada/rutas-protegidas/): sessió, `redirect`, `refreshListenable` i retorn a la destinació sol·licitada.
++
++[Exemple integrat de navegació avançada](../../formularis-i-navegacio/navegacion-avanzada/ejemplo-integrado/): organització dels arxius del router i de les seccions.
+diff --git a/src/content/docs/ca/proyecto-integrador/entrega-2/rutas.md b/src/content/docs/ca/proyecto-integrador/entrega-2/rutas.md
+index 7c46317..e9f0e96 100644
+--- a/src/content/docs/ca/proyecto-integrador/entrega-2/rutas.md
++++ b/src/content/docs/ca/proyecto-integrador/entrega-2/rutas.md
+@@ -5,6 +5,14 @@ sidebar:
+   order: 2
+ ---
+ 
++Esta és la primera part de l’[Entrega 2](../). Substituïx la navegació amb `Navigator` de l’Entrega 1 per un únic router i comprova que totes les destinacions funcionen abans de completar els formularis. En esta part has de:
++
++- Crear un mapa de rutes amb un únic `MaterialApp.router`, que incloga la confirmació d’una reserva i una pantalla de «Pàgina no trobada».
++- Rebre per la ruta l’identificador de l’espai o de la reserva i obtindre el model a través del repositori.
++- Alternar entre Espais, Les meues reserves i Perfil conservant el desplaçament i la navegació de cada secció.
++- Protegir les rutes personals amb una sessió compartida en memòria i tornar l’usuari a la destinació sol·licitada després de l’accés.
++- Tancar la sessió netejant l’estat privat, de manera que Arrere no el recupere.
++
+ Configura amb `go_router` quina pantalla s’ha d’obrir en cada ruta i quina informació necessita per a mostrar el contingut. El recorregut ha de funcionar en polsar els botons de la interfície i en obrir directament una adreça de l’aplicació. Per exemple, en `/espacios/:id`, el paràmetre `:id` identifica l’espai que s’ha de consultar, encara que no s’haja obert abans el catàleg.
+ 
+ La navegació també ha de conservar l’estat en canviar entre Espais, Les meues reserves i Perfil. Distingix les pantalles públiques de les que requerixen sessió i comprova, a més, a qui pertany cada reserva. Una ruta desconeguda, l’absència de sessió i la falta de permís són situacions diferents; les taules següents indiquen com respondre en cada cas.
+diff --git a/src/content/docs/proyecto-integrador/entrega-2/index.md b/src/content/docs/proyecto-integrador/entrega-2/index.md
+index ae26c82..09c32ba 100644
+--- a/src/content/docs/proyecto-integrador/entrega-2/index.md
++++ b/src/content/docs/proyecto-integrador/entrega-2/index.md
+@@ -3,35 +3,103 @@ title: "Entrega 2"
+ description: "Formularios validados, reservas en memoria y navegación con go_router."
+ sidebar:
+   order: 1
++  label: "Enunciado y organización"
+ ---
+ 
+-En esta segunda entrega ampliarás la aplicación de reserva de espacios de la [primera entrega](../entrega-1/) con los contenidos de [Formularios y navegación](../../formularis-i-navegacio/). El trabajo se divide en dos partes: configurar las rutas que conectan las pantallas y desarrollar los formularios de acceso, registro y reserva. El usuario podrá introducir sus datos, corregir los errores que detecte la aplicación y revisar la información y el precio antes de confirmar una reserva, que aparecerá en Mis reservas.
++Antes de empezar, repasa [Formulario con ViewModel](../../formularis-i-navegacio/formulario-con-viewmodel/) y [Navegación avanzada](../../formularis-i-navegacio/navegacion-avanzada/). Te servirán de referencia para separar el formulario de su ViewModel, configurar las rutas con `go_router` y proteger las pantallas que requieren sesión.
+ 
+-## Configuración de rutas
++## Introducción
+ 
+-Configura con `go_router` las rutas de toda la aplicación. La navegación debe cumplir los siguientes requisitos:
++En esta entrega ampliarás la aplicación de reserva de espacios de la [primera entrega](../entrega-1/) con los contenidos de [Formularios y navegación](../../formularis-i-navegacio/). Al terminarla, el usuario podrá iniciar sesión o registrarse, rellenar una solicitud de reserva, corregir los errores que detecte la aplicación, revisar el desglose del precio y confirmar la reserva, que aparecerá en Mis reservas.
+ 
+-- Un único `MaterialApp.router` y un mapa de rutas para acceso, registro, espacios, detalle, reserva, revisión, reservas del usuario y perfil.
+-- Parámetros de identificador para consultar espacios y reservas mediante repositorios; tratamiento de rutas desconocidas y elementos inexistentes.
+-- Secciones Espacios, Mis reservas y Perfil con conservación del desplazamiento y la navegación al alternar.
+-- Sesión compartida en memoria, protección de las opciones personales y retorno al destino solicitado después del acceso.
+-- Cierre de sesión que limpie el estado privado e impida recuperarlo con Atrás.
++### Qué debes demostrar
+ 
+-Consulta [Configuración de rutas](./rutas/) para los requisitos detallados, el mapa de destinos y el comportamiento ante accesos incorrectos o sin permisos.
++- Centralizar la navegación con `go_router`, usando parámetros de ruta, secciones que conservan su estado y rutas protegidas por sesión.
++- Construir formularios con `Form`, controles adecuados a cada dato y validaciones que permitan corregir los errores antes de continuar.
++- Separar cada formulario en pantalla y ViewModel, y compartir la sesión entre las pantallas y el router.
++- Crear usuarios y reservas en los repositorios en memoria, con un cálculo del precio coherente en todo el recorrido.
+ 
+-## Formularios
++### Alcance de la segunda entrega
+ 
+-Desarrolla los formularios de acceso, registro y reserva. Deben cumplir los siguientes requisitos:
++Partirás de la aplicación que entregaste en la Entrega 1: modelos de dominio, repositorios, datos ficticios y pantallas. No empiezas de cero: añadirás pantallas, rutas y ViewModels sobre esa base, y modificarás los repositorios cuando sea necesario.
+ 
+-- `Form`, campos etiquetados, controles adecuados y mensajes de validación que permitan corregir errores antes de continuar.
+-- Los ViewModels gestionan los valores, las validaciones y las operaciones del formulario. Las pantallas se encargan de mostrar los resultados y de la navegación, y los repositorios proporcionan los modelos de dominio. La vista gestiona los controladores y los libera con `dispose`.
+-- Acceso con nombre y correo comprobado contra el repositorio de usuarios.
+-- [Formulario de registro](./formularios/#formulario-de-registro): nombre, correo, confirmación del correo y aceptación de condiciones; validación de duplicados, alta del usuario y regreso a Acceso.
+-- [Formulario de reserva](./formularios/#formulario-de-reserva): actividad, fecha, horas, asistentes y extras editables; validación de aforo, intervalo y opciones admitidas por el espacio. Incluye resumen de precio y acciones para continuar a revisión, limpiar o volver al detalle.
+-- Cálculo compartido del precio en céntimos, revisión del desglose y regreso a edición conservando los valores.
+-- Alta única al confirmar, almacenamiento local compartido y actualización inmediata de Mis reservas para el usuario actual.
+-- Diálogos para limpiar o descartar formularios modificados, sin perder cambios al cancelar.
++Los datos se siguen guardando **en memoria**: no se usa ninguna base de datos ni almacenamiento persistente, de modo que al cerrar la aplicación se pierden los usuarios y las reservas creados. No se exige autenticación real ni servicios externos.
+ 
+-Consulta [Formularios](./formularios/) para conocer los campos, las validaciones y las acciones de cada pantalla.
++### Qué cambia respecto a la Entrega 1
+ 
+-Las mejoras opcionales se describen en [Posibles ampliaciones](./ampliaciones/).
++- El acceso y el registro dejan de ser simulados. Se hacen con nombre y correo, sin contraseña, y `Usuario` sigue sin guardar contraseñas.
++- Confirmar una reserva ya no es una simulación: la reserva se guarda y aparece en Mis reservas.
++- El catálogo y el detalle de un espacio se pueden consultar sin iniciar sesión.
++- Las pantallas reciben identificadores a través de la ruta, en lugar del objeto `Espacio` por constructor.
++- Los extras de la reserva son los servicios adicionales que ya ofrece cada espacio desde la Entrega 1.
++
++## Arquitectura propuesta
++
++Mantén la organización en `ui`, `domain` y `data` de la Entrega 1. El árbol siguiente muestra solo las piezas nuevas; los nombres son orientativos.
++
++```text
++lib/
++├── main.dart
++├── ui/
++│   ├── core/
++│   │   ├── app_router.dart
++│   │   ├── redireccion_sesion.dart
++│   │   ├── view_models/sesion_viewmodel.dart
++│   │   └── ui/pagina_no_encontrada_screen.dart
++│   ├── acceso/
++│   │   ├── ui/…
++│   │   └── view_models/
++│   │       ├── login_viewmodel.dart
++│   │       └── registro_viewmodel.dart
++│   └── reservas/
++│       ├── ui/
++│       │   ├── nueva_reserva_screen.dart
++│       │   ├── revision_reserva_screen.dart
++│       │   └── reserva_detalle_screen.dart
++│       └── view_models/nueva_reserva_viewmodel.dart
++├── domain/models/…
++└── data/repositories/
++    ├── usuarios_repository.dart
++    └── reservas_repository.dart
++pubspec.yaml
++```
++
++Añade la dependencia `go_router` en `pubspec.yaml`. `main.dart` crea los repositorios, la sesión y el router una sola vez, y configura `MaterialApp.router`.
++
++| Elemento | Responsabilidad |
++| --- | --- |
++| **ViewModel** | Gestiona los valores del formulario, sus validaciones y las operaciones asociadas. Extiende `ChangeNotifier`. |
++| **Pantalla** | Escucha el ViewModel con `ListenableBuilder`, muestra los resultados y se encarga de la navegación y los diálogos. Crea los controladores de texto y los libera con `dispose`. |
++| **Sesión** | `SesionViewModel` guarda el usuario que ha iniciado sesión. Lo comparten las pantallas y el router, que lo escucha con `refreshListenable` para aplicar las redirecciones. |
++| **Repositorio** | Proporciona los modelos de dominio y guarda en memoria los usuarios y las reservas creados. |
++
++## Cómo trabajar las dos partes
++
++El trabajo se divide en dos partes. Cada una tiene su propia subsección en esta entrega:
++
++- [Configuración de rutas](./rutas/): mapa de destinos, parámetros, secciones con estado conservado, sesión, rutas protegidas y errores.
++- [Formularios](./formularios/): acceso, registro, reserva, revisión y confirmación, con sus validaciones, acciones y diálogos.
++
++Puedes empezar por las rutas con pantallas sencillas, continuar con la sesión y las redirecciones, y terminar con los formularios. Así comprobarás pronto que cada destino se abre con su identificador y que las rutas protegidas exigen sesión. Después, los formularios solo tendrán que validar los datos y llamar a los repositorios.
++
++## Convenciones de nombres
++
++Mantén las [convenciones de la Entrega 1](../entrega-1/#convenciones-de-nombres). Además:
++
++| Elemento | Convención y ejemplo |
++| --- | --- |
++| ViewModels | Sufijo `ViewModel`: `LoginViewModel`, `NuevaReservaViewModel`; archivo `nueva_reserva_viewmodel.dart` |
++| Rutas | Minúsculas y parámetros con dos puntos: `/espacios/:id/reservar` |
++| Métodos del ViewModel | Verbos en `lowerCamelCase`: `cambiarFecha()`, `confirmar()`, `limpiar()` |
++
++## Posibles ampliaciones
++
++Las mejoras opcionales se describen en [Posibles ampliaciones](./ampliaciones/). Incorpóralas después de completar los requisitos mínimos.
++
++### Referencias
++
++[Formulario con ViewModel](../../formularis-i-navegacio/formulario-con-viewmodel/): separación entre pantalla y ViewModel, validación y limpieza del formulario.
++
++[Acceso a rutas protegidas](../../formularis-i-navegacio/navegacion-avanzada/rutas-protegidas/): sesión, `redirect`, `refreshListenable` y retorno al destino solicitado.
++
++[Ejemplo integrado de navegación avanzada](../../formularis-i-navegacio/navegacion-avanzada/ejemplo-integrado/): organización de los archivos del router y de las secciones.
+diff --git a/src/content/docs/proyecto-integrador/entrega-2/rutas.md b/src/content/docs/proyecto-integrador/entrega-2/rutas.md
+index fa420d4..9402d15 100644
+--- a/src/content/docs/proyecto-integrador/entrega-2/rutas.md
++++ b/src/content/docs/proyecto-integrador/entrega-2/rutas.md
+@@ -5,6 +5,14 @@ sidebar:
+   order: 2
+ ---
+ 
++Esta es la primera parte de la [Entrega 2](../). Sustituye la navegación con `Navigator` de la Entrega 1 por un único router y comprueba que todos los destinos funcionan antes de completar los formularios. En esta parte debes:
++
++- Crear un mapa de rutas con un único `MaterialApp.router`, que incluya la confirmación de una reserva y una pantalla de «Página no encontrada».
++- Recibir por la ruta el identificador del espacio o de la reserva y obtener el modelo a través del repositorio.
++- Alternar entre Espacios, Mis reservas y Perfil conservando el desplazamiento y la navegación de cada sección.
++- Proteger las rutas personales con una sesión compartida en memoria y devolver al usuario al destino solicitado después del acceso.
++- Cerrar la sesión limpiando el estado privado, de modo que Atrás no lo recupere.
++
+ Configura con `go_router` qué pantalla debe abrirse en cada ruta y qué información necesita para mostrar su contenido. El recorrido debe funcionar al pulsar los botones de la interfaz y al abrir directamente una dirección de la aplicación. Por ejemplo, en `/espacios/:id`, el parámetro `:id` identifica el espacio que se debe consultar, aunque no se haya abierto antes el catálogo.
+ 
+ La navegación también debe conservar el estado al cambiar entre Espacios, Mis reservas y Perfil. Distingue las pantallas públicas de las que requieren sesión y comprueba, además, a quién pertenece cada reserva. Una ruta desconocida, la ausencia de sesión y la falta de permiso son situaciones diferentes; las tablas siguientes indican cómo responder en cada caso.

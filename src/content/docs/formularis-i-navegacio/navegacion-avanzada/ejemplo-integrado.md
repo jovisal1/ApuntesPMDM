@@ -1,7 +1,7 @@
 ---
-title: "8. Ejemplo integrado y comprobaciones"
+title: "9. Ejemplo integrado y comprobaciones"
 sidebar:
-  order: 8
+  order: 9
 ---
 
 Con los pasos anteriores el ejemplo está completo. En esta página reunimos el resultado final, relacionamos cada concepto con el archivo donde aparece y proponemos un recorrido de comprobación.
@@ -23,7 +23,7 @@ lib/
       redireccion_sesion.dart                      la política de acceso
       view_models/sesion_viewmodel.dart            estado de sesión compartido
     inscripcion/ui/
-      inscripcion_pantalla.dart                    formulario que avisa con onLogin
+      inscripcion_pantalla.dart                    formulario que avisa con onLogin y protege la salida
       inscripcion_ejemplo_pantalla.dart            demo antigua con Navigator.push
       login_ruta_pantalla.dart                     formulario para la ruta /login
     navegacion_avanzada/
@@ -172,6 +172,7 @@ Para repasar, esta tabla relaciona cada concepto de go_router con el archivo don
 | `redirect` y `refreshListenable` | `app_router.dart`, `redireccion_sesion.dart` | 6 |
 | Conservar el destino con `from` | `redireccion_sesion.dart` | 6 |
 | `errorBuilder` | `ruta_no_encontrada_pantalla.dart` | 7 |
+| `PopScope` y diálogo de descarte | `inscripcion_pantalla.dart`, `dialogos.dart` | 8 |
 | Enlaces directos | Barra de direcciones en web | 7 |
 
 ## Recorrido de comprobación
@@ -194,6 +195,7 @@ Desde la raíz del proyecto ejecuta `dart format lib` y `flutter analyze`. Despu
 | Recargar la página en `/cuenta` | Login: la sesión simulada no se guarda. |
 | `/login?from=https://otra.web` con sesión | Abre `/cuenta`; nunca sale de la aplicación. |
 | Login de demostración (entrada antigua) | Funciona con `Navigator.push`, sin sesión. |
+| Escribir en Login y pulsar la flecha de volver | Pregunta «¿Descartar los cambios?» antes de salir. |
 
 ## Para practicar
 

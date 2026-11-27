@@ -99,7 +99,8 @@ Cada pas afig una peça a l’exemple i acaba amb l’aplicació funcionant. Seg
 5. [Rutes imbricades i seccions](./secciones/): la barra inferior amb `StatefulShellRoute`.
 6. [Accés a rutes protegides](./rutas-protegidas/): sessió, login i `redirect`.
 7. [Enllaços directes i errors](./enlaces-y-errores/): rutes desconegudes, web i mòbil.
-8. [Exemple integrat i comprovacions](./ejemplo-integrado/): resum final i proves.
-9. [Ampliació: organitzar les dependències](./dependencias/): repositoris amb provider quan l’aplicació creix.
+8. [Canvis sense guardar en tornar](./cambios-sin-guardar/): `PopScope` i diàleg de descart en el formulari.
+9. [Exemple integrat i comprovacions](./ejemplo-integrado/): resum final i proves.
+10. [Ampliació: organitzar les dependències](./dependencias/): repositoris amb provider quan l’aplicació creix.
 
 Referències: [paquet go_router](https://pub.dev/packages/go_router), [guia de navegació de go_router](https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html) i [navegació en Flutter](https://docs.flutter.dev/ui/navigation).

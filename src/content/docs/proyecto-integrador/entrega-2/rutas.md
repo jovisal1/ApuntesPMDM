@@ -33,7 +33,7 @@ Prueba destinos directos iniciando la aplicación en esas ubicaciones mediante u
 
 ## Navegación entre secciones
 
-Permite navegar entre Espacios, Mis reservas y Perfil mediante el tipo de navegación que prefieras: barra inferior, menú lateral, pestañas u otra solución coherente con el diseño de la aplicación. Conserva al menos el desplazamiento del catálogo y la navegación de cada sección al alternar. Los filtros son una ampliación.
+Permite navegar entre Espacios, Mis reservas y Perfil mediante el tipo de navegación que prefieras: barra inferior, menú lateral, pestañas u otra solución coherente con el diseño de la aplicación. Al cambiar de sección y volver, cada una debe quedar como el usuario la dejó: el catálogo mantiene la posición de desplazamiento y, si había un espacio abierto, se sigue mostrando su detalle. Si has añadido búsqueda o filtros como ampliación, también deben conservarse los valores aplicados.
 
 Como sugerencia, puedes utilizar `StatefulShellRoute.indexedStack`, estudiada en los apuntes, para mantener el estado y la navegación de las secciones.
 

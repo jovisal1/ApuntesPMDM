@@ -117,7 +117,7 @@ Al pulsar **Confirmar reserva**, si la operación termina correctamente, navega 
 
 ## Diálogos y cambios sin guardar
 
-Considera que un formulario tiene cambios cuando sus valores son distintos de los iniciales. Si una acción va a eliminar esos cambios, solicita confirmación antes de realizarla, tanto desde los botones como desde Atrás del sistema. Puedes utilizar `PopScope`, siguiendo los apuntes. Volver de la revisión al formulario mantiene el borrador y no requiere confirmar un descarte.
+Considera que un formulario tiene cambios cuando sus valores son distintos de los iniciales. Si una acción va a eliminar esos cambios, solicita confirmación antes de realizarla, tanto desde los botones como desde Atrás del sistema. Para el Atrás del sistema, utiliza `PopScope` como en [Cambios sin guardar al volver](../../../formularis-i-navegacio/navegacion-avanzada/cambios-sin-guardar/). `PopScope` no intercepta las navegaciones con `go` ni los cambios de sección: en esos casos, pide confirmación antes de navegar. Volver de la revisión al formulario mantiene el borrador y no requiere confirmar un descarte.
 
 | Acción | Respuestas | Resultado |
 | --- | --- | --- |

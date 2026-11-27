@@ -33,7 +33,7 @@ Prova destinacions directes iniciant l’aplicació en eixes ubicacions amb un m
 
 ## Navegació entre seccions
 
-Permet navegar entre Espais, Les meues reserves i Perfil amb el tipus de navegació que preferisques: barra inferior, menú lateral, pestanyes o una altra solució coherent amb el disseny de l’aplicació. Conserva almenys el desplaçament del catàleg i la navegació de cada secció en alternar. Els filtres són una ampliació.
+Permet navegar entre Espais, Les meues reserves i Perfil amb el tipus de navegació que preferisques: barra inferior, menú lateral, pestanyes o una altra solució coherent amb el disseny de l’aplicació. En canviar de secció i tornar, cada una ha de quedar com l’usuari la va deixar: el catàleg manté la posició de desplaçament i, si hi havia un espai obert, se’n continua mostrant el detall. Si has afegit cerca o filtres com a ampliació, també s’han de conservar els valors aplicats.
 
 Com a suggeriment, pots utilitzar `StatefulShellRoute.indexedStack`, estudiada als apunts, per a mantindre l’estat i la navegació de les seccions.
 
